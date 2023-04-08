@@ -2,14 +2,12 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 }
 
 body {
   margin: 0;
   padding: 0;
   color: #222222;
-  background-color: #f2f2f0;
   background-color: #56385a;
   background-image: url("../images/cover.png");
   background-size: cover;
@@ -51,7 +49,7 @@ a:hover {
 .form-body {
   background-color: #4a304d;
   overflow: hidden;
-  padding: 50px;
+  padding: 50px
   color: #ffffff;
   border-radius: 3px;
   -webkit-box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
