@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Replace the following lines with your actual login logic
             if (username === 'admin' && password === 'password123') {
                 alert('Login successful!');
-                window.location.href = url;
+                window.location.href = 'url';
             } else {
                 alert('Invalid username or password. Please try again.');
             }
