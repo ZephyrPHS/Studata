@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Perform login logic (e.g., send request to server, etc.)
             // Replace the following lines with your actual login logic
             if (username === 'admin' && password === 'password') {
-                window.location.href = '/dashboard';
+                window.location.href = '/Studata/dashboard';
             } else {
                 alert('Invalid username or password. Please try again.');
             }
