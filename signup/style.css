@@ -1,46 +1,122 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
-
-.container {
-  width: 500px;
-  margin: 0 auto;
-  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  color: #222222;
+  background-color: #56385a;
+  background-image: url("../images/cover.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
+  font-family: "Muli", sans-serif, -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", Helvetica, sans-serif;
+  outline: none;
 }
 
-h1 {
+.main-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.form-container {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.form-body {
+  background-color: #4a304d;
+  overflow: hidden;
+  padding: 50px;
+  color: #ffffff;
+  border-radius: 3px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+@media only screen and (max-width: 500px) {
+  .form-body {
+    padding: 50px 40px;
+  }
+}
+
+@media only screen and (max-width: 455px) {
+  .form-body {
+    padding: 45px 30px;
+  }
+}
+
+@media only screen and (max-width: 340px) {
+  .form-body {
+    padding: 30px 20px;
+  }
+}
+
+.form-body .title {
+  margin: 0;
   text-align: center;
+  font-weight: normal;
 }
 
-form {
+.the-form {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
 }
 
-label {
+.the-form label {
   margin-bottom: 5px;
+  color: #e6e6e6;
+  font-weight: bold;
 }
 
-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  margin-bottom: 20px;
+.the-form [type="text"],
+.the-form [type="password"] {
+  padding: 15px;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-bottom: 15px;
+  transition: background 0.3s;
+  color: #e6e6e6;
 }
 
-button {
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: #4CAF50;
-  color: #fff;
-  cursor: pointer;
+.the-form [type="text"]::-webkit-input-placeholder,
+.the-form [type="password"]::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
 }
 
-button:hover {
-  background-color: #3e8e41;
+.the-form [type="text"]::-moz-placeholder,
+.the-form [type="password"]::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.3);
 }
+
+.the-form [type="text"]:-ms-input-placeholder,
+.the-form [type="password"]:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.the-form [type="text"]::-ms-input-placeholder,
+.the-form [type="password"]::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.the-form [type="text
