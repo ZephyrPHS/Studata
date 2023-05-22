@@ -45,13 +45,13 @@ function addStudent(event) {
 function deleteStudent(event) {
   event.preventDefault();
 
-  const id = document.getElementById("student-id").value;
+  const id = document.getElementById("student-id-delete").value;
 
   students.splice(id,1);
   renderStudents();
 
   // Reset the form
-  document.getElementById("add-student-form").reset();
+  document.getElementById("delete-student-form").reset();
 }
 
 // Event listener for the form submission
