@@ -24,7 +24,7 @@ function renderStudents() {
 function addStudent(event) {
   event.preventDefault();
 
-  const id = document.getElementById("student-id").value;
+  const id = students.length;
   const name = document.getElementById("student-name").value;
   const studentId = document.getElementById("student-studentId").value;
 
