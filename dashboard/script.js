@@ -45,8 +45,9 @@ function deleteStudent(event) {
   event.preventDefault();
 
   const id = document.getElementById("student-id-delete").value;
-
-  students.splice(id,1);
+  if(id.isInteger()&&id>=0){
+    students.splice(id,1);
+  }
   renderStudents();
 
   // Reset the form
