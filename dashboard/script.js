@@ -1,3 +1,25 @@
+// Sample student data
+let students = [
+  { id: 1, name: "John Doe", number: "123456" },
+  { id: 2, name: "Jane Smith", number: "789012" },
+];
+
+// Function to render the student list
+function renderStudents() {
+  const studentList = document.getElementById("student-list");
+  studentList.innerHTML = "";
+
+  students.forEach((student) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${student.id}</td>
+      <td>${student.name}</td>
+      <td>${student.number}</td>
+    `;
+    studentList.appendChild(row);
+  });
+}
+
 // Function to add a new student
 function addStudent(event) {
   event.preventDefault();
@@ -13,21 +35,15 @@ function addStudent(event) {
     number: number,
   };
 
-  // Send the student data to the server-side script
-  fetch("save_student.php", {
-    method: "POST",
-    body: JSON.stringify(student),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.text())
-    .then((data) => {
-      console.log(data);
-      // Refresh the student list after successful addition
-      renderStudents();
-      // Reset the form
-      document.getElementById("add-student-form").reset();
-    })
-    .catch((error) => console.log(error));
+  students.push(student);
+  renderStudents();
+
+  // Reset the form
+  document.getElementById("add-student-form").reset();
 }
+
+// Event listener for the form submission
+document.getElementById("add-student-form").addEventListener("submit", addStudent);
+
+// Initial rendering of the student list
+renderStudents();
