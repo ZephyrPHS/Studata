@@ -1,7 +1,7 @@
 // Sample student data
 let students = [
-  { id: 1, name: "John Doe", number: "123456" },
-  { id: 2, name: "Jane Smith", number: "789012" },
+  { id: 1, name: "John Doe", studentId: "123456" },
+  { id: 2, name: "Jane Smith", studentId: "789012" },
 ];
 
 // Function to render the student list
@@ -14,7 +14,7 @@ function renderStudents() {
     row.innerHTML = `
       <td>${student.id}</td>
       <td>${student.name}</td>
-      <td>${student.number}</td>
+      <td>${student.studentId}</td>
     `;
     studentList.appendChild(row);
   });
@@ -26,13 +26,13 @@ function addStudent(event) {
 
   const id = document.getElementById("student-id").value;
   const name = document.getElementById("student-name").value;
-  const number = document.getElementById("student-number").value;
+  const studentId = document.getElementById("student-studentId").value;
 
   // Create a new student object
   const student = {
     id: id,
     name: name,
-    number: number,
+    studentId: studentId,
   };
 
   students.push(student);
