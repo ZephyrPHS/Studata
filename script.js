@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // Perform login logic (work in progress)
             if (username === 'admin' && password === 'password') {
-                window.location.href = '/Studata/dashboard';
+                window.location.href = '/Studata/database';
             } else {
                 alert('Invalid username or password. Please try again.');
             }
