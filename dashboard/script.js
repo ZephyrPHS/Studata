@@ -53,7 +53,9 @@ function deleteStudent(event) {
   // Reset the form
   document.getElementById("delete-student-form").reset();
 }
-
+function exportData(event) {
+  exportToCsv("students.csv",students);
+}
 function exportToCsv(filename, rows) {
     var processRow = function (row) {
         var finalVal = '';
@@ -96,7 +98,7 @@ function exportToCsv(filename, rows) {
 }
 
 // Event listener for the form submission
-document.getElementById("export-student-data").addEventListener("submit", exportToCvs("students.csv",students));
+document.getElementById("export-student-data").addEventListener("submit", exportData);
 document.getElementById("add-student-form").addEventListener("submit", addStudent);
 document.getElementById("delete-student-form").addEventListener("submit", deleteStudent);
 
