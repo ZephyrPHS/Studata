@@ -11,7 +11,9 @@ function renderStudents() {
   students.forEach((student) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td><button class="editbtn"+id>edit</button></td>
+      <form name="edit"+id action="#" >
+        <td><button type="submit">edit</button></td>
+      </form>
       <td>${student.name}</td>
       <td>${student.studentId}</td>
     `;
@@ -20,7 +22,9 @@ function renderStudents() {
   });
   const row = document.createElement("tr");
   row.innerHTML = `
-    <td><button class="addbtn">add</button></td>
+    <form name="add" action="#" >
+      <td><button type="submit">add</button></td>
+    </form>
   `;
 }
 // Function to add a new student
