@@ -57,7 +57,7 @@ function exportData(event) {
   let students2D = [];
   students.forEach((student) => {
     students2D.push([student.name, student.studentId]);
-  }
+  });
   exportToCsv("students.csv",students2D);
 }
 function exportToCsv(filename, rows) {
