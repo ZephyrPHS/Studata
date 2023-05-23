@@ -54,26 +54,26 @@ function deleteStudent(event) {
   document.getElementById("delete-student-form").reset();
 }
 function exportData(event) {
-  exportToCsv("students.csv",students);
+  let students2D = [];
+  students.forEach((student) => {
+    students2D.push([student.name, student.studentId]);
+  }
+  exportToCsv("students.csv",students2D);
 }
 function exportToCsv(filename, rows) {
     var processRow = function (row) {
         var finalVal = '';
-        for (var key in row) {
-            if (row.hasOwnProperty(key)) {
-                var innerValue = row[key] === null ? '' : row[key].toString();
-                if (row[key] instanceof Date) {
-                    innerValue = row[key].toLocaleString();
-                }
-                var result = innerValue.replace(/"/g, '""');
-                if (result.search(/("|,|\n)/g) >= 0) {
-                    result = '"' + result + '"';
-                }
-                if (finalVal !== '') {
-                    finalVal += ',';
-                }
-                finalVal += result;
-            }
+        for (var j = 0; j < row.length; j++) {
+            var innerValue = row[j] === null ? '' : row[j].toString();
+            if (row[j] instanceof Date) {
+                innerValue = row[j].toLocaleString();
+            };
+            var result = innerValue.replace(/"/g, '""');
+            if (result.search(/("|,|\n)/g) >= 0)
+                result = '"' + result + '"';
+            if (j > 0)
+                finalVal += ',';
+            finalVal += result;
         }
         return finalVal + '\n';
     };
