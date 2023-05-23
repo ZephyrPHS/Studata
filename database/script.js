@@ -24,15 +24,15 @@ function renderStudents() {
   });
   const addrow = document.createElement("tr");
   row.innerHTML = `
-    <form id="add">
-      <td>
+    <td>
+      <form id="add">
         <button type="submit">add</button>
-      </td>
-      <td>
-      </td>
-      <td>
-      </td>
-    </form>
+      </form>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
   `;
   studentList.appendChild(addrow);
 }
