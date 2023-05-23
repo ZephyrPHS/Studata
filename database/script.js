@@ -13,7 +13,7 @@ function renderStudents() {
     row.innerHTML = `
       <td>
         <form id="edit"+id>
-          <button type="submit">edit</button>
+          <button onclick="editStudent(id)">Edit</button>
         </form>
       </td>
       <td>${student.name}</td>
@@ -22,19 +22,41 @@ function renderStudents() {
     studentList.appendChild(row);
     id++;
   });
-  const addrow = document.createElement("tr");
-  row.innerHTML = `
-    <td>
-      <form id="add">
-        <button type="submit">add</button>
-      </form>
-    </td>
-    <td>
-    </td>
-    <td>
-    </td>
-  `;
-  studentList.appendChild(addrow);
+}
+function editStudent(editId) {
+  const studentList = document.getElementById("student-list");
+  studentList.innerHTML = "";
+  let id = 0;
+  students.forEach((student) => {
+    const row = document.createElement("tr");
+    if(id=editId){
+      row.innerHTML = `
+        <form id="activeEdit"+id>
+          <td>
+            <button onclick="replace(id)">Conf</button>
+          </td>
+          <td>
+            <input type="text" id="name" />
+          </td>
+          <td>
+            <input type="text" id="schoolId" />
+          </td>
+        </form>
+      `;
+    }else{
+      row.innerHTML = `
+        <td>
+          <form id="edit"+id>
+            <button onclick="editStudent(id)">Edit</button>
+          </form>
+        </td>
+        <td>${student.name}</td>
+        <td>${student.studentId}</td>
+      `;
+    }
+    studentList.appendChild(row);
+    id++;
+  });
 }
 // Function to add a new student
 function addStudent(event) {
