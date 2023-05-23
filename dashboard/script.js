@@ -103,7 +103,7 @@ function exportToCsv(filename, rows) {
 }
 
 // Event listener for the form submission
-document.getElementById("export-student-data").addEventListener("button", exportData);
+document.getElementById("export-student-data").addEventListener("submit", exportData);
 document.getElementById("add-student-form").addEventListener("submit", addStudent);
 document.getElementById("delete-student-form").addEventListener("submit", deleteStudent);
 
