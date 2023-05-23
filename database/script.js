@@ -20,7 +20,8 @@ function renderStudents() {
   });
   const row = document.createElement("tr");
   row.innerHTML = `
-  <td><button class="addbtn">add</button></td>
+    <td><button class="addbtn">add</button></td>
+  `;
 }
 // Function to add a new student
 function addStudent(event) {
