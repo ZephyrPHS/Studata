@@ -22,7 +22,7 @@ function renderStudents() {
     studentList.appendChild(row);
     id++;
   });
-  const row = document.createElement("tr");
+  const addrow = document.createElement("tr");
   row.innerHTML = `
     <form id="add">
       <td>
@@ -34,6 +34,7 @@ function renderStudents() {
       </td>
     </form>
   `;
+  studentList.appendChild(addrow);
 }
 // Function to add a new student
 function addStudent(event) {
