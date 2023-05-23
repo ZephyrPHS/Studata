@@ -11,13 +11,16 @@ function renderStudents() {
   students.forEach((student) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${id}</td>
+      <td><button class="editbtn"+id>edit</button></td>
       <td>${student.name}</td>
       <td>${student.studentId}</td>
     `;
     studentList.appendChild(row);
     id++;
   });
+  const row = document.createElement("tr");
+  row.innerHTML = `
+  <td><button class="addbtn">add</button></td>
 }
 // Function to add a new student
 function addStudent(event) {
