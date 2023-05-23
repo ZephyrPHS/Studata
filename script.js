@@ -10,12 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        // Perform validation (you can customize this based on your requirements)
+        // Perform validation
         if (username.trim() === '' || password.trim() === '') {
             alert('Please enter both username and password.');
         } else {
-            // Perform login logic (e.g., send request to server, etc.)
-            // Replace the following lines with your actual login logic
+            // Perform login logic (work in progress)
             if (username === 'admin' && password === 'password') {
                 window.location.href = '/Studata/dashboard';
             } else {
