@@ -12,8 +12,8 @@ function renderStudents() {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>
-        <form id="edit"+id>
-          <button onclick="editStudent(id)">Edit</button>
+        <form id="edit">
+          <button onclick="editStudent(${id})">Edit</button>
         </form>
       </td>
       <td>${student.name}</td>
@@ -29,11 +29,11 @@ function editStudent(editId) {
   let id = 0;
   students.forEach((student) => {
     const row = document.createElement("tr");
-    if(id=editId){
+    if(id==editId){
       row.innerHTML = `
         <form id="activeEdit"+id>
           <td>
-            <button onclick="replace(id)">Conf</button>
+            <button onclick="replace(id)">Confirm</button>
           </td>
           <td>
             <input type="text" id="name" />
@@ -47,7 +47,7 @@ function editStudent(editId) {
       row.innerHTML = `
         <td>
           <form id="edit"+id>
-            <button onclick="editStudent(id)">Edit</button>
+            <button onclick="editStudent(${id})">Edit</button>
           </form>
         </td>
         <td>${student.name}</td>
