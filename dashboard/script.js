@@ -54,6 +54,7 @@ function deleteStudent(event) {
   document.getElementById("delete-student-form").reset();
 }
 function exportData(event) {
+  event.preventDefault()
   let students2D = [];
   students.forEach((student) => {
     students2D.push([student.name, student.studentId]);
