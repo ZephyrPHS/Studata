@@ -11,11 +11,7 @@ function renderStudents() {
   students.forEach((student) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>
-        <form id="edit"+id>
-          <button type="submit">edit</button>
-        </form>
-      </td>
+      <td>${id}</td>
       <td>${student.name}</td>
       <td>${student.studentId}</td>
     `;
