@@ -76,10 +76,10 @@ function addStudent(event) {
     studentId: studentId,
   };
   students.push(student);
+  renderStudents();
   // Reset the form
   document.getElementById("student-name").value = "";
   document.getElementById("student-studentId").value = "";
-  renderStudents();
 }
 function deleteStudent(id) {
   event.preventDefault();
