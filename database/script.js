@@ -1,8 +1,18 @@
-// Sample student data
-let students = [
-  { name: "John Doe", studentId: "123456" },
-  { name: "Jane Smith", studentId: "789012" },
-];
+import { saveAs } from 'file-saver';
+const reader = new FileReader();
+const csv = reader.readAsDataURL(studentData.csv);
+var importData = csvToArray(csv);
+let students = [];
+importData.forEach((array) => {
+  students.push({ name: array[0], studentId: array[1]}),
+});
+
+function csvToArray(csv) {
+    rows = csv.split("\n");
+    return rows.map(function (row) {
+    	return row.split(",");
+    });
+};
 // Function to render the student list
 function renderStudents() {
   const studentList = document.getElementById("student-list");
@@ -96,40 +106,42 @@ function exportData(event) {
 function exportToCsv(filename, rows) {
   var processRow = function (row) {
     var finalVal = '';
-      for (var j = 0; j < row.length; j++) {
-        var innerValue = row[j] === null ? '' : row[j].toString();
-        if (row[j] instanceof Date) {
-          innerValue = row[j].toLocaleString();
-        };
-        var result = innerValue.replace(/"/g, '""');
-        if (result.search(/("|,|\n)/g) >= 0)
-          result = '"' + result + '"';
-        if (j > 0)
-          finalVal += ',';
-          finalVal += result;
-        }
-        return finalVal + '\n';
-    };
-    var csvFile = '';
-    for (var i = 0; i < rows.length; i++) {
-        csvFile += processRow(rows[i]);
+    for (var j = 0; j < row.length; j++) {
+      var innerValue = row[j] === null ? '' : row[j].toString();
+      if (row[j] instanceof Date) {
+        innerValue = row[j].toLocaleString();
+      };
+      var result = innerValue.replace(/"/g, '""');
+      if (result.search(/("|,|\n)/g) >= 0)
+        result = '"' + result + '"';
+      if (j > 0)
+        finalVal += ',';
+        finalVal += result;
+      }
+      return finalVal + '\n';
+  };
+  var csvFile = '';
+  for (var i = 0; i < rows.length; i++) {
+      csvFile += processRow(rows[i]);
+  }
+  var FileSaver = require('file-saver');
+  var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+  FileSaver.saveAs(blob, "studentData.csv");
+  if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, filename);
+  } else {
+    var link = document.createElement("a");
+    if (link.download !== undefined) { // feature detection
+      // Browsers that support HTML5 download attribute
+      var url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", filename);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-    var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-    if (navigator.msSaveBlob) { // IE 10+
-        navigator.msSaveBlob(blob, filename);
-    } else {
-        var link = document.createElement("a");
-        if (link.download !== undefined) { // feature detection
-            // Browsers that support HTML5 download attribute
-            var url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            link.setAttribute("download", filename);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    }
+  }
 }
 // Event listener for the form submission
 document.getElementById("export-student-data").addEventListener("submit", exportData);
