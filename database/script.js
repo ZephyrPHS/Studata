@@ -21,7 +21,9 @@ function renderStudents() {
     `;
     studentList.appendChild(row);
     id++;
-  });
+  });		
+  var blob = new Blob([students], { type: "text/plain;charset=utf-8" });
+  saveAs(blob, "dynamic.txt");
 }
 function editStudent(editId) {
   const studentList = document.getElementById("student-list");
