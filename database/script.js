@@ -8,7 +8,9 @@ function renderStudents() {
   const studentList = document.getElementById("student-list");
   studentList.innerHTML = "";
   let id = 0;
+	var studentText = "";
   students.forEach((student) => {
+		studentText += student.name + "," + student.studentId + ",,,";
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>
@@ -22,7 +24,7 @@ function renderStudents() {
     studentList.appendChild(row);
     id++;
   });		
-  var blob = new Blob([students], { type: "text/plain;charset=utf-8" });
+  var blob = new Blob([studentText], { type: "text/plain;charset=utf-8" });
   saveAs(blob, "studentData.txt");
 }
 function editStudent(editId) {
