@@ -1,4 +1,4 @@
-import FileSaver.js;
+import { saveAs } from 'file-saver';
 // Sample student data
 let students = [
   { name: "John Doe", studentId: "123456" },
