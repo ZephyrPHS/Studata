@@ -37,10 +37,10 @@ function editStudent(editId) {
             <button onclick="replace(${id}, document.getElementById('name').value, document.getElementById('studentId').value)">Confirm</button>
           </td>
           <td>
-            <input type="text" value=${students[id].name} id="name" />
+            <input type="text" value="${students[id].name}" id="name" />
           </td>
           <td>
-            <input type="text" value=${students[id].studentId} id="studentId" />
+            <input type="text" value="${students[id].studentId}" id="studentId" />
           </td>
         </form>
       `;
