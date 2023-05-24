@@ -1,9 +1,8 @@
-import { saveAs } from 'file-saver';
 // Sample student data
 let students = [
   { name: "John Doe", studentId: "123456" },
   { name: "Jane Smith", studentId: "789012" },
-]; 
+];
 // Function to render the student list
 function renderStudents() {
   const studentList = document.getElementById("student-list");
@@ -23,8 +22,8 @@ function renderStudents() {
     studentList.appendChild(row);
     id++;
   });		
-  //var blob = new Blob([studentText], { type: "text/plain;charset=utf-8" });
-  //saveAs(blob, "studentData.txt");
+  var blob = new Blob([students], { type: "text/plain;charset=utf-8" });
+  saveAs(blob, "studentData.txt");
 }
 function editStudent(editId) {
   const studentList = document.getElementById("student-list");
