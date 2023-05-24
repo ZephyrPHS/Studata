@@ -2,7 +2,7 @@
 let students = [
   { name: "John Doe", studentId: "123456" },
   { name: "Jane Smith", studentId: "789012" },
-];
+]; 
 // Function to render the student list
 function renderStudents() {
   const studentList = document.getElementById("student-list");
