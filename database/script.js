@@ -1,4 +1,4 @@
-// Sample student data for testing
+// Sample student data
 let students = [
   { name: "John Doe", studentId: "123456" },
   { name: "Jane Smith", studentId: "789012" },
@@ -23,7 +23,6 @@ function renderStudents() {
     id++;
   });
 }
-//function to edit an individual student
 function editStudent(editId) {
   const studentList = document.getElementById("student-list");
   studentList.innerHTML = "";
@@ -35,6 +34,7 @@ function editStudent(editId) {
         <form id="activeEdit">
           <td>
             <button onclick="replace(${id}, document.getElementById('name').value, document.getElementById('studentId').value)">Confirm</button>
+            <button onclick="deleteStudent(${id})">Delete</button>
           </td>
           <td>
             <input type="text" value="${students[id].name}" id="name" />
@@ -59,7 +59,6 @@ function editStudent(editId) {
     id++;
   });
 }
-//function to replace a student's data/info
 function replace(id,name,studentId) {
 	students[id] = { name: name, studentId: studentId };
   renderStudents();
@@ -79,9 +78,8 @@ function addStudent(event) {
   // Reset the form
   document.getElementById("add-student-form").reset();
 }
-function deleteStudent(event) {
+function deleteStudent(id) {
   event.preventDefault();
-  const id = document.getElementById("student-id-delete").value;
   if(id>=0){
     students.splice(id,1);
     renderStudents();
@@ -97,7 +95,6 @@ function exportData(event) {
   });
   exportToCsv("students.csv",students2D);
 }
-//function to export data in csv form that can be imported into google sheets
 function exportToCsv(filename, rows) {
   var processRow = function (row) {
     var finalVal = '';
@@ -139,6 +136,5 @@ function exportToCsv(filename, rows) {
 // Event listener for the form submission
 document.getElementById("export-student-data").addEventListener("submit", exportData);
 document.getElementById("add-student-form").addEventListener("submit", addStudent);
-document.getElementById("delete-student-form").addEventListener("submit", deleteStudent);
 // Initial rendering of the student list
 renderStudents();
