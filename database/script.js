@@ -76,9 +76,9 @@ function addStudent(event) {
     studentId: studentId,
   };
   students.push(student);
-  renderStudents();
   // Reset the form
   document.getElementById("add-student-form").value = "";
+  renderStudents();
 }
 function deleteStudent(id) {
   event.preventDefault();
@@ -86,8 +86,6 @@ function deleteStudent(id) {
     students.splice(id,1);
     renderStudents();
   }
-  // Reset the form
-  document.getElementById("delete-student-form").value = "";
 }
 function exportData(event) {
   event.preventDefault();
