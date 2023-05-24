@@ -77,7 +77,7 @@ function addStudent(event) {
   };
   students.push(student);
   // Reset the form
-  document.getElementById("add-student-form").value = "";
+  document.getElementById("add-student-form").reset();
   renderStudents();
 }
 function deleteStudent(id) {
