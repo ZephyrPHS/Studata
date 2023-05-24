@@ -4,7 +4,7 @@ const csv = reader.readAsDataURL(studentData.csv);
 var importData = csvToArray(csv);
 let students = [];
 importData.forEach((array) => {
-  students.push({ name: array[0], studentId: array[1]}),
+  students.push({ name: array[0], studentId: array[1]});
 });
 
 function csvToArray(csv) {
