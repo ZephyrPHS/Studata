@@ -62,14 +62,14 @@ function editStudent(editId) {
   });
 }
 function replace(id,name,studentId) {
-	students[id] = { name: name, studentId: studentId };
+  students[id] = { name: name, studentId: studentId };
   renderStudents();
 }
 // Function to add a new student
 function addStudent(event) {
   event.preventDefault();
-  const name = document.getElementById("student-name").value;
-  const studentId = document.getElementById("student-studentId").value;
+  const name = document.getElementById("add-name").value;
+  const studentId = document.getElementById("add-studentId").value;
   // Create a new student object
   const student = {
     name: name,
@@ -78,7 +78,8 @@ function addStudent(event) {
   students.push(student);
   renderStudents();
   // Reset the form
-  document.getElementById("add-student-form").reset();
+  document.getElementById("add-name").reset();
+  document.getElementById("add-studentId").reset();
 }
 function deleteStudent(id) {
   event.preventDefault();
