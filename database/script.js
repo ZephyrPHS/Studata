@@ -31,22 +31,22 @@ function editStudent(editId) {
     const row = document.createElement("tr");
     if(id==editId){
       row.innerHTML = `
-        <form id="activeEdit"+id>
+        <form id="activeEdit">
           <td>
-            <button onclick="replace(id)">Confirm</button>
+            <button onclick="replace(${id}, document.getElementById('name').value, document.getElementById('studentId').value)">Confirm</button>
           </td>
           <td>
             <input type="text" id="name" />
           </td>
           <td>
-            <input type="text" id="schoolId" />
+            <input type="text" id="studentId" />
           </td>
         </form>
       `;
     }else{
       row.innerHTML = `
         <td>
-          <form id="edit"+id>
+          <form id="edit">
             <button onclick="editStudent(${id})">Edit</button>
           </form>
         </td>
@@ -57,6 +57,10 @@ function editStudent(editId) {
     studentList.appendChild(row);
     id++;
   });
+}
+function replace(id,name,studentId) {
+	students[id] = { name: name, studentId: studentId };
+  renderStudents();
 }
 // Function to add a new student
 function addStudent(event) {
