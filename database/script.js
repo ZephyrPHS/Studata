@@ -1,4 +1,4 @@
-// Sample student data
+// Sample student data for testing
 let students = [
   { name: "John Doe", studentId: "123456" },
   { name: "Jane Smith", studentId: "789012" },
@@ -23,6 +23,7 @@ function renderStudents() {
     id++;
   });
 }
+//function to edit an individual student
 function editStudent(editId) {
   const studentList = document.getElementById("student-list");
   studentList.innerHTML = "";
@@ -58,6 +59,7 @@ function editStudent(editId) {
     id++;
   });
 }
+//function to replace a student's data/info
 function replace(id,name,studentId) {
 	students[id] = { name: name, studentId: studentId };
   renderStudents();
@@ -95,6 +97,7 @@ function exportData(event) {
   });
   exportToCsv("students.csv",students2D);
 }
+//function to export data in csv form that can be imported into google sheets
 function exportToCsv(filename, rows) {
   var processRow = function (row) {
     var finalVal = '';
