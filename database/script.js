@@ -21,9 +21,7 @@ function renderStudents() {
     `;
     studentList.appendChild(row);
     id++;
-  });		
-//   var blob = new Blob([students], { type: "text/plain;charset=utf-8" });
-//   saveAs(blob, "studentData.txt");
+  });
 }
 function editStudent(editId) {
   const studentList = document.getElementById("student-list");
@@ -62,7 +60,7 @@ function editStudent(editId) {
   });
 }
 function replace(id,name,studentId) {
-  students[id] = { name: name, studentId: studentId };
+	students[id] = { name: name, studentId: studentId };
   renderStudents();
 }
 // Function to add a new student
@@ -78,8 +76,7 @@ function addStudent(event) {
   students.push(student);
   renderStudents();
   // Reset the form
-  document.getElementById("add-name").reset();
-  document.getElementById("add-studentId").reset();
+  document.getElementById("add-student-form").reset();
 }
 function deleteStudent(id) {
   event.preventDefault();
@@ -121,18 +118,18 @@ function exportToCsv(filename, rows) {
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
     } else {
-var link = document.createElement("a");
-if (link.download !== undefined) { // feature detection
-    // Browsers that support HTML5 download attribute
-    var url = URL.createObjectURL(blob);
-    link.setAttribute("href", url);
-    link.setAttribute("download", filename);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-      document.body.removeChild(link);
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     }
-  }
 }
 // Event listener for the form submission
 document.getElementById("export-student-data").addEventListener("submit", exportData);
