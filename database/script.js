@@ -3,7 +3,7 @@ let students = [
   { name: "John Doe", studentId: "123456" },
   { name: "Jane Smith", studentId: "789012" }
 ];
-let data = 'Ricky Sun,144283\\nSumeir Soni,999999';
+let data = localStorage.getItem("data");
 let array = data.split("\\n").map(function (line) {
     return line.split(",");
 });
@@ -121,7 +121,7 @@ function exportToCsv(filename, rows) {
     for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
     }
-    localStorage.setItem("data", students);
+    localStorage.setItem("data", csvFile);
     var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
