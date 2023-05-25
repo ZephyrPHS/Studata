@@ -1,5 +1,5 @@
 // Sample student data
-let students = [{ name: "student[0]", studentId: "student[1]"}];
+let students = [];
 let data = localStorage.getItem("data");
 let array = data.split("\n").map(function (line) {
     return line.split(",");
@@ -27,11 +27,6 @@ function renderStudents() {
     studentList.appendChild(row);
     id++;
   });
-  var csvFile = '';
-  for (var i = 0; i < rows.length; i++) {
-      csvFile += processRow(students[i]);
-  }
-  localStorage.setItem("data", csvFile);
 }
 function editStudent(editId) {
   const studentList = document.getElementById("student-list");
@@ -103,24 +98,23 @@ function exportData(event) {
   });
   exportToCsv("students.csv",students2D);
 }
-function processRow(row) {
-  var finalVal = '';
-  for (var j = 0; j < row.length; j++) {
-    var innerValue = row[j] === null ? '' : row[j].toString();
-    if (row[j] instanceof Date) {
-      innerValue = row[j].toLocaleString();
-    };
-    var result = innerValue.replace(/"/g, '""');
-    if (result.search(/("|,|\n)/g) >= 0)
-      result = '"' + result + '"';
-    if (j > 0)
-      finalVal += ',';
-      finalVal += result;
-    }
-    return finalVal + '\n';
-  }
-}
 function exportToCsv(filename, rows) {
+  var processRow = function (row) {
+    var finalVal = '';
+      for (var j = 0; j < row.length; j++) {
+        var innerValue = row[j] === null ? '' : row[j].toString();
+        if (row[j] instanceof Date) {
+          innerValue = row[j].toLocaleString();
+        };
+        var result = innerValue.replace(/"/g, '""');
+        if (result.search(/("|,|\n)/g) >= 0)
+          result = '"' + result + '"';
+        if (j > 0)
+          finalVal += ',';
+          finalVal += result;
+        }
+        return finalVal + '\n';
+    };
     var csvFile = '';
     for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
