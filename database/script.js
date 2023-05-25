@@ -1,7 +1,7 @@
 // Sample student data
 let students = [
   { name: "John Doe", studentId: "123456" },
-  { name: "Jane Smith", studentId: "789012" }
+  { name: "Jane Smith", studentId: "789013" }
 ];
 const CSVToArray = (localStorage.getItem("data");, delimiter = ',', omitFirstRow = false) =>
   data
