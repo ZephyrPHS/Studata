@@ -3,7 +3,7 @@ let students = [
   { name: "John Doe", studentId: "123456" },
   { name: "Jane Smith", studentId: "789013" }
 ];
-const CSVToArray = (localStorage.getItem("data");, delimiter = ',', omitFirstRow = false) =>
+const CSVToArray = ("Ricky Sun,144283/nSumeir Soni,999999";, delimiter = ',', omitFirstRow = false) =>
   data
     .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
     .split('\n')
