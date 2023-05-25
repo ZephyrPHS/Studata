@@ -3,14 +3,14 @@ let students = [
   { name: "John Doe", studentId: "123456" },
   { name: "Jane Smith", studentId: "789012" }
 ];
-const CSVToArray = (localStorage.getItem("data");, delimiter = ',', omitFirstRow = false) =>
-  data
-    .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
-    .split('\n')
-    .map(v => v.split(delimiter));
-CSVToArray.forEach(array => {
-students.push({ name: array[0], studentId: array[1]});
-});
+// const CSVToArray = (localStorage.getItem("data");, delimiter = ',', omitFirstRow = false) =>
+//   data
+//     .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
+//     .split('\n')
+//     .map(v => v.split(delimiter));
+// CSVToArray.forEach(array => {
+//   students.push({ name: array[0], studentId: array[1]});
+// });
 // Function to render the student list
 function renderStudents() {
   const studentList = document.getElementById("student-list");
