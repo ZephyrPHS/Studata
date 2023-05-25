@@ -1,12 +1,10 @@
 // Sample student data
-let students = [
-  { name: "John Doe", studentId: "123456" },
-  { name: "Jane Smith", studentId: "789013" }
-];
+let students = [];
 let data = localStorage.getItem("data");
 let array = data.split("\n").map(function (line) {
     return line.split(",");
 });
+array.splice(array.length-1,1);
 array.forEach(student => {
   students.push({ name: student[0], studentId: student[1]});
 });
