@@ -1,5 +1,5 @@
 // Sample student data
-let students = [{name: "", studentId: ""}];
+let students = [];
 let data = localStorage.getItem("data");
 let array = data.split("\n").map(function (line) {
     return line.split(",");
