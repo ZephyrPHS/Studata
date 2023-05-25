@@ -4,7 +4,7 @@ const CSVToArray = (localStorage.getItem("data");, delimiter = ',', omitFirstRow
     .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
     .split('\n')
     .map(v => v.split(delimiter));
-let students = [];
+let students = [{ name: "John Doe", studentId: "123456"}];
 CSVToArray.forEach(array => {
 students.push({ name: array[0], studentId: array[1]});
 // Function to render the student list
