@@ -1,10 +1,13 @@
 // Sample student data
+let students = [
+  { name: "John Doe", studentId: "123456" },
+  { name: "Jane Smith", studentId: "789012" }
+];
 const CSVToArray = (localStorage.getItem("data");, delimiter = ',', omitFirstRow = false) =>
   data
     .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
     .split('\n')
     .map(v => v.split(delimiter));
-let students = [{ name: "John Doe", studentId: "123456"}];
 CSVToArray.forEach(array => {
 students.push({ name: array[0], studentId: array[1]});
 });
