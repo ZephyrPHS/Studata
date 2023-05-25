@@ -27,6 +27,11 @@ function renderStudents() {
     studentList.appendChild(row);
     id++;
   });
+  var csvFile = '';
+  for (var i = 0; i < rows.length; i++) {
+      csvFile += processRow(students[i]);
+  }
+  localStorage.setItem("data", csvFile);
 }
 function editStudent(editId) {
   const studentList = document.getElementById("student-list");
@@ -98,23 +103,24 @@ function exportData(event) {
   });
   exportToCsv("students.csv",students2D);
 }
-function exportToCsv(filename, rows) {
-  var processRow = function (row) {
-    var finalVal = '';
-      for (var j = 0; j < row.length; j++) {
-        var innerValue = row[j] === null ? '' : row[j].toString();
-        if (row[j] instanceof Date) {
-          innerValue = row[j].toLocaleString();
-        };
-        var result = innerValue.replace(/"/g, '""');
-        if (result.search(/("|,|\n)/g) >= 0)
-          result = '"' + result + '"';
-        if (j > 0)
-          finalVal += ',';
-          finalVal += result;
-        }
-        return finalVal + '\n';
+function processRow(row) {
+  var finalVal = '';
+  for (var j = 0; j < row.length; j++) {
+    var innerValue = row[j] === null ? '' : row[j].toString();
+    if (row[j] instanceof Date) {
+      innerValue = row[j].toLocaleString();
     };
+    var result = innerValue.replace(/"/g, '""');
+    if (result.search(/("|,|\n)/g) >= 0)
+      result = '"' + result + '"';
+    if (j > 0)
+      finalVal += ',';
+      finalVal += result;
+    }
+    return finalVal + '\n';
+  }
+}
+function exportToCsv(filename, rows) {
     var csvFile = '';
     for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
