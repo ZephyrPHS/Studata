@@ -7,9 +7,9 @@ let data = 'Ricky Sun,144283\\nSumeir Soni,999999';
 let array = data.split("\\n").map(function (line) {
     return line.split(",");
 });
-// array.forEach(student => {
-//   students.push({ name: student[0], studentId: student[1]});
-// });
+array.forEach(student => {
+  students.push({ name: student[0], studentId: student[1]});
+});
 // Function to render the student list
 function renderStudents() {
   const studentList = document.getElementById("student-list");
