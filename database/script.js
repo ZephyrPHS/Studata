@@ -1,10 +1,8 @@
 // Sample student data
-let students = [
-  { name: "John Doe", studentId: "123456" },
-  { name: "Jane Smith", studentId: "789012" },
-];
+let students = localStorage.getItem(data);
 // Function to render the student list
 function renderStudents() {
+  localStorage.setItem(data, students);
   const studentList = document.getElementById("student-list");
   studentList.innerHTML = "";
   let id = 0;
