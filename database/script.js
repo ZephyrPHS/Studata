@@ -4,7 +4,7 @@ let students = [
   { name: "Jane Smith", studentId: "789012" }
 ];
 let data = localStorage.getItem("data");
-let array = data.split("\\n").map(function (line) {
+let array = data.split("\n").map(function (line) {
     return line.split(",");
 });
 array.forEach(student => {
