@@ -3,7 +3,6 @@ let students = [
   { name: "John Doe", studentId: "123456" },
   { name: "Jane Smith", studentId: "789013" }
 ];
-renderStudents();
 let data = "Ricky Sun,144283/nSumeir Soni,999999";
 let array = data.split("\\n").map(function (line) {
     return line.split(",");
