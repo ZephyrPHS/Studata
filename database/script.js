@@ -2,7 +2,6 @@
 let students = localStorage.getItem("data");
 // Function to render the student list
 function renderStudents() {
-  localStorage.setItem("data", students);
   const studentList = document.getElementById("student-list");
   studentList.innerHTML = "";
   let id = 0;
@@ -112,6 +111,7 @@ function exportToCsv(filename, rows) {
     for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
     }
+    localStorage.setItem("data", students);
     var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
