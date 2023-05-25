@@ -4,13 +4,12 @@ let students = [
   { name: "Jane Smith", studentId: "789013" }
 ];
 renderStudents();
-const CSVToArray = ("Ricky Sun,144283/nSumeir Soni,999999";, delimiter = ',', omitFirstRow = false) =>
-  data
-    .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
-    .split('\n')
-    .map(v => v.split(delimiter));
-// CSVToArray.forEach(array => {
-//   students.push({ name: array[0], studentId: array[1]});
+let data = "Ricky Sun,144283/nSumeir Soni,999999";
+let array = data.split("\\n").map(function (line) {
+    return line.split(",");
+});
+// array.forEach(student => {
+//   students.push({ name: student[0], studentId: student[1]});
 // });
 // Function to render the student list
 function renderStudents() {
