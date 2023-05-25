@@ -7,6 +7,7 @@ const CSVToArray = (localStorage.getItem("data");, delimiter = ',', omitFirstRow
 let students = [{ name: "John Doe", studentId: "123456"}];
 CSVToArray.forEach(array => {
 students.push({ name: array[0], studentId: array[1]});
+});
 // Function to render the student list
 function renderStudents() {
   const studentList = document.getElementById("student-list");
