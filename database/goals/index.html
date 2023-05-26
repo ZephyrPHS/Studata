@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Details</title>
+</head>
+<body>
+  <h1>Student Details</h1>
+
+  <script>
+    // Retrieve the student's ID from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+
+    // Retrieve the student object based on the ID
+    const student = students[id];
+
+    // Display the additional details
+    const detailsContainer = document.createElement("div");
+    detailsContainer.innerHTML = `
+      <h2>${student.firstname} ${student.lastname}</h2>
+      <p>${student.details}</p>
+    `;
+    document.body.appendChild(detailsContainer);
+  </script>
+</body>
+</html>
