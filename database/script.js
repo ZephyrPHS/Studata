@@ -64,7 +64,7 @@ function editStudent(editId) {
             <button onclick="editStudent(${id})">Edit</button>
           </form>
         </td>
-        <td>${student.firstname+student.lastname}</td>
+        <td>${student.firstname+" "+student.lastname}</td>
         <td>${student.studentId}</td>
       `;
     }
