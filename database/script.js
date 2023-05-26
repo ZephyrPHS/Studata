@@ -121,7 +121,7 @@ function exportToCsv(filename, rows, download) {
         finalVal += result;
       }
       return finalVal + '\n';
-  };
+  }
   var csvFile = '';
   for (var i = 0; i < rows.length; i++) {
       csvFile += processRow(rows[i]);
