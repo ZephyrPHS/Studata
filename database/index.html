@@ -6,19 +6,6 @@
 </head>
 <body>
   <h1>Student Database</h1>
-  <h2>Export Data</h2>
-  <!-- This is just a test to see is data can be exported-->
-  <form id="export-student-data">
-    <button type="submit">Export</button>
-  </form>
-  <h2>Add Student</h2>
-  <form id="add-student-form">
-    <label for="student-name">Name:</label>
-    <input type="text" id="student-name" required>
-    <label for="student-studentId">StudentId:</label>
-    <input type="text" id="student-studentId" required>
-    <button type="submit">Add</button>
-  </form>
   <table id="student-table">
     <thead>
       <tr>
@@ -31,6 +18,21 @@
       <!-- Student records will be dynamically added here -->
     </tbody>
   </table>
+
+  <h2>Export Data</h2>
+  <!-- This is just a test to see if data can be exported-->
+  <form id="export-student-data">
+    <button type="submit">Export</button>
+  </form>
+  <h2>Add Student</h2>
+  <form id="add-student-form">
+    <label for="add-name">Name:</label>
+    <input type="text" id="add-name" required>
+    <label for="add-studentId">StudentId:</label>
+    <input type="text" id="add-studentId" required>
+    <button type="submit">Add</button>
+  </form>
+
   <script src="script.js"></script>
 </body>
 </html>
