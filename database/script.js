@@ -34,7 +34,9 @@ function renderStudents() {
           <button onclick="editStudent(${id})">Edit</button>
         </form>
       </td>
-      <td>${student.firstname} ${student.lastname}</td>
+      <td>
+        <a href="Studata/database/goals?id=${id}">${student.firstname} ${student.lastname}</a>
+      </td>
       <td>${student.studentId}</td>
     `;
     studentList.appendChild(row);
