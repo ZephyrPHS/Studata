@@ -56,7 +56,7 @@ function editStudent(editId) {
       row.innerHTML = `
         <form id="activeEdit">
           <td>
-            <button onclick="replace(${id}, document.getElementById('firstname').value, document.getElementById('lastname').value, document.getElementById('studentId').value)">Confirm</button>
+            <button onsubmit="replace(${id}, document.getElementById('firstname').value, document.getElementById('lastname').value, document.getElementById('studentId').value)">Confirm</button>
             <button onclick="deleteStudent(${id})">Delete</button>
           </td>
           <td>
