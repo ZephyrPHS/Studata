@@ -1,17 +1,24 @@
 // Sample student data
 let students = [];
-if(localStorage.getItem("data")==null) {
-  students.push({ firstname: "Sample", lastname: "Name", studentId: "000000"});
-}else{
-	let data = localStorage.getItem("data");
-	let array = data.split("\n").map(function (line) {
-	    return line.split(",");
-	});
-	array.splice(array.length-1,1);
-	array.forEach(student => {
-	  students.push({ firstname: student[0], lastname: student[1], studentId: student[2]});
-	});
+
+// Check if data exists in localStorage
+if (localStorage.getItem("data") == null) {
+  // If no data exists, add a sample student
+  students.push({ firstname: "Sample", lastname: "Name", studentId: "000000" });
+} else {
+  // If data exists, retrieve and parse it
+  let data = localStorage.getItem("data");
+  let array = data.split("\n").map(function (line) {
+    return line.split(",");
+  });
+  // Remove the last empty element from the array
+  array.splice(array.length - 1, 1);
+  // Convert each line of data into a student object and add it to the students array
+  array.forEach((student) => {
+    students.push({ firstname: student[0], lastname: student[1], studentId: student[2] });
+  });
 }
+
 // Function to render the student list
 function renderStudents() {
   const studentList = document.getElementById("student-list");
@@ -27,21 +34,23 @@ function renderStudents() {
           <button onclick="editStudent(${id})">Edit</button>
         </form>
       </td>
-      <td>${student.firstname+" "+student.lastname}</td>
+      <td>${student.firstname} ${student.lastname}</td>
       <td>${student.studentId}</td>
     `;
     studentList.appendChild(row);
     id++;
   });
-  exportToCsv("students.csv",students2D, 0);
+  exportToCsv("students.csv", students2D, 0);
 }
+
+// Function to edit a student
 function editStudent(editId) {
   const studentList = document.getElementById("student-list");
   studentList.innerHTML = "";
   let id = 0;
   students.forEach((student) => {
     const row = document.createElement("tr");
-    if(id==editId){
+    if (id == editId) {
       row.innerHTML = `
         <form id="activeEdit">
           <td>
@@ -50,21 +59,21 @@ function editStudent(editId) {
           </td>
           <td>
             <input type="text" value="${students[id].firstname}" id="firstname" />
-	    <input type="text" value="${students[id].lastname}" id="lastname" />
+            <input type="text" value="${students[id].lastname}" id="lastname" />
           </td>
           <td>
             <input type="text" value="${students[id].studentId}" id="studentId" />
           </td>
         </form>
       `;
-    }else{
+    } else {
       row.innerHTML = `
         <td>
           <form id="edit">
             <button onclick="editStudent(${id})">Edit</button>
           </form>
         </td>
-        <td>${student.firstname+" "+student.lastname}</td>
+        <td>${student.firstname} ${student.lastname}</td>
         <td>${student.studentId}</td>
       `;
     }
@@ -72,10 +81,13 @@ function editStudent(editId) {
     id++;
   });
 }
-function replace(id,firstname,lastname,studentId) {
+
+// Function to replace student data
+function replace(id, firstname, lastname, studentId) {
   students[id] = { firstname: firstname, lastname: lastname, studentId: studentId };
   renderStudents();
 }
+
 // Function to add a new student
 function addStudent(event) {
   event.preventDefault();
@@ -93,64 +105,74 @@ function addStudent(event) {
   // Reset the form
   document.getElementById("add-student-form").reset();
 }
+
+// Function to delete a student
 function deleteStudent(id) {
   event.preventDefault();
-  if(id>=0){
-    students.splice(id,1);
+  if (id >= 0) {
+    students.splice(id, 1);
     renderStudents();
   }
 }
+
+// Function to export data to CSV
 function exportData(event) {
   event.preventDefault();
   let students2D = [];
   students.forEach((student) => {
     students2D.push([student.firstname, student.lastname, student.studentId]);
   });
-  exportToCsv("students.csv",students2D, 1);
+  exportToCsv("students.csv", students2D, 1);
 }
+
+// Function to export data to CSV format and save it to localStorage
 function exportToCsv(filename, rows, download) {
   var processRow = function (row) {
-    var finalVal = '';
+    var finalVal = "";
     for (var j = 0; j < row.length; j++) {
-      var innerValue = row[j] === null ? '' : row[j].toString();
+      var innerValue = row[j] === null ? "" : row[j].toString();
       if (row[j] instanceof Date) {
         innerValue = row[j].toLocaleString();
-      };
+      }
       var result = innerValue.replace(/"/g, '""');
-      if (result.search(/("|,|\n)/g) >= 0)
-        result = '"' + result + '"';
-      if (j > 0)
-        finalVal += ',';
-        finalVal += result;
-      }
-      return finalVal + '\n';
+      if (result.search(/("|,|\n)/g) >= 0) result = '"' + result + '"';
+      if (j > 0) finalVal += ",";
+      finalVal += result;
+    }
+    return finalVal + "\n";
   };
-  var csvFile = '';
+
+  var csvFile = "";
   for (var i = 0; i < rows.length; i++) {
-      csvFile += processRow(rows[i]);
+    csvFile += processRow(rows[i]);
   }
+
   localStorage.setItem("data", csvFile);
-  if(download==1){
-    var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-    if (navigator.msSaveBlob) { // IE 10+
-        navigator.msSaveBlob(blob, filename);
-    }else {
-      var link = document.createElement("a");
-      if (link.download !== undefined) { // feature detection
-        // Browsers that support HTML5 download attribute
-        var url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", filename);
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
+
+  if (download == 1) {
+    // Check if the browser supports the HTML5 download attribute
+    var link = document.createElement("a");
+    if (link.download !== undefined) {
+      // Browsers that support HTML5 download attribute
+      var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
+      var url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", filename);
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else if (navigator.msSaveBlob) {
+      // For IE 10+
+      var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
+      navigator.msSaveBlob(blob, filename);
     }
   }
 }
+
 // Event listener for the form submission
 document.getElementById("export-student-data").addEventListener("submit", exportData);
 document.getElementById("add-student-form").addEventListener("submit", addStudent);
+
 // Initial rendering of the student list
 renderStudents();
