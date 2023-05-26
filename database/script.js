@@ -1,4 +1,4 @@
-// Sample student data
+// Sample student data 
 let students = [];
 
 // Check if data exists in localStorage
