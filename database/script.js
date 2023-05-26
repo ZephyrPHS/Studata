@@ -1,13 +1,17 @@
 // Sample student data
 let students = [];
-let data = localStorage.getItem("data");
-let array = data.split("\n").map(function (line) {
-    return line.split(",");
-});
-array.splice(array.length-1,1);
-array.forEach(student => {
-  students.push({ name: student[0], studentId: student[1]});
-});
+if(localStorage.getItem("data")==null) {
+  students.push({ name: "Sample Name", studentId: "000000"});
+}else{
+	let data = localStorage.getItem("data");
+	let array = data.split("\n").map(function (line) {
+	    return line.split(",");
+	});
+	array.splice(array.length-1,1);
+	array.forEach(student => {
+	  students.push({ name: student[0], studentId: student[1]});
+	});
+}
 // Function to render the student list
 function renderStudents() {
   const studentList = document.getElementById("student-list");
