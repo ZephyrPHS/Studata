@@ -35,7 +35,7 @@ function renderStudents() {
         </form>
       </td>
       <td>
-        <a href="Studata/database/goals?id=${id}">${student.firstname} ${student.lastname}</a>
+        <a href="goals?id=${id}">${student.firstname} ${student.lastname}</a>
       </td>
       <td>${student.studentId}</td>
     `;
