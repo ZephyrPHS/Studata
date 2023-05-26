@@ -12,7 +12,13 @@
     const id = urlParams.get("id");
 
     // Retrieve the student object based on the ID
-    const student = students[id];
+    let data = localStorage.getItem("data");
+    let array = data.split("\n").map(function (line) {
+      return line.split(",");
+    });
+    // Remove the last empty element from the array
+    array.splice(array.length - 1, 1);
+    const student = { firstname: array[id][0], lastname: array[id][1], studentId: array[id][2] };
 
     // Display the additional details
     const detailsContainer = document.createElement("div");
