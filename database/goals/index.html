@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Student Details</title>
+  <title>Student Goals</title>
 </head>
 <body>
   <h1>Student Details</h1>
@@ -23,8 +23,8 @@
     // Display the additional details
     const detailsContainer = document.createElement("div");
     detailsContainer.innerHTML = `
-      <h2>${student.firstname} ${student.lastname}</h2>
-      <p>${student.details}</p>
+      <h2>${student.firstname} ${student.lastname} ${student.studentId}</h2>
+      <p>${student.details} "<-- this is a work in progress (just a test)"</p>
     `;
     document.body.appendChild(detailsContainer);
   </script>
