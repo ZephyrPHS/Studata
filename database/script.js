@@ -1,7 +1,7 @@
 // Sample student data
 let students = [];
 if(localStorage.getItem("data")==null) {
-  students.push({ name: "Sample Name", studentId: "000000"});
+  students.push({ firstname: "Sample", lastname: "Name", studentId: "000000"});
 }else{
 	let data = localStorage.getItem("data");
 	let array = data.split("\n").map(function (line) {
@@ -9,7 +9,7 @@ if(localStorage.getItem("data")==null) {
 	});
 	array.splice(array.length-1,1);
 	array.forEach(student => {
-	  students.push({ name: student[0], studentId: student[1]});
+	  students.push({ firstname: student[0], lastname: student[1], studentId: student[2]});
 	});
 }
 // Function to render the student list
@@ -19,7 +19,7 @@ function renderStudents() {
   let id = 0;
   let students2D = [];
   students.forEach((student) => {
-    students2D.push([student.name, student.studentId]);
+    students2D.push([student.firstname, student.lastname, student.studentId]);
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>
@@ -27,7 +27,7 @@ function renderStudents() {
           <button onclick="editStudent(${id})">Edit</button>
         </form>
       </td>
-      <td>${student.name}</td>
+      <td>${student.firstname+" "+student.lastname}</td>
       <td>${student.studentId}</td>
     `;
     studentList.appendChild(row);
@@ -45,11 +45,12 @@ function editStudent(editId) {
       row.innerHTML = `
         <form id="activeEdit">
           <td>
-            <button onclick="replace(${id}, document.getElementById('name').value, document.getElementById('studentId').value)">Confirm</button>
+            <button onclick="replace(${id}, document.getElementById('firstname').value, document.getElementById('lastname').value, document.getElementById('studentId').value)">Confirm</button>
             <button onclick="deleteStudent(${id})">Delete</button>
           </td>
           <td>
-            <input type="text" value="${students[id].name}" id="name" />
+            <input type="text" value="${students[id].firstname}" id="firstname" />
+	    <input type="text" value="${students[id].lastname}" id="lastname" />
           </td>
           <td>
             <input type="text" value="${students[id].studentId}" id="studentId" />
@@ -63,7 +64,7 @@ function editStudent(editId) {
             <button onclick="editStudent(${id})">Edit</button>
           </form>
         </td>
-        <td>${student.name}</td>
+        <td>${student.firstname+student.lastname}</td>
         <td>${student.studentId}</td>
       `;
     }
@@ -71,18 +72,20 @@ function editStudent(editId) {
     id++;
   });
 }
-function replace(id,name,studentId) {
-	students[id] = { name: name, studentId: studentId };
+function replace(id,firstname,lastname,studentId) {
+  students[id] = { firstname: firstname, lastname: lastname, studentId: studentId };
   renderStudents();
 }
 // Function to add a new student
 function addStudent(event) {
   event.preventDefault();
-  const name = document.getElementById("add-name").value;
+  const firstname = document.getElementById("add-first-name").value;
+  const lastname = document.getElementById("add-last-name").value;
   const studentId = document.getElementById("add-studentId").value;
   // Create a new student object
   const student = {
-    name: name,
+    firstname: firstname,
+    lastname: lastname,
     studentId: studentId,
   };
   students.push(student);
@@ -101,7 +104,7 @@ function exportData(event) {
   event.preventDefault();
   let students2D = [];
   students.forEach((student) => {
-    students2D.push([student.name, student.studentId]);
+    students2D.push([student.firstname, student.lastname, student.studentId]);
   });
   exportToCsv("students.csv",students2D, 1);
 }
