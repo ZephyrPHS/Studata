@@ -1,24 +1,8 @@
-if (sessionStorage.getItem("token") === "adminpassword"){
-  // Session student data 
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
-  let data = localStorage.getItem("data");
-  let array = data.split("\n").map(function (line) {
-    return line.split(",");
-  });
-  // Remove the last empty element from the array
-  array.splice(array.length - 1, 1);
-  const student = { firstname: array[id][0], lastname: array[id][1], studentId: array[id][2] };
-  // Display the additional details
-  const detailsContainer = document.createElement("div");
-  detailsContainer.innerHTML = `
-    <h2>${student.firstname} ${student.lastname} ${student.studentId}</h2>
-  `;
-  document.body.appendChild(detailsContainer);
+if (sessionStorage.getItem("token") === "adminpassword") {
   let goals = [];
   // Check if data exists in localStorage
   if (localStorage.getItem(id+"goals") == null) {
-    // If no data exists, add a sample student
+    // If no data exists, add a sample goal
     goals.push({ name: "Sample Goal", category: "Math", type: "Quantitative" });
   } else {
     // If data exists, retrieve and parse it
@@ -28,169 +12,104 @@ if (sessionStorage.getItem("token") === "adminpassword"){
     });
     // Remove the last empty element from the array
     goalsarray.splice(array.length - 1, 1);
-    // Convert each line of data into a student object and add it to the students array
+    // Convert each line of data into a goal object and add it to the goals array
     goalsarray.forEach((goal) => {
       goals.push({ name: goal[0], category: goal[1], type: goal[2] });
     });
   }
+  // Function to render the goals list
+  function renderGoals() {
+    const goalsList = document.getElementById("goals-list");
+    goalsList.innerHTML = "";
 
-  // Function to render the student list
-  function renderStudents() {
-    const studentList = document.getElementById("student-list");
-    studentList.innerHTML = "";
-    let id = 0;
-    let students2D = [];
-    students.forEach((student) => {
-      students2D.push([student.firstname, student.lastname, student.studentId]);
+    goals.forEach((goal, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>
-          <form id="edit">
-            <button onclick="editStudent(${id})">Edit</button>
-          </form>
+          <button onclick="editGoal(${index})">Edit</button>
         </td>
-        <td>
-          <a href="goals?id=${id}" class="student-link">${student.firstname} ${student.lastname}</a> 
-        </td>
-        <td>${student.studentId}</td>
+        <td>${goal.name}</td>
+        <td>${goal.category}</td>
+        <td>${goal.type}</td>
       `;
-      studentList.appendChild(row);
-      id++;
+      goalsList.appendChild(row);
     });
-    exportToCsv("students.csv", students2D, 0);
   }
 
-  // Function to edit a student
-  function editStudent(editId) {
-    const studentList = document.getElementById("student-list");
-    studentList.innerHTML = "";
-    let id = 0;
-    students.forEach((student) => {
+  // Function to add a new goal
+  function addGoal(event) {
+    event.preventDefault();
+    const name = document.getElementById("add-name").value;
+    const category = document.getElementById("add-category").value;
+    const type = document.getElementById("add-type").value;
+
+    // Create a new goal object
+    const goal = {
+      name: name,
+      category: category,
+      type: type,
+    };
+    goals.push(goal);
+    renderGoals();
+
+    // Reset the form
+    document.getElementById("add-goal-form").reset();
+  }
+
+  // Function to edit a goal
+  function editGoal(index) {
+    const goalsList = document.getElementById("goals-list");
+    goalsList.innerHTML = "";
+
+    goals.forEach((goal, goalIndex) => {
       const row = document.createElement("tr");
-      if (id == editId) {
+
+      if (goalIndex === index) {
         row.innerHTML = `
-          <form id="activeEdit">
-            <td>
-              <button onclick="replace(${id}, document.getElementById('firstname').value, document.getElementById('lastname').value, document.getElementById('studentId').value)">Confirm</button>
-              <button onclick="deleteStudent(${id})">Delete</button>
-            </td>
-            <td>
-              <input type="text" value="${students[id].firstname}" id="firstname" />
-              <input type="text" value="${students[id].lastname}" id="lastname" />
-            </td>
-            <td>
-              <input type="text" value="${students[id].studentId}" id="studentId" />
-            </td>
-          </form>
+          <td>
+            <button onclick="replaceGoal(${index}, '${goal.name}', '${goal.category}', '${goal.type}')">Confirm</button>
+            <button onclick="deleteGoal(${index})">Delete</button>
+          </td>
+          <td>
+            <input type="text" value="${goal.name}" id="edit-name" required>
+          </td>
+          <td>
+            <input type="text" value="${goal.category}" id="edit-category" required>
+          </td>
+          <td>
+            <input type="text" value="${goal.type}" id="edit-type" required>
+          </td>
         `;
       } else {
         row.innerHTML = `
           <td>
-            <form id="edit">
-              <button onclick="editStudent(${id})">Edit</button>
-            </form>
+            <button onclick="editGoal(${goalIndex})">Edit</button>
           </td>
-          <td>${student.firstname} ${student.lastname}</td>
-          <td>${student.studentId}</td>
+          <td>${goal.name}</td>
+          <td>${goal.category}</td>
+          <td>${goal.type}</td>
         `;
       }
-      studentList.appendChild(row);
-      id++;
+
+      goalsList.appendChild(row);
     });
   }
 
-  // Function to replace student data
-  function replace(id, firstname, lastname, studentId) {
-    students[id] = { firstname: firstname, lastname: lastname, studentId: studentId };
-    renderStudents();
+  // Function to replace goal data
+  function replaceGoal(index, name, category, type) {
+    goals[index] = { name: name, category: category, type: type };
+    renderGoals();
   }
 
-  // Function to add a new student
-  function addStudent(event) {
-    event.preventDefault();
-    const firstname = document.getElementById("add-first-name").value;
-    const lastname = document.getElementById("add-last-name").value;
-    const studentId = document.getElementById("add-studentId").value;
-    // Create a new student object
-    const student = {
-      firstname: firstname,
-      lastname: lastname,
-      studentId: studentId,
-    };
-    students.push(student);
-    renderStudents();
-    // Reset the form
-    document.getElementById("add-student-form").reset();
-  }
-
-  // Function to delete a student
-  function deleteStudent(id) {
-    event.preventDefault();
-    if (id >= 0) {
-      students.splice(id, 1);
-      renderStudents();
-    }
-  }
-
-  // Function to export data to CSV
-  function exportData(event) {
-    event.preventDefault();
-    let students2D = [];
-    students.forEach((student) => {
-      students2D.push([student.firstname, student.lastname, student.studentId]);
-    });
-    exportToCsv("students.csv", students2D, 1);
-  }
-
-  // Function to export data to CSV format and save it to localStorage
-  function exportToCsv(filename, rows, download) {
-    var processRow = function (row) {
-      var finalVal = "";
-      for (var j = 0; j < row.length; j++) {
-        var innerValue = row[j] === null ? "" : row[j].toString();
-        if (row[j] instanceof Date) {
-          innerValue = row[j].toLocaleString();
-        }
-        var result = innerValue.replace(/"/g, '""');
-        if (result.search(/("|,|\n)/g) >= 0) result = '"' + result + '"';
-        if (j > 0) finalVal += ",";
-        finalVal += result;
-      }
-      return finalVal + "\n";
-    };
-
-    var csvFile = "";
-    for (var i = 0; i < rows.length; i++) {
-      csvFile += processRow(rows[i]);
-    }
-
-    localStorage.setItem("data", csvFile);
-
-    if (download == 1) {
-      // Check if the browser supports the HTML5 download attribute
-      var link = document.createElement("a");
-      if (link.download !== undefined) {
-        // Browsers that support HTML5 download attribute
-        var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
-        var url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", filename);
-        link.style.visibility = "hidden";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else if (navigator.msSaveBlob) {
-        // For IE 10+
-        var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
-        navigator.msSaveBlob(blob, filename);
-      }
-    }
+  // Function to delete a goal
+  function deleteGoal(index) {
+    goals.splice(index, 1);
+    renderGoals();
   }
 
   // Event listener for the form submission
-  document.getElementById("export-student-data").addEventListener("submit", exportData);
-  document.getElementById("add-student-form").addEventListener("submit", addStudent);
+  document.getElementById("add-goal-form").addEventListener("submit", addGoal);
 
-  // Initial rendering of the student list
-  renderStudents();
+  // Initial rendering of the goals list
+  renderGoals();
 }
