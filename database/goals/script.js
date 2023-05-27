@@ -34,6 +34,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       `;
       goalsList.appendChild(row);
     });
+    exportToCsv(goals);
   }
 
   // Function to add a new goal
@@ -106,7 +107,29 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     goals.splice(index, 1);
     renderGoals();
   }
+  function exportToCsv(rows) {
+    var processRow = function (row) {
+      var finalVal = "";
+      for (var j = 0; j < row.length; j++) {
+        var innerValue = row[j] === null ? "" : row[j].toString();
+        if (row[j] instanceof Date) {
+          innerValue = row[j].toLocaleString();
+        }
+        var result = innerValue.replace(/"/g, '""');
+        if (result.search(/("|,|\n)/g) >= 0) result = '"' + result + '"';
+        if (j > 0) finalVal += ",";
+        finalVal += result;
+      }
+      return finalVal + "\n";
+    };
 
+    var csvFile = "";
+    for (var i = 0; i < rows.length; i++) {
+      csvFile += processRow(rows[i]);
+    }
+
+    localStorage.setItem(id+"goals", csvFile);
+  }
   // Event listener for the form submission
   document.getElementById("add-goal-form").addEventListener("submit", addGoal);
 
