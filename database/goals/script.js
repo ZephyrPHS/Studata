@@ -67,7 +67,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       if (goalIndex === index) {
         row.innerHTML = `
           <td>
-            <button onclick="replaceGoal(${index}, '${goal.name}', '${goal.category}', '${goal.type}')">Confirm</button>
+            <button onclick="replaceGoal(document.getElementById('edit-name').value, document.getElementById('edit-category').value, document.getElementById('edit-type').value)")">Confirm</button>
             <button onclick="deleteGoal(${index})">Delete</button>
           </td>
           <td>
