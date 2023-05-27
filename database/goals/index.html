@@ -24,9 +24,36 @@
     const detailsContainer = document.createElement("div");
     detailsContainer.innerHTML = `
       <h2>${student.firstname} ${student.lastname} ${student.studentId}</h2>
-      <p>${student.details} this is a work in progress</p>
     `;
     document.body.appendChild(detailsContainer);
   </script>
+  <!-- Student data table -->
+  <table id="goals-table">
+    <thead>
+      <tr>
+        <th>Edit</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody id="goals-list">
+      <!-- Student records will be dynamically added here -->
+    </tbody>
+  </table>
+  
+  <h2>Add Goal</h2>
+  <!-- Form to add a new goal -->
+  <form id="add-goal-form">
+    <label for="add-name">Name:</label>
+    <input type="text" id="add-name" required>
+    <label for="add-category">Category:</label>
+    <input type="text" id="add-category" required>
+    <label for="add-type">Type:</label>
+    <input type="text" id="add-type" required>
+    <button type="submit">Add</button>
+  </form>
+
+  <script src="script.js"></script>
 </body>
 </html>
