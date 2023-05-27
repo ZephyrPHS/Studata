@@ -1,22 +1,36 @@
 if (sessionStorage.getItem("token") === "adminpassword"){
   // Session student data 
-  let students = [];
-
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+  let data = localStorage.getItem("data");
+  let array = data.split("\n").map(function (line) {
+    return line.split(",");
+  });
+  // Remove the last empty element from the array
+  array.splice(array.length - 1, 1);
+  const student = { firstname: array[id][0], lastname: array[id][1], studentId: array[id][2] };
+  // Display the additional details
+  const detailsContainer = document.createElement("div");
+  detailsContainer.innerHTML = `
+    <h2>${student.firstname} ${student.lastname} ${student.studentId}</h2>
+  `;
+  document.body.appendChild(detailsContainer);
+  let goals = [];
   // Check if data exists in localStorage
-  if (localStorage.getItem("goals") == null) {
+  if (localStorage.getItem(id+"goals") == null) {
     // If no data exists, add a sample student
-    students.push({ firstname: "Sample", lastname: "Name", studentId: "000000" });
+    goals.push({ name: "Sample Goal", category: "Math", type: "Quantitative" });
   } else {
     // If data exists, retrieve and parse it
-    let data = localStorage.getItem("data");
-    let array = data.split("\n").map(function (line) {
+    let goalsdata = localStorage.getItem(id+"goals");
+    let goalsarray = goalsdata.split("\n").map(function (line) {
       return line.split(",");
     });
     // Remove the last empty element from the array
-    array.splice(array.length - 1, 1);
+    goalsarray.splice(array.length - 1, 1);
     // Convert each line of data into a student object and add it to the students array
-    array.forEach((student) => {
-      students.push({ firstname: student[0], lastname: student[1], studentId: student[2] });
+    goalsarray.forEach((goal) => {
+      goals.push({ name: goal[0], category: goal[1], type: goal[2] });
     });
   }
 
