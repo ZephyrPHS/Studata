@@ -11,7 +11,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       return line.split(",");
     });
     // Remove the last empty element from the array
-    goalsarray.splice(array.length - 1, 1);
+    goalsarray.splice(goalsarray.length - 1, 1);
     // Convert each line of data into a goal object and add it to the goals array
     goalsarray.forEach((goal) => {
       goals.push({ name: goal[0], category: goal[1], type: goal[2] });
@@ -72,7 +72,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       if (goalIndex === index) {
         row.innerHTML = `
           <td>
-            <button onclick="replaceGoal(document.getElementById('edit-name').value, document.getElementById('edit-category').value, document.getElementById('edit-type').value)")">Confirm</button>
+            <button onclick="replaceGoal(document.getElementById('edit-name').value, document.getElementById('edit-category').value, document.getElementById('edit-type').value)">Confirm</button>
             <button onclick="deleteGoal(${index})">Delete</button>
           </td>
           <td>
