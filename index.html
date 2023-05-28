@@ -1,39 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Database Login Zephyr</title>
-    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .srouce{
-            text-align: center;
-            color: #ffffff;
-            padding: 10px;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Database Login Zephyr</title>
+  <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .srouce{
+      text-align: center;
+      color: #ffffff;
+      padding: 10px;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="main-container">
-        <div class="form-container">
-            <div class="form-body">
-                <h2 class="title">Log in with</h2>
-                <form action="" class="the-form">
-                    <label for="text">Username</label>
-                    <input type="text" id="username" placeholder="Enter your username">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your password">
-                    <input type="submit" value="Log In">
-                </form>
-            </div><!-- FORM BODY-->
-            <div class="form-footer">
-                <div>
-                    <span>Don't have an account?</span> <a href="/Studata/signup">Sign Up</a>
-                </div>
-            </div><!-- FORM FOOTER -->
-        </div><!-- FORM CONTAINER -->
-        <script src="script.js"></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDaGflOJidMjEghcK9xpqYBH6YI-nOSuvw",
+      authDomain: "zephyr-studata.firebaseapp.com",
+      projectId: "zephyr-studata",
+      storageBucket: "zephyr-studata.appspot.com",
+      messagingSenderId: "236682966409",
+      appId: "1:236682966409:web:96428f11dff8fa4f751d58",
+      measurementId: "G-NEPJNZ2VC2"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+  <div class="main-container">
+    <div class="form-container">
+      <div class="form-body">
+        <h2 class="title">Log in with</h2>
+        <form action="" class="the-form">
+          <label for="text">Username</label>
+          <input type="text" id="username" placeholder="Enter your username">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Enter your password">
+          <input type="submit" value="Log In">
+        </form>
+      </div><!-- FORM BODY-->
+      <div class="form-footer">
+        <div>
+          <span>Don't have an account?</span> <a href="/Studata/signup">Sign Up</a>
+        </div>
+      </div><!-- FORM FOOTER -->
+    </div><!-- FORM CONTAINER -->
+    <script src="script.js"></script>
 </body>
 </html>
