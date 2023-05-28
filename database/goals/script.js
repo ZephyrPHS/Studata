@@ -34,7 +34,11 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       `;
       goalsList.appendChild(row);
     });
-    exportToCsv(goals);
+    let goals2D = [];
+    goals.forEach((goal) => {
+      goals2D.push([goal.name, goal.category, goal.type]);
+    });
+    exportToCsv(goals2D);
   }
 
   // Function to add a new goal
@@ -107,6 +111,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     goals.splice(index, 1);
     renderGoals();
   }
+  
   function exportToCsv(rows) {
     var processRow = function (row) {
       var finalVal = "";
