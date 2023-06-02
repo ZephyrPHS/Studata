@@ -96,7 +96,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               <input type="text" value="${students[id].studentId}" id="studentId" />
             </td>
             <td>
-              <select id="primaryDisability">
+              <select id="gradeLevel">
                 <option value="9" ${students[id].gradeLevel === "9" ? "selected" : ""}>9</option>
                 <option value="10" ${students[id].gradeLevel === "10" ? "selected" : ""}>10</option>
                 <option value="11" ${students[id].gradeLevel === "11" ? "selected" : ""}>11</option>
