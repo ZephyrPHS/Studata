@@ -140,4 +140,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 
   // Initial rendering of the goals list
   renderGoals();
+}else{
+  alert("Your session has expired. Please log in again.");
 }
