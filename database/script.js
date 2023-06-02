@@ -110,6 +110,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
                 <option value="Hearing" ${students[id].primaryDisability === "Hearing" ? "selected" : ""}>Hearing</option>
               </select>
             </td>
+            <td>${student.caseManager}</td>
+            <td>${student.lastAnnualReview}</td>
           </form>
         `;
       } else {
@@ -141,7 +143,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       gradeLevel: gradeLevel,
       primaryDisability: primaryDisability,
       caseManager: students[id].caseManager,
-      lastAnnualReview: students[id].lastAnnualReview
+      lastAnnualReview: new Date().toLocaleDateString()
     };
     renderStudents();
   }
