@@ -96,7 +96,12 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               <input type="text" value="${students[id].studentId}" id="studentId" />
             </td>
             <td>
-              <input type="text" value="${students[id].gradeLevel}" id="gradeLevel" />
+              <select id="primaryDisability">
+                <option value="9" ${students[id].gradeLevel === "9" ? "selected" : ""}>9</option>
+                <option value="10" ${students[id].gradeLevel === "10" ? "selected" : ""}>10</option>
+                <option value="11" ${students[id].gradeLevel === "11" ? "selected" : ""}>11</option>
+                <option value="12" ${students[id].gradeLevel === "12" ? "selected" : ""}>12</option>
+              </select>
             </td>
             <td>
               <select id="primaryDisability">
@@ -163,7 +168,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       studentId: studentId,
       gradeLevel: gradeLevel,
       primaryDisability: primaryDisability,
-      caseManager: "",
+      caseManager: "admin",
       lastAnnualReview: new Date().toLocaleDateString()
     };
     students.push(student);
