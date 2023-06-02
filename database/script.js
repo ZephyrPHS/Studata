@@ -1,11 +1,19 @@
-if (sessionStorage.getItem("token") === "adminpassword"){
-  // Session student data 
+if (sessionStorage.getItem("token") === "adminpassword") {
+  // Session student data
   let students = [];
 
   // Check if data exists in localStorage
   if (localStorage.getItem("data") == null) {
     // If no data exists, add a sample student
-    students.push({ firstname: "Sample", lastname: "Name", studentId: "000000" });
+    students.push({ 
+      firstname: "Sample",
+      lastname: "Name",
+      studentId: "000000",
+      gradeLevel: "",
+      primaryDisability: "",
+      caseManager: "",
+      lastAnnualReview: ""
+    });
   } else {
     // If data exists, retrieve and parse it
     let data = localStorage.getItem("data");
@@ -16,7 +24,15 @@ if (sessionStorage.getItem("token") === "adminpassword"){
     array.splice(array.length - 1, 1);
     // Convert each line of data into a student object and add it to the students array
     array.forEach((student) => {
-      students.push({ firstname: student[0], lastname: student[1], studentId: student[2] });
+      students.push({
+        firstname: student[0],
+        lastname: student[1],
+        studentId: student[2],
+        gradeLevel: student[3],
+        primaryDisability: student[4],
+        caseManager: student[5],
+        lastAnnualReview: student[6]
+      });
     });
   }
 
@@ -27,7 +43,15 @@ if (sessionStorage.getItem("token") === "adminpassword"){
     let id = 0;
     let students2D = [];
     students.forEach((student) => {
-      students2D.push([student.firstname, student.lastname, student.studentId]);
+      students2D.push([
+        student.firstname,
+        student.lastname,
+        student.studentId,
+        student.gradeLevel,
+        student.primaryDisability,
+        student.caseManager,
+        student.lastAnnualReview
+      ]);
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>
@@ -36,9 +60,13 @@ if (sessionStorage.getItem("token") === "adminpassword"){
           </form>
         </td>
         <td>
-          <a href="goals?id=${id}" class="student-link">${student.firstname} ${student.lastname}</a> 
+          <a href="goals?id=${id}" class="student-link">${student.firstname} ${student.lastname}</a>
         </td>
         <td>${student.studentId}</td>
+        <td>${student.gradeLevel}</td>
+        <td>${student.primaryDisability}</td>
+        <td>${student.caseManager}</td>
+        <td>${student.lastAnnualReview}</td>
       `;
       studentList.appendChild(row);
       id++;
@@ -57,7 +85,7 @@ if (sessionStorage.getItem("token") === "adminpassword"){
         row.innerHTML = `
           <form id="activeEdit">
             <td>
-              <button onclick="replace(${id}, document.getElementById('firstname').value, document.getElementById('lastname').value, document.getElementById('studentId').value)">Confirm</button>
+              <button onclick="replace(${id}, document.getElementById('firstname').value, document.getElementById('lastname').value, document.getElementById('studentId').value, document.getElementById('gradeLevel').value, document.getElementById('primaryDisability').value)">Confirm</button>
               <button onclick="deleteStudent(${id})">Delete</button>
             </td>
             <td>
@@ -66,6 +94,21 @@ if (sessionStorage.getItem("token") === "adminpassword"){
             </td>
             <td>
               <input type="text" value="${students[id].studentId}" id="studentId" />
+            </td>
+            <td>
+              <input type="text" value="${students[id].gradeLevel}" id="gradeLevel" />
+            </td>
+            <td>
+              <select id="primaryDisability">
+                <option value="SLD" ${students[id].primaryDisability === "SLD" ? "selected" : ""}>SLD</option>
+                <option value="Autism" ${students[id].primaryDisability === "Autism" ? "selected" : ""}>Autism</option>
+                <option value="OHI" ${students[id].primaryDisability === "OHI" ? "selected" : ""}>OHI</option>
+                <option value="Multiple" ${students[id].primaryDisability === "Multiple" ? "selected" : ""}>Multiple</option>
+                <option value="S/L" ${students[id].primaryDisability === "S/L" ? "selected" : ""}>S/L</option>
+                <option value="ED" ${students[id].primaryDisability === "ED" ? "selected" : ""}>ED</option>
+                <option value="Vision" ${students[id].primaryDisability === "Vision" ? "selected" : ""}>Vision</option>
+                <option value="Hearing" ${students[id].primaryDisability === "Hearing" ? "selected" : ""}>Hearing</option>
+              </select>
             </td>
           </form>
         `;
@@ -78,6 +121,10 @@ if (sessionStorage.getItem("token") === "adminpassword"){
           </td>
           <td>${student.firstname} ${student.lastname}</td>
           <td>${student.studentId}</td>
+          <td>${student.gradeLevel}</td>
+          <td>${student.primaryDisability}</td>
+          <td>${student.caseManager}</td>
+          <td>${student.lastAnnualReview}</td>
         `;
       }
       studentList.appendChild(row);
@@ -86,8 +133,16 @@ if (sessionStorage.getItem("token") === "adminpassword"){
   }
 
   // Function to replace student data
-  function replace(id, firstname, lastname, studentId) {
-    students[id] = { firstname: firstname, lastname: lastname, studentId: studentId };
+  function replace(id, firstname, lastname, studentId, gradeLevel, primaryDisability) {
+    students[id] = {
+      firstname: firstname,
+      lastname: lastname,
+      studentId: studentId,
+      gradeLevel: gradeLevel,
+      primaryDisability: primaryDisability,
+      caseManager: students[id].caseManager,
+      lastAnnualReview: students[id].lastAnnualReview
+    };
     renderStudents();
   }
 
@@ -97,11 +152,17 @@ if (sessionStorage.getItem("token") === "adminpassword"){
     const firstname = document.getElementById("add-first-name").value;
     const lastname = document.getElementById("add-last-name").value;
     const studentId = document.getElementById("add-studentId").value;
+    const gradeLevel = document.getElementById("add-gradeLevel").value;
+    const primaryDisability = document.getElementById("add-primaryDisability").value;
     // Create a new student object
     const student = {
       firstname: firstname,
       lastname: lastname,
       studentId: studentId,
+      gradeLevel: gradeLevel,
+      primaryDisability: primaryDisability,
+      caseManager: "",
+      lastAnnualReview: new Date().toLocaleDateString()
     };
     students.push(student);
     renderStudents();
@@ -123,7 +184,15 @@ if (sessionStorage.getItem("token") === "adminpassword"){
     event.preventDefault();
     let students2D = [];
     students.forEach((student) => {
-      students2D.push([student.firstname, student.lastname, student.studentId]);
+      students2D.push([
+        student.firstname,
+        student.lastname,
+        student.studentId,
+        student.gradeLevel,
+        student.primaryDisability,
+        student.caseManager,
+        student.lastAnnualReview
+      ]);
     });
     exportToCsv("students.csv", students2D, 1);
   }
