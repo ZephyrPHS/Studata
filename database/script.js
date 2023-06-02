@@ -9,8 +9,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       firstname: "Sample",
       lastname: "Name",
       studentId: "000000",
-      gradeLevel: "",
-      primaryDisability: "",
+      gradeLevel: "9",
+      primaryDisability: "SLD",
       caseManager: "admin",
       lastAnnualReview: new Date().toLocaleDateString()
     });
