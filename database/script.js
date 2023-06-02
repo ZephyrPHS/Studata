@@ -255,4 +255,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 
   // Initial rendering of the student list
   renderStudents();
+}else{
+  alert("Your session has expired. Please log in again.");
 }
