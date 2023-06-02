@@ -148,7 +148,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       gradeLevel: gradeLevel,
       primaryDisability: primaryDisability,
       caseManager: students[id].caseManager,
-      lastAnnualReview: new Date().toLocaleDateString()
+      lastAnnualReview: students[id].lastAnnualReview
     };
     renderStudents();
   }
