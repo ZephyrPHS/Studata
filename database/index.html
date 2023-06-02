@@ -13,6 +13,10 @@
         <th>Edit</th>
         <th>Name</th>
         <th>Student ID</th>
+        <th>Grade Level</th>
+        <th>Primary Disability</th>
+        <th>Case Manager</th>
+        <th>Last Annual Review</th>
       </tr>
     </thead>
     <tbody id="student-list">
@@ -35,6 +39,19 @@
     <input type="text" id="add-last-name" required>
     <label for="add-studentId">Student ID:</label>
     <input type="text" id="add-studentId" required>
+    <label for="add-gradeLevel">Grade Level:</label>
+    <input type="text" id="add-gradeLevel" required>
+    <label for="add-primaryDisability">Primary Disability:</label>
+    <select id="add-primaryDisability" required>
+      <option value="SLD">SLD</option>
+      <option value="Autism">Autism</option>
+      <option value="OHI">OHI</option>
+      <option value="Multiple">Multiple</option>
+      <option value="S/L">S/L</option>
+      <option value="ED">ED</option>
+      <option value="Vision">Vision</option>
+      <option value="Hearing">Hearing</option>
+    </select>
     <button type="submit">Add</button>
   </form>
 
