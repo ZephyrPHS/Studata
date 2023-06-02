@@ -11,8 +11,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       studentId: "000000",
       gradeLevel: "",
       primaryDisability: "",
-      caseManager: "",
-      lastAnnualReview: ""
+      caseManager: "admin",
+      lastAnnualReview: new Date().toLocaleDateString()
     });
   } else {
     // If data exists, retrieve and parse it
