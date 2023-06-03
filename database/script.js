@@ -104,16 +104,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               </select>
             </td>
             <td>
-              <select id="primaryDisability">
-                <option value="SLD" ${students[id].primaryDisability === "SLD" ? "selected" : ""}>SLD</option>
-                <option value="Autism" ${students[id].primaryDisability === "Autism" ? "selected" : ""}>Autism</option>
-                <option value="OHI" ${students[id].primaryDisability === "OHI" ? "selected" : ""}>OHI</option>
-                <option value="Multiple" ${students[id].primaryDisability === "Multiple" ? "selected" : ""}>Multiple</option>
-                <option value="S/L" ${students[id].primaryDisability === "S/L" ? "selected" : ""}>S/L</option>
-                <option value="ED" ${students[id].primaryDisability === "ED" ? "selected" : ""}>ED</option>
-                <option value="Vision" ${students[id].primaryDisability === "Vision" ? "selected" : ""}>Vision</option>
-                <option value="Hearing" ${students[id].primaryDisability === "Hearing" ? "selected" : ""}>Hearing</option>
-              </select>
+              <td>
+                <input type="text" value="${students[id].primaryDisability}" id="primaryDisability" />
+              </td>
             </td>
             <td>${student.caseManager}</td>
             <td>${student.lastAnnualReview}</td>
