@@ -5,6 +5,7 @@ body {
 
 h1 {
   text-align: center;
+  font-family: Tahoma, sans-serif;
   height: 50px;
   background: #B9CDDA;
 }
@@ -30,7 +31,9 @@ table td {
   text-align: left;
   background: #eaebf1f3;
 }
-
+form{
+  font-family: Tahoma, sans-serif;
+}
 form label {
   margin-top: 10px;
 }
