@@ -15,15 +15,19 @@ table {
   border-collapse: collapse;
   margin-bottom: 20px;
   border: 1px solid #6b7d7d;
-  background: #B9CDDA;
 }
 
-table th,
+table th{
+  border: 1px solid #2a3737;
+  padding: 8px;
+  text-align: left;
+  background: #B9CDDA;
+}
 table td {
   border: 1px solid #2a3737;
   padding: 8px;
   text-align: left;
-  background: rgba(222, 224, 233, 0.6);
+  background: rgba(234, 235, 241, 0.953);
 }
 
 form label {
