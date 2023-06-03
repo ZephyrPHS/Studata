@@ -11,11 +11,12 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-}
+  border: 1px solid #2a3737;
+  background: #B9CDDA;}
 
 table th,
 table td {
-  border: 1px solid #ccc;
+  border: 1px solid #2a3737;
   padding: 8px;
   text-align: left;
 }
