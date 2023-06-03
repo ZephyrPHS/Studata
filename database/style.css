@@ -27,7 +27,7 @@ table td {
   border: 1px solid #2a3737;
   padding: 8px;
   text-align: left;
-  background: rgba(234, 235, 241, 0.953);
+  background: #eaebf1f3;
 }
 
 form label {
@@ -44,7 +44,7 @@ form button {
   
   width: 100px;
   height: 30px;
-  background: #B9CDDA;
+  background: #b9a8ce;
   border-radius: 10px;
 }
 /*student name link css*/

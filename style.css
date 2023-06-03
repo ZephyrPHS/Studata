@@ -16,13 +16,13 @@ body {
   background-attachment: fixed;
   padding: 20px;
   overflow-x: hidden;
+  font-family: Tahoma, sans-serif;
 }
 
 body,
 input,
 button {
-  font-family: "Muli", sans-serif, -apple-system, BlinkMacSystemFont,
-    "Helvetica Neue", Helvetica, sans-serif;
+  font-family: Tahoma, sans-serif;
   outline: none;
 }
 
@@ -178,7 +178,7 @@ a:hover {
 }
 
 .the-form [type="submit"] {
-  background: #9983b3;
+  background: #b9a8ce;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 18px;
   font-size: 20px;
@@ -204,5 +204,5 @@ a:hover {
 }
 
 .form-footer div a {
-  color: #9983b3;
+  color: #b9a8ce;
 }

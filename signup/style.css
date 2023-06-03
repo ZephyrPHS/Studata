@@ -17,6 +17,9 @@ form{
     width: 50%;
     background: #B9CDDA;
 }
-label{
-    text-align: left;
+button{
+    width: 100px;
+    height: 30px;
+    background: #b9a8ce;
+    border-radius: 10px;
 }
