@@ -1,10 +1,12 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Tahoma, sans-serif;
   margin: 20px;
 }
 
 h1 {
   text-align: center;
+  height: 50px;
+  background: #B9CDDA;
 }
 
 table {
@@ -13,11 +15,17 @@ table {
   margin-bottom: 20px;
 }
 
-table th,
-table td {
-  border: 1px solid #ccc;
+table th{
+  border: 3px solid #3c5157;
   padding: 8px;
   text-align: left;
+  background: #B9CDDA;
+}
+table td {
+  border: 3px solid #2a3737;
+  padding: 8px;
+  text-align: left;
+  background: #eaebf1f3;
 }
 
 form label {
@@ -31,7 +39,10 @@ form input[type="text"] {
 }
 
 form button {
-  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+  background: #b9a8ce;
+  border-radius: 10px;
 }
 /*student name link css*/
 a.student-link {
