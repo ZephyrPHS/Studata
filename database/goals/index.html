@@ -6,27 +6,9 @@
 </head>
 <body>
   <h1>Student Goals</h1>
-
+  <h2>{{details}}</h2>
   <script>
-    // Retrieve the student's ID from the URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-
-    // Retrieve the student object based on the ID
-    let data = localStorage.getItem("data");
-    let array = data.split("\n").map(function (line) {
-      return line.split(",");
-    });
-    // Remove the last empty element from the array
-    array.splice(array.length - 1, 1);
-    const student = { firstname: array[id][0], lastname: array[id][1], studentId: array[id][2] };
-
-    // Display the additional details
-    const detailsContainer = document.createElement("div");
-    detailsContainer.innerHTML = `
-      <h2>${student.firstname} ${student.lastname} ${student.studentId}</h2>
-    `;
-    document.body.appendChild(detailsContainer);
+     const details = "student details";
   </script>
   <h2>Add Goal</h2>
   <!-- Form to add a new goal -->
