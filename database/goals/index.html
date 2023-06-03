@@ -28,6 +28,17 @@
     `;
     document.body.appendChild(detailsContainer);
   </script>
+  <h2>Add Goal</h2>
+  <!-- Form to add a new goal -->
+  <form id="add-goal-form">
+    <label for="add-name">Name:</label>
+    <input type="text" id="add-name" required>
+    <label for="add-category">Category:</label>
+    <input type="text" id="add-category" required>
+    <label for="add-type">Type:</label>
+    <input type="text" id="add-type" required>
+    <button type="submit">Add</button>
+  </form>
   <!-- Student data table -->
   <table id="goals-table">
     <thead>
@@ -43,17 +54,7 @@
     </tbody>
   </table>
   
-  <h2>Add Goal</h2>
-  <!-- Form to add a new goal -->
-  <form id="add-goal-form">
-    <label for="add-name">Name:</label>
-    <input type="text" id="add-name" required>
-    <label for="add-category">Category:</label>
-    <input type="text" id="add-category" required>
-    <label for="add-type">Type:</label>
-    <input type="text" id="add-type" required>
-    <button type="submit">Add</button>
-  </form>
+  
 
   <script src="script.js"></script>
 </body>
