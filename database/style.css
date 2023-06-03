@@ -15,14 +15,15 @@ table {
   border-collapse: collapse;
   margin-bottom: 20px;
   border: 1px solid #2a3737;
-  background: #B9CDDA;}
+ 
+}
 
 table th,
 table td {
   border: 1px solid #2a3737;
   padding: 8px;
   text-align: left;
-  
+  background: rgba(222, 224, 233, 0.6);
 }
 
 form label {
@@ -39,7 +40,7 @@ form button {
   
   width: 100px;
   height: 30px;
-  background: rgba(222, 224, 233, 0.6);
+  background: #B9CDDA;
   border-radius: 10px;
 }
 /*student name link css*/
