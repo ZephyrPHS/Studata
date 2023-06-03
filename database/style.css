@@ -14,8 +14,8 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  border: 1px solid #2a3737;
- 
+  border: 1px solid #6b7d7d;
+  background: #B9CDDA;
 }
 
 table th,
