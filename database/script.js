@@ -104,12 +104,12 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               </select>
             </td>
             <td>
-              <td>
-                <input type="text" value="${students[id].primaryDisability}" id="primaryDisability" />
-              </td>
+               <input type="text" value="${students[id].primaryDisability}" id="primaryDisability" />
             </td>
             <td>${student.caseManager}</td>
-            <td>${student.lastAnnualReview}</td>
+            <td>
+               <input type="text" value="${student.lastAnnualReview}" id="lastAnnualReview" />
+            </td>
           </form>
         `;
       } else {
