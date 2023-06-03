@@ -1,1 +1,22 @@
-
+body{
+    font-family: Tahoma, sans-serif;
+    margin: 20px;
+}
+h1 {
+    margin: auto;
+    text-align: center;
+    height: 50px;
+    width: 50%;
+  
+    background: #B9CDDA;
+    }
+form{
+    margin: auto;
+    text-align: center;
+    height: 100px;
+    width: 50%;
+    background: #B9CDDA;
+}
+label{
+    text-align: left;
+}
