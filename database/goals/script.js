@@ -1,4 +1,21 @@
 if (sessionStorage.getItem("token") === "adminpassword") {
+  // Retrieve the student's ID from the URL parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+
+  // Retrieve the student object based on the ID
+  let data = localStorage.getItem("data");
+  let array = data.split("\n").map(function (line) {
+    return line.split(",");
+  });
+  // Remove the last empty element from the array
+  array.splice(array.length - 1, 1);
+  const student = { firstname: array[id][0], lastname: array[id][1], studentId: array[id][2] };
+
+  // Display the additional details
+  const detailsContainer = document.createElement("div");
+  const details = student.firstname+" "+student.lastname+" "+student.studentId;
+  document.body.appendChild(detailsContainer);
   let goals = [];
   // Check if data exists in localStorage
   if (localStorage.getItem(id+"goals") == null) {
