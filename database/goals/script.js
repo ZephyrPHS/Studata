@@ -193,36 +193,26 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     function exportToCsv(rows) {
       var processRow = function (row) {
         var finalVal = "";
-  
         for (var j = 0; j < row.length; j++) {
           var innerValue = row[j] === null ? "" : row[j].toString();
-  
           if (row[j] instanceof Date) {
             innerValue = formatDate(row[j]);
           }
-  
           var result = innerValue.replace(/"/g, '""');
-  
           if (result.search(/("|,|\n)/g) >= 0) {
             result = '"' + result + '"';
           }
-  
           if (j > 0) {
             finalVal += ",";
           }
-  
           finalVal += result;
         }
-  
         return finalVal + "\n";
       };
-  
       var csvFile = "";
-  
       for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
       }
-  
       localStorage.setItem(id + "goals", csvFile);
     }
   
@@ -235,7 +225,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         minute: "2-digit",
         second: "2-digit"
       };
-  
       return new Intl.DateTimeFormat("en-US", options).format(date);
     }
   
