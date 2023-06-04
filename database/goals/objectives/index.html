@@ -1,1 +1,37 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Objectives</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Student Objectives</h1>
+  <h2 id="details">Student And Goal Details</h2>
+<!--   <form id="form"> 
+    <input type="search" id="query" name="q" placeholder="Search...">
+    <button>Search</button>
+  </form> -->
+  <h2>Add Objective</h2>
+  <!-- Form to add a new goal -->
+  <form id="add-objective-form">
+    <label for="add-name">Name:</label>
+    <input type="text" id="add-name" required>
+    <button type="submit">Add</button>
+  </form>
+  <!-- objectives data table -->
+  <table id="objectives-table">
+    <thead>
+      <tr>
+        <th>Edit</th>
+        <th>Name</th>
+        <th>Progress</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody id="objectives-list">
+      <!-- Student records will be dynamically added here -->
+    </tbody>
+  </table>
+  <script src="script.js"></script>
+</body>
+</html>
