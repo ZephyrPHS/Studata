@@ -38,7 +38,12 @@ form label {
   margin-top: 10px;
 }
 
-input{
+form input[type = "text"]{
+  width: 10%;
+  padding: 5px;
+  margin-top: 5px;
+}
+input[type="search"] {
   width: 10%;
   padding: 5px;
   margin-top: 5px;
