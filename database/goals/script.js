@@ -50,7 +50,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         <td>
           <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)">${goal.notes}</textarea>
         </td>
-        <td>${goal.lastUpdated}</td>
+        <td>${goal.lastUpdated.toLocaleString()}</td>
       `;
       goalsList.appendChild(row);
     });
@@ -106,7 +106,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>
             <textarea rows="2" cols="20" id="edit-notes">${goal.notes}</textarea>
           </td>
-          <td>${goal.lastUpdated}</td>
+          <td>${goal.lastUpdated.toLocaleString()}</td>
         `;
       } else {
         row.innerHTML = `
@@ -117,7 +117,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>${goal.category}</td>
           <td>${goal.progress}</td>
           <td>${goal.notes}</td>
-          <td>${goal.lastUpdated}</td>
+          <td>${goal.lastUpdated.toLocaleString()}</td>
         `;
       }
 
@@ -147,7 +147,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   function updateNotes(index, value) {
     goals[index].notes = value;
     goals[index].lastUpdated = new Date().toLocaleString();
-    exportToCsv(goals);
+    renderGoals();
   }
 
   function exportToCsv(rows) {
