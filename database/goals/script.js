@@ -116,7 +116,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>${goal.name}</td>
           <td>${goal.category}</td>
           <td>${goal.progress}</td>
-          <td>${goal.notes}</td>
+          <td><textarea rows="2" cols="20" id="edit-notes">${goal.notes}</textarea></td>
           <td>${goal.lastUpdated.toLocaleString()}</td>
         `;
       }
