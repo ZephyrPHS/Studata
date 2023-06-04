@@ -93,7 +93,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       if (goalIndex === index) {
         row.innerHTML = `
           <td>
-            <button onclick="replaceGoal(${index}, document.getElementById('edit-name').value, document.getElementById('edit-category').value, document.getElementById('edit-notes').value)">Confirm</button>
+            <button onclick="replaceGoal(${index}, document.getElementById('edit-name').value, document.getElementById('edit-category').value>Confirm</button>
             <button onclick="deleteGoal(${index})">Delete</button>
           </td>
           <td>
@@ -104,7 +104,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           </td>
           <td>${goal.progress}</td>
           <td>
-            <textarea rows="2" cols="20" id="edit-notes">${goal.notes}</textarea>
+            <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)">${goal.notes}</textarea>
           </td>
           <td>${goal.lastUpdated.toLocaleString()}</td>
         `;
@@ -116,7 +116,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>${goal.name}</td>
           <td>${goal.category}</td>
           <td>${goal.progress}</td>
-          <td><textarea rows="2" cols="20" id="edit-notes">${goal.notes}</textarea></td>
+          <td><textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)">${goal.notes}</textarea></td>
           <td>${goal.lastUpdated.toLocaleString()}</td>
         `;
       }
@@ -126,12 +126,12 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   }
 
   // Function to replace goal data
-  function replaceGoal(index, name, category, notes) {
+  function replaceGoal(index, name, category) {
     goals[index] = {
       name: name,
       category: category,
       progress: goals[index].progress,
-      notes: notes,
+      notes: goals[index].notes,
       lastUpdated: new Date().toLocaleString(),
     };
     renderGoals();
