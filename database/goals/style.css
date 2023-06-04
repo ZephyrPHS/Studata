@@ -38,7 +38,7 @@ form label {
   margin-top: 10px;
 }
 
-form input[type="text"] {
+input{
   width: 10%;
   padding: 5px;
   margin-top: 5px;
