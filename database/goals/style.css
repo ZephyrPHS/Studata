@@ -73,13 +73,13 @@ form input[type="text"] {
 form button {
   margin-top: 10px;
 }
-/*student name link css*/
-a.student-link {
+/*goal name link css*/
+a.goal-link {
   color: inherit;
   text-decoration: none;
   transition: text-decoration 0.2s ease-in-out;
 }
 
-a.student-link:hover, a.student-link:focus {
+a.goal-link:hover, a.goal-link:focus {
   text-decoration: underline;
 }
