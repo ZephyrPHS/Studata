@@ -141,7 +141,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             </td>
             <td>${goal.progress}</td>
             <td>
-              <textarea rows="2" cols="20" id="edit-notes-${index}">${goal.notes}</textarea>
+              <textarea rows="2" cols="20" id="edit-notes-${goalIndex}">${goal.notes}</textarea>
             </td>
             <td>${goal.lastUpdated}</td>
           `;
@@ -154,7 +154,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             <td>${goal.category}</td>
             <td>${goal.progress}</td>
             <td>
-              <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${goal.notes}</textarea>
+              <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${goalIndex}">${goal.notes}</textarea>
             </td>
             <td>${goal.lastUpdated}</td>
           `;
