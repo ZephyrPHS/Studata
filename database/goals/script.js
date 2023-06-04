@@ -147,6 +147,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   function updateNotes(index, value) {
     goals[index].notes = value;
     goals[index].lastUpdated = new Date().toLocaleString();
+    exportToCsv(goals);
   }
 
   function exportToCsv(rows) {
