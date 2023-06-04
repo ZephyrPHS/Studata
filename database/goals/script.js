@@ -18,7 +18,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Check if data exists in localStorage
   if (localStorage.getItem(id + "goals") == null) {
     // If no data exists, add a sample goal
-    goals.push({ name: "Sample Goal", category: "Math", progress: "0/0", notes: "", lastUpdated: new Date().toLocaleString() });
+    goals.push({ name: "Sample Goal", category: "Math", progress: "0/0", notes: "", lastUpdated: formatDate(new Date()) });
   } else {
     // If data exists, retrieve and parse it
     let goalsdata = localStorage.getItem(id + "goals");
@@ -48,15 +48,15 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         <td>${goal.category}</td>
         <td>${goal.progress}</td>
         <td>
-          <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)">${goal.notes}</textarea>
+          <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${goal.notes}</textarea>
         </td>
-        <td>${goal.lastUpdated.toLocaleString()}</td>
+        <td>${formatDate(goal.lastUpdated)}</td>
       `;
       goalsList.appendChild(row);
     });
     let goals2D = [];
     goals.forEach((goal) => {
-      goals2D.push([goal.name, goal.category, goal.progress, goal.notes, goal.lastUpdated.toLocaleString()]);
+      goals2D.push([goal.name, goal.category, goal.progress, goal.notes, formatDate(goal.lastUpdated)]);
     });
     exportToCsv(goals2D);
   }
@@ -73,7 +73,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       category: category,
       progress: "0/0",
       notes: "",
-      lastUpdated: new Date().toLocaleString(),
+      lastUpdated: formatDate(new Date()),
     };
     goals.push(goal);
     renderGoals();
@@ -93,7 +93,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       if (goalIndex === index) {
         row.innerHTML = `
           <td>
-            <button onclick="replaceGoal(${index}, document.getElementById('edit-name').value, document.getElementById('edit-category').value, document.getElementById('edit-notes').value)">Confirm</button>
+            <button onclick="replaceGoal(${index}, document.getElementById('edit-name').value, document.getElementById('edit-category').value, document.getElementById('edit-notes-${index}').value)">Confirm</button>
             <button onclick="deleteGoal(${index})">Delete</button>
           </td>
           <td>
@@ -104,9 +104,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           </td>
           <td>${goal.progress}</td>
           <td>
-            <textarea rows="2" cols="20" id="edit-notes">${goal.notes}</textarea>
+            <textarea rows="2" cols="20" id="edit-notes-${index}">${goal.notes}</textarea>
           </td>
-          <td>${goal.lastUpdated.toLocaleString()}</td>
+          <td>${formatDate(goal.lastUpdated)}</td>
         `;
       } else {
         row.innerHTML = `
@@ -116,8 +116,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>${goal.name}</td>
           <td>${goal.category}</td>
           <td>${goal.progress}</td>
-          <td><textarea rows="2" cols="20" id="edit-notes">${goal.notes}</textarea></td>
-          <td>${goal.lastUpdated.toLocaleString()}</td>
+          <td><textarea rows="2" cols="20" id="edit-notes-${index}">${goal.notes}</textarea></td>
+          <td>${formatDate(goal.lastUpdated)}</td>
         `;
       }
 
@@ -132,7 +132,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       category: category,
       progress: goals[index].progress,
       notes: notes,
-      lastUpdated: new Date().toLocaleString(),
+      lastUpdated: formatDate(new Date()),
     };
     renderGoals();
   }
@@ -146,7 +146,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Function to update notes
   function updateNotes(index, value) {
     goals[index].notes = value;
-    goals[index].lastUpdated = new Date().toLocaleString();
+    goals[index].lastUpdated = formatDate(new Date());
     renderGoals();
   }
 
@@ -156,7 +156,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       for (var j = 0; j < row.length; j++) {
         var innerValue = row[j] === null ? "" : row[j].toString();
         if (row[j] instanceof Date) {
-          innerValue = row[j].toLocaleString();
+          innerValue = formatDate(row[j]);
         }
         var result = innerValue.replace(/"/g, '""');
         if (result.search(/("|,|\n)/g) >= 0) result = '"' + result + '"';
@@ -173,7 +173,18 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 
     localStorage.setItem(id + "goals", csvFile);
   }
-
+  
+  function formatDate(date) {
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+    return new Intl.DateTimeFormat("en-US", options).format(date);
+  }
   // Event listener for the form submission
   document.getElementById("add-goal-form").addEventListener("submit", addGoal);
 
