@@ -50,7 +50,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         <td>
           <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)">${goal.notes}</textarea>
         </td>
-        <td>${goal.lastUpdated.toLocaleString()}</td>
+        <td>${formatDate(goal.lastUpdated)}</td>
       `;
       goalsList.appendChild(row);
     });
@@ -59,6 +59,11 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       goals2D.push([goal.name, goal.category, goal.progress, goal.notes, goal.lastUpdated.toLocaleString()]);
     });
     exportToCsv(goals2D);
+  }
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleString(undefined, options);
   }
 
   // Function to add a new goal
