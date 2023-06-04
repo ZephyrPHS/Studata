@@ -1,1 +1,75 @@
+body {
+  font-family: Tahoma, sans-serif;
+  margin: 20px;
+}
 
+h1 {
+  text-align: center;
+  font-family: Tahoma, sans-serif;
+  height: 50px;
+  background: #B9CDDA;
+}
+h2{
+  font-family: Tahoma, sans-serif;
+
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th{
+  border: 1px solid #3c5157;
+  padding: 8px;
+  text-align: left;
+  background: #B9CDDA;
+}
+table td {
+  border: 1px solid #2a3737;
+  padding: 8px;
+  text-align: left;
+  background: #eaebf1f3;
+}
+form{
+  font-family: Tahoma, sans-serif;
+}
+form label {
+  margin-top: 10px;
+}
+
+form input[type = "text"]{
+  width: 10%;
+  padding: 5px;
+  margin-top: 5px;
+}
+input[type="search"] {
+  width: 10%;
+  padding: 5px;
+  margin-top: 5px;
+}
+button{
+  width: 100px;
+  height: 30px;
+  background: #b9a8ce;
+  border-radius: 10px;
+}
+form button {
+  width: 100px;
+  height: 30px;
+  background: #b9a8ce;
+  border-radius: 10px;
+}
+form label {
+  margin-top: 10px;
+}
+
+form input[type="text"] {
+  width: 10%;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+form button {
+  margin-top: 10px;
+}
