@@ -69,7 +69,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>
             <button onclick="editGoal(${index})">Edit</button>
           </td>
-          <td>${goal.name}</td>
+          <td>
+            <a href="objectives?id=${id},${index}" class="goals-link">${goal.name}</a>
+          </td>
           <td>${goal.category}</td>
           <td>${goal.progress}</td>
           <td>
