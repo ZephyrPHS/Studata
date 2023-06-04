@@ -56,7 +56,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     });
     let goals2D = [];
     goals.forEach((goal) => {
-      goals2D.push([goal.name, goal.category, goal.progress, goal.notes, goal.lastUpdated]);
+      goals2D.push([goal.name, goal.category, goal.progress, goal.notes, goal.lastUpdated.toLocaleString()]);
     });
     exportToCsv(goals2D);
   }
