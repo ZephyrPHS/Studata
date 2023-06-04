@@ -1,38 +1,36 @@
 if (sessionStorage.getItem("token") === "adminpassword") {
-  // Retrieve the student's ID from the URL parameter
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
-  // Retrieve the student object based on the ID
+
   let data = localStorage.getItem("data");
   let array = data.split("\n").map(function (line) {
     return line.split(",");
   });
-  // Remove the last empty element from the array
   array.splice(array.length - 1, 1);
-  const student = { firstname: array[id][0], lastname: array[id][1], studentId: array[id][2] };
-  // Display the additional details
+  const student = {
+    firstname: array[id][0],
+    lastname: array[id][1],
+    studentId: array[id][2],
+  };
+
   var details = document.getElementById("details");
-  details.innerHTML = student.firstname+" "+student.lastname+" "+student.studentId;
-  
+  details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId;
+
   let goals = [];
-  // Check if data exists in localStorage
-  if (localStorage.getItem(id+"goals") == null) {
-    // If no data exists, add a sample goal
-    goals.push({ name: "Sample Goal", category: "Math", type: "Quantitative" });
+
+  if (localStorage.getItem(id + "goals") == null) {
+    goals.push({ name: "Sample Goal", category: "Math", type: "Quantitative", progress: "0/0", notes: "", lastUpdated: new Date().toLocaleString() });
   } else {
-    // If data exists, retrieve and parse it
-    let goalsdata = localStorage.getItem(id+"goals");
+    let goalsdata = localStorage.getItem(id + "goals");
     let goalsarray = goalsdata.split("\n").map(function (line) {
       return line.split(",");
     });
-    // Remove the last empty element from the array
     goalsarray.splice(goalsarray.length - 1, 1);
-    // Convert each line of data into a goal object and add it to the goals array
     goalsarray.forEach((goal) => {
-      goals.push({ name: goal[0], category: goal[1], type: goal[2] });
+      goals.push({ name: goal[0], category: goal[1], type: goal[2], progress: "0/0", notes: "", lastUpdated: new Date().toLocaleString() });
     });
   }
-  // Function to render the goals list
+
   function renderGoals() {
     const goalsList = document.getElementById("goals-list");
     goalsList.innerHTML = "";
@@ -45,7 +43,11 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         </td>
         <td>${goal.name}</td>
         <td>${goal.category}</td>
-        <td>${goal.type}</td>
+        <td>${goal.progress}</td>
+        <td>
+          <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)">${goal.notes}</textarea>
+        </td>
+        <td>${goal.lastUpdated}</td>
       `;
       goalsList.appendChild(row);
     });
@@ -56,27 +58,26 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     exportToCsv(goals2D);
   }
 
-  // Function to add a new goal
   function addGoal(event) {
     event.preventDefault();
     const name = document.getElementById("add-name").value;
     const category = document.getElementById("add-category").value;
     const type = document.getElementById("add-type").value;
 
-    // Create a new goal object
     const goal = {
       name: name,
       category: category,
       type: type,
+      progress: "0/0",
+      notes: "",
+      lastUpdated: new Date().toLocaleString(),
     };
     goals.push(goal);
     renderGoals();
 
-    // Reset the form
     document.getElementById("add-goal-form").reset();
   }
 
-  // Function to edit a goal
   function editGoal(index) {
     const goalsList = document.getElementById("goals-list");
     goalsList.innerHTML = "";
@@ -107,7 +108,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           </td>
           <td>${goal.name}</td>
           <td>${goal.category}</td>
-          <td>${goal.type}</td>
+          <td>${goal.progress}</td>
+          <td>${goal.notes}</td>
+          <td>${goal.lastUpdated}</td>
         `;
       }
 
@@ -115,18 +118,27 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     });
   }
 
-  // Function to replace goal data
   function replaceGoal(index, name, category, type) {
-    goals[index] = { name: name, category: category, type: type };
+    goals[index] = {
+      name: name,
+      category: category,
+      type: type,
+      progress: goals[index].progress,
+      notes: goals[index].notes,
+      lastUpdated: new Date().toLocaleString(),
+    };
     renderGoals();
   }
 
-  // Function to delete a goal
   function deleteGoal(index) {
     goals.splice(index, 1);
     renderGoals();
   }
-  
+
+  function updateNotes(index, notes) {
+    goals[index].notes = notes;
+  }
+
   function exportToCsv(rows) {
     var processRow = function (row) {
       var finalVal = "";
@@ -148,13 +160,12 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       csvFile += processRow(rows[i]);
     }
 
-    localStorage.setItem(id+"goals", csvFile);
+    localStorage.setItem(id + "goals", csvFile);
   }
-  // Event listener for the form submission
+
   document.getElementById("add-goal-form").addEventListener("submit", addGoal);
 
-  // Initial rendering of the goals list
   renderGoals();
-}else{
+} else {
   alert("Your session has expired. Please log in again.");
 }
