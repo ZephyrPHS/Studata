@@ -123,21 +123,21 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     function editGoal(index) {
       const goalsList = document.getElementById("goals-list");
       goalsList.innerHTML = "";
-  
+
       goals.forEach((goal, goalIndex) => {
         const row = document.createElement("tr");
-  
+
         if (goalIndex === index) {
           row.innerHTML = `
             <td>
-              <button onclick="replaceGoal(${index}, document.getElementById('edit-name').value, document.getElementById('edit-category').value, document.getElementById('edit-notes-${index}').value)">Confirm</button>
+              <button onclick="replaceGoal(${index})">Confirm</button>
               <button onclick="deleteGoal(${index})">Delete</button>
             </td>
             <td>
-              <input type="text" value="${goal.name}" id="edit-name" required>
+              <input type="text" value="${goal.name}" id="edit-name-${index}" required>
             </td>
             <td>
-              <input type="text" value="${goal.category}" id="edit-category" required>
+              <input type="text" value="${goal.category}" id="edit-category-${index}" required>
             </td>
             <td>${goal.progress}</td>
             <td>
@@ -159,13 +159,17 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             <td>${formatDate(goal.lastUpdated)}</td>
           `;
         }
-  
+
         goalsList.appendChild(row);
       });
     }
-  
+
     // Function to replace goal data
-    function replaceGoal(index, name, category, notes) {
+    function replaceGoal(index) {
+      const name = document.getElementById(`edit-name-${index}`).value;
+      const category = document.getElementById(`edit-category-${index}`).value;
+      const notes = document.getElementById(`edit-notes-${index}`).value;
+
       goals[index] = {
         name: name,
         category: category,
@@ -173,7 +177,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         notes: notes,
         lastUpdated: formatDate(new Date())
       };
-  
+
       renderGoals();
     }
   
