@@ -154,7 +154,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             <td>${goal.category}</td>
             <td>${goal.progress}</td>
             <td>
-              <textarea rows="2" cols="20" id="edit-notes-${goalIndex} readonly">${goal.notes}</textarea>
+              <textarea rows="2" cols="20" id="edit-notes-${goalIndex}" readonly>${goal.notes}</textarea>
             </td>
             <td>${goal.lastUpdated}</td>
           `;
