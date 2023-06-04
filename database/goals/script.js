@@ -11,7 +11,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   array.splice(array.length - 1, 1);
   const student = { firstname: array[id][0], lastname: array[id][1], studentId: array[id][2] };
   // Display the additional details
-  document.getElementById("details") = student.firstname+" "+student.lastname+" "+student.studentId;
+  document.getElementById("details").value = student.firstname+" "+student.lastname+" "+student.studentId;
   
   let goals = [];
   // Check if data exists in localStorage
