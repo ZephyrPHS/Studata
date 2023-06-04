@@ -97,9 +97,11 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>
             <input type="text" value="${goal.category}" id="edit-category" required>
           </td>
+          <td>${goal.progress}</td>
           <td>
-            <input type="text" value="${goal.type}" id="edit-type" required>
+            <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)">${goal.notes}</textarea>
           </td>
+          <td>${goal.lastUpdated}</td>
         `;
       } else {
         row.innerHTML = `
@@ -128,15 +130,18 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       lastUpdated: new Date().toLocaleString(),
     };
     renderGoals();
+    saveGoalsToLocalStorage();
   }
 
   function deleteGoal(index) {
     goals.splice(index, 1);
     renderGoals();
+    saveGoalsToLocalStorage();
   }
 
   function updateNotes(index, notes) {
     goals[index].notes = notes;
+    saveGoalsToLocalStorage();
   }
 
   function exportToCsv(rows) {
@@ -163,9 +168,15 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     localStorage.setItem(id + "goals", csvFile);
   }
 
-  document.getElementById("add-goal-form").addEventListener("submit", addGoal);
+  function saveGoalsToLocalStorage() {
+    localStorage.setItem(id + "goals", goals.map(goal => `${goal.name},${goal.category},${goal.type},${goal.progress},${goal.notes},${goal.lastUpdated}`).join("\n"));
+  }
 
-  renderGoals();
+  window.addEventListener("DOMContentLoaded", function () {
+    renderGoals();
+  });
+
+  document.getElementById("add-goal-form").addEventListener("submit", addGoal);
 } else {
   alert("Your session has expired. Please log in again.");
 }
