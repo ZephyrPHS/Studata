@@ -29,7 +29,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     goalsarray.splice(goalsarray.length - 1, 1);
     // Convert each line of data into a goal object and add it to the goals array
     goalsarray.forEach((goal) => {
-      goals.push({ name: goal[0], category: goal[1], progress: goal[2], notes: goal[3], lastUpdated: goal[4] });
+      goals.push({ name: goal[0], category: goal[1], progress: goal[2], notes: goal[3], lastUpdated: new Date(goal[4]) });
     });
   }
 
