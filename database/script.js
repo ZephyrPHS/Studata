@@ -17,9 +17,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   } else {
     // If data exists, retrieve and parse it
     let data = localStorage.getItem("data");
-    let array = data.split("\n").map(function (line) {
-      return line.split(",");
-    });
+    let array = Papa.parse(data, { header: false }).data;
     // Remove the last empty element from the array
     array.splice(array.length - 1, 1);
     // Convert each line of data into a student object and add it to the students array
