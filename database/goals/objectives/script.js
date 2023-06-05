@@ -105,11 +105,12 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     function addObjective(event) {
       event.preventDefault();
       const name = document.getElementById("add-name").value;
+      const progress = document.getElementById("add-progress").value;
 
       // Create a new objective object
       const objective = {
         name: name,
-        progress: "0/0",
+        progress: progress,
         notes: "",
         lastUpdated: new Date().toLocaleDateString()
       };
@@ -138,7 +139,13 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             <td>
               <input type="text" value="${objective.name}" id="edit-name-${index}" required>
             </td>
-            <td>${objective.progress}</td>
+            <td>
+              <select id="edit-progress-${index}">
+                <option value="Not started" ${objectives[index].progress === "Not started" ? "selected" : ""}>Not started</option>
+                <option value="In progress" ${objectives[index].progress === "In progress" ? "selected" : ""}>In progress</option>
+                <option value="Completed" ${objectives[index].progress === "Completed" ? "selected" : ""}>Completed</option>
+              </select>
+            </td>
             <td>
               <textarea rows="2" cols="20" id="edit-notes-${objectiveIndex}">${objective.notes}</textarea>
             </td>
@@ -166,10 +173,11 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     function replaceObjective(index) {
       const name = document.getElementById(`edit-name-${index}`).value;
       const notes = document.getElementById(`edit-notes-${index}`).value;
+      const progress = document.getElementById(`edit-progress-${index}`).value;
 
       objectives[index] = {
         name: name,
-        progress: objectives[index].progress,
+        progress: progress,
         notes: notes,
         lastUpdated: new Date().toLocaleDateString()
       };
