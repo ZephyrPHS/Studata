@@ -4,7 +4,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   let params = Papa.parse(urlParams.get("id"), { header: false }).data
   const id = params[0];
   const goalId = params[1];
-
+  console.log(id+","+goalId);
   // Retrieve the student object based on the ID
   let data = localStorage.getItem("data");
   let array = Papa.parse(data, { header: false }).data;
@@ -13,12 +13,14 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   array.splice(array.length - 1, 1);
 
   // Check if the ID is within the valid range
-  if (id >= 0 && id < array.length && goalId >=0 ) {
+  if (id >= 0 && id < array.length) {
     
     // Retrieve the goal object based on the ID
     let goalsdata = localStorage.getItem(id+"goals");
     let goalsarray = Papa.parse(goalsdata, { header: false }).data; 
     
+    if (goalId >= 0 && goalId < goalsarray.length) {
+    }
     // Remove the last empty element from the array
     array.splice(array.length - 1, 1);
     
