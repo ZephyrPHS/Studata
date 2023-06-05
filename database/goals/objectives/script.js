@@ -1,26 +1,39 @@
 if (sessionStorage.getItem("token") === "adminpassword") {
   // Retrieve the student's ID from the URL parameter
   const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
+  let params = Papa.parse(urlParams.get("id"), { header: false }).data
+  const id = params[0];
+  const goalId = params[1];
 
   // Retrieve the student object based on the ID
   let data = localStorage.getItem("data");
   let array = Papa.parse(data, { header: false }).data;
-
+  
   // Remove the last empty element from the array
   array.splice(array.length - 1, 1);
 
   // Check if the ID is within the valid range
-  if (id >= 0 && id < array.length) {
+  if (id >= 0 && id < array.length && goalId >=0 ) {
+    
+    // Retrieve the goal object based on the ID
+    let goalsdata = localStorage.getItem(id+"goals");
+    let goalsarray = Papa.parse(goalsdata, { header: false }).data; 
+    
+    // Remove the last empty element from the array
+    array.splice(array.length - 1, 1);
+    
     const student = {
       firstname: array[id][0],
       lastname: array[id][1],
       studentId: array[id][2]
     };
+    const goal = {
+      name: goalsarray[goalId][0],
+    };
 
     // Display the additional details
     var details = document.getElementById("details");
-    details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId;
+    details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId + " " + goal.name;
 
     let objectives = [];
 
