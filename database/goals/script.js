@@ -38,7 +38,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       // If data exists, retrieve and parse it
       let goalsdata = localStorage.getItem(id + "goals");
       let goalsarray = Papa.parse(goalsdata, { header: false }).data;
-      console.log(goalsarray);
+      
       // Remove the last empty element from the array
       goalsarray.splice(goalsarray.length - 1, 1);
 
