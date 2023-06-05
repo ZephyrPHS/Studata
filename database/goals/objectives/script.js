@@ -1,9 +1,8 @@
 if (sessionStorage.getItem("token") === "adminpassword") {
   // Retrieve the student's ID from the URL parameter
   const urlParams = new URLSearchParams(window.location.search);
-  let params = Papa.parse(urlParams.get("id"), { header: false }).data
-  const id = params[0];
-  const goalId = params[1];
+  const id = urlParams.get("id");
+  const goalId = urlParams.get("goalId");
   console.log(urlParams+":"+id+":"+goalId);
   // Retrieve the student object based on the ID
   let data = localStorage.getItem("data");
