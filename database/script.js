@@ -147,7 +147,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Function to add a new student
   function addStudent(event) {
     event.preventDefault();
-    localStorage.setItem("goals"+students.length(), "");
+    localStorage.setItem(students.length+"goals", "");
     const firstname = document.getElementById("add-first-name").value;
     const lastname = document.getElementById("add-last-name").value;
     const studentId = document.getElementById("add-studentId").value;
