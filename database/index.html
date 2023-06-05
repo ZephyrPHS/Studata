@@ -4,8 +4,49 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
   <title>Student Database</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    body {margin:0;}
+    
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    
+    li {
+      float: left;
+    }
+    
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+      background-color: #111;
+    }
+    
+    .active {
+      background-color: #04AA6D;
+    }
+    </style>
 </head>
 <body>
+  <ul>
+    <li><a href="#database">Database</a></li>
+    <li><a href="#Help">Help</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+    <li style="float:right"><a class="active" href="#signout">Sign Out</a></li>
+  </ul>
   <h1>Student Database</h1>
   <form id="form"> 
     <input type="search" id="query" name="q" placeholder="Search...">
