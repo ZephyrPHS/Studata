@@ -49,7 +49,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       });
     } else {
       // If data exists, retrieve and parse it
-      let objectivesdata = localStorage.getItem(id + "objectives");
+      let objectivesdata = localStorage.getItem(id + "," + goalId + "objectives");
       let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
 
       // Remove the last empty element from the array
