@@ -105,11 +105,12 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     function addObjective(event) {
       event.preventDefault();
       const name = document.getElementById("add-name").value;
+      const progress = document.getElementById("add-progress").value;
 
       // Create a new objective object
       const objective = {
         name: name,
-        progress: "0/0",
+        progress: progress,
         notes: "",
         lastUpdated: new Date().toLocaleDateString()
       };
