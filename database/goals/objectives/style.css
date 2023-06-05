@@ -30,6 +30,7 @@ table td {
   padding: 8px;
   text-align: left;
   background: #eaebf1f3;
+  overflow:hidden;
 }
 form{
   font-family: Tahoma, sans-serif;
