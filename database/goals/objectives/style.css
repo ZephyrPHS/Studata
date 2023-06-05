@@ -26,6 +26,7 @@ table th{
   padding: 8px;
   text-align: left;
   background: #B9CDDA;
+  margin: 20px;
 }
 table td {
   border: 1px solid #2a3737;
@@ -33,6 +34,7 @@ table td {
   text-align: left;
   background: #eaebf1f3;
   overflow:hidden;
+  margin: 20px;
 }
 form{
   font-family: Tahoma, sans-serif;
@@ -45,34 +47,41 @@ form input[type = "text"]{
   width: 10%;
   padding: 5px;
   margin-top: 5px;
+  margin: 20px;
 }
 input[type="search"] {
   width: 10%;
   padding: 5px;
   margin-top: 5px;
+  margin: 20px;
 }
 button{
   width: 100px;
   height: 30px;
   background: #b9a8ce;
   border-radius: 10px;
+  margin: 20px;
 }
 form button {
   width: 100px;
   height: 30px;
   background: #b9a8ce;
   border-radius: 10px;
+  margin: 20px;
 }
 form label {
   margin-top: 10px;
+  margin: 20px;
 }
 
 form input[type="text"] {
   width: 10%;
   padding: 5px;
   margin-top: 5px;
+  margin: 20px;
 }
 
 form button {
   margin-top: 10px;
+  margin: 20px;
 }
