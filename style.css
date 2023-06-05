@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0;
   color: #222222;
-  background-color: #51636f;
+  background-color: #B9CDDA;
   /*background-image: url("");*/
   background-size: cover;
   background-repeat: no-repeat;
@@ -47,7 +47,7 @@ a:hover {
 }
 
 .form-body {
-  background-color: #B9CDDA;
+  background-color: #51636f;
   overflow: hidden;
   padding: 50px;
   color: #ffffff;
