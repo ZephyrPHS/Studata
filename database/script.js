@@ -3,7 +3,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   let students = [];
 
   // Check if data exists in localStorage
-  if (localStorage.getItem("data") == null) {
+  if (localStorage.getItem("data") === "") {
     // If no data exists, add a sample student
     students.push({ 
       firstname: "Sample",
