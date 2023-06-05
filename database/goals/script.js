@@ -25,7 +25,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     let goals = [];
 
     // Check if data exists in localStorage
-    if (localStorage.getItem(id + "goals") === null) {
+    if (localStorage.getItem(id + "goals") === null || localStorage.getItem(id + "goals") === "") {
       // If no data exists, add a sample goal
       goals.push({
         name: "Sample Goal",
