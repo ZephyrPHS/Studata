@@ -49,7 +49,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       });
     } else {
       // If data exists, retrieve and parse it
-      let objectivesdata = localStorage.getItem(id + "objectives");
+      let objectivesdata = localStorage.getItem(id + "," + goalId + "objectives");
       let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
 
       // Remove the last empty element from the array
@@ -105,12 +105,11 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     function addObjective(event) {
       event.preventDefault();
       const name = document.getElementById("add-name").value;
-      const progress = document.getElementById("add-progress").value;
 
       // Create a new objective object
       const objective = {
         name: name,
-        progress: progress,
+        progress: "Not started",
         notes: "",
         lastUpdated: new Date().toLocaleDateString()
       };
