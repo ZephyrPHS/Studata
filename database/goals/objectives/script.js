@@ -77,9 +77,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>
             <button onclick="editObjective(${index})">Edit</button>
           </td>
-          <td>
-            <a href="objectives?id=${id},${index}" class="objectives-link">${objective.name}</a>
-          </td>
+          <td>${objective.name}</td>
           <td>${objective.progress}</td>
           <td>
             <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${objective.notes}</textarea>
@@ -215,7 +213,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
       }
-      localStorage.setItem(id + "objectives", csvFile);
+      localStorage.setItem(id + "," + goalId + "objectives", csvFile);
     }
 
     // Event listener for the form submission
