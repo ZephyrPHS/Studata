@@ -29,7 +29,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       // If no data exists, add a sample objective
       objectives.push({
         name: "Sample Objective",
-        category: "Math",
         progress: "0/0",
         notes: "",
         lastUpdated: new Date().toLocaleDateString()
@@ -46,10 +45,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       objectivesarray.forEach((objective) => {
         objectives.push({
           name: objective[0],
-          category: objective[1],
-          progress: objective[2],
-          notes: objective[3],
-          lastUpdated: new Date(objective[4]).toLocaleDateString()
+          progress: objective[1],
+          notes: objective[2],
+          lastUpdated: new Date(objective[3]).toLocaleDateString()
         });
       });
     }
@@ -68,7 +66,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           <td>
             <a href="objectives?id=${id},${index}" class="objectives-link">${objective.name}</a>
           </td>
-          <td>${objective.category}</td>
           <td>${objective.progress}</td>
           <td>
             <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${objective.notes}</textarea>
@@ -83,7 +80,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       objectives.forEach((objective) => {
         objectives2D.push([
           objective.name,
-          objective.category,
           objective.progress,
           objective.notes,
           objective.lastUpdated
@@ -97,12 +93,10 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     function addObjective(event) {
       event.preventDefault();
       const name = document.getElementById("add-name").value;
-      const category = document.getElementById("add-category").value;
 
       // Create a new objective object
       const objective = {
         name: name,
-        category: category,
         progress: "0/0",
         notes: "",
         lastUpdated: new Date().toLocaleDateString()
@@ -132,9 +126,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             <td>
               <input type="text" value="${objective.name}" id="edit-name-${index}" required>
             </td>
-            <td>
-              <input type="text" value="${objective.category}" id="edit-category-${index}" required>
-            </td>
             <td>${objective.progress}</td>
             <td>
               <textarea rows="2" cols="20" id="edit-notes-${objectiveIndex}">${objective.notes}</textarea>
@@ -147,7 +138,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               <button onclick="editObjective(${objectiveIndex})">Edit</button>
             </td>
             <td>${objective.name}</td>
-            <td>${objective.category}</td>
             <td>${objective.progress}</td>
             <td>
               <textarea rows="2" cols="20" id="edit-notes-${objectiveIndex}" readonly>${objective.notes}</textarea>
@@ -163,12 +153,10 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     // Function to replace objective data
     function replaceObjective(index) {
       const name = document.getElementById(`edit-name-${index}`).value;
-      const category = document.getElementById(`edit-category-${index}`).value;
       const notes = document.getElementById(`edit-notes-${index}`).value;
 
       objectives[index] = {
         name: name,
-        category: category,
         progress: objectives[index].progress,
         notes: notes,
         lastUpdated: new Date().toLocaleDateString()
