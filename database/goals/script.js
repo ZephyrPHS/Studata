@@ -68,9 +68,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             });
           });
         }
-      }
+        renderGoals();
+      }      
     });
-    renderGoals();
   });
   // Function to render the goals list
   function renderGoals() {
