@@ -17,7 +17,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Check if data exists in firebase
   database.ref('studentData').once('value', function(snapshot) {
     var firebaseData = snapshot.val();
-    var csv = firebaseData.name;
+    var csv = localStorage.get("data");
     console.log(firebaseData);
     console.log(csv);
     if (csv === "" || csv === null) {
@@ -226,6 +226,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     database.ref('studentData').set({
       name: csvFile
     });
+    localStorage.set("data",csvFile);
   }
 
   // Event listener for the form submission
