@@ -211,9 +211,7 @@ var database = firebase.database();
     for (var i = 0; i < rows.length; i++) {
       csvFile += processRow(rows[i]);
     }
-    database.ref('studentData').set({
-      name: csvFile
-    });
+    database.ref("studentData").child("data").set(csvFile);
     localStorage.setItem("data", csvFile);
   }
 
