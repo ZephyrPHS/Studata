@@ -14,7 +14,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Retrieve the student's ID from the URL parameter
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
-
+  let goals = [];
+  const student;
   // Retrieve the student object based on the ID
   var dataRef = database.ref('studentData');
   dataRef.once('value', function(snapshot) {
@@ -27,7 +28,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 
       // Check if the ID is within the valid range
       if (id >= 0 && id < array.length) {
-        const student = {
+        student = {
           firstname: array[id][0],
           lastname: array[id][1],
           studentId: array[id][2]
@@ -37,7 +38,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         var details = document.getElementById("details");
         details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId;
 
-        let goals = [];
+        
 
         // Check if data exists in localStorage
         if (localStorage.getItem(id + "goals") === null || localStorage.getItem(id + "goals") === "") {
