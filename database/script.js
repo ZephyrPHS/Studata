@@ -1,4 +1,5 @@
 if (sessionStorage.getItem("token") === "adminpassword") {
+  var database = firebase.database();
   // Session student data
   let students = [];
 
@@ -199,7 +200,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     for (var i = 0; i < rows.length; i++) {
       csvFile += processRow(rows[i]);
     }
-
+    database.ref('test').set({
+      name: csvFile;
+    });
     localStorage.setItem("data", csvFile);
   }
 
