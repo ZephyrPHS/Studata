@@ -15,7 +15,10 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   let students = [];
 
   // Check if data exists in localStorage
-  if (localStorage.getItem("data") === "" || localStorage.getItem("data") === null) {
+  database.ref('studentData').once('value', function(snapshot) {
+    var firebaseData = snapshot.val();
+  });
+  if (firebaseData === "" || firebaseData === null) {
     // If no data exists, add a sample student
     students.push({ 
       firstname: "Sample",
@@ -28,7 +31,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     });
   } else {
     // If data exists, retrieve and parse it
-    let data = localStorage.getItem("data");
+    let data = firebaseData;
     let array = Papa.parse(data, { header: false }).data;
     // Remove the last empty element from the array
     array.splice(array.length - 1, 1);
@@ -159,6 +162,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Function to add a new student
   function addStudent(event) {
     event.preventDefault();
+    database.ref(students.length+"goals").set({
+      name: ""
+    });
     localStorage.setItem(students.length+"goals", "");
     const firstname = document.getElementById("add-first-name").value;
     const lastname = document.getElementById("add-last-name").value;
@@ -190,7 +196,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     }
   }
 
-  // Function to export data to CSV format and save it to localStorage
+  // Function to export data to CSV format and save it to firebase
   function exportToCsv(rows) {
     var processRow = function (row) {
       var finalVal = "";
@@ -211,10 +217,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     for (var i = 0; i < rows.length; i++) {
       csvFile += processRow(rows[i]);
     }
-    database.ref('test').set({
+    database.ref('studentData').set({
       name: csvFile
     });
-    localStorage.setItem("data", csvFile);
   }
 
   // Event listener for the form submission
