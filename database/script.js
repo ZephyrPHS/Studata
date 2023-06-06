@@ -15,7 +15,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   let students = [];
 
   // Check if data exists in firebase
-  database.ref('studentData').on('value', function(snapshot) {
+  database.ref('studentData').once('value', function(snapshot) {
     var firebaseData = snapshot.val();
     var csvFile = firebaseData.name;
     console.log(firebaseData);
