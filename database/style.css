@@ -38,7 +38,8 @@ table td {
 
 form label {
   margin-top: 10px;
-  margin: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
 form input[type="text"] {
