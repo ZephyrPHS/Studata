@@ -15,7 +15,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   let goals = [];
-  const student;
+  const student = {};
   // Retrieve the student object based on the ID
   var dataRef = database.ref('studentData');
   dataRef.once('value', function(snapshot) {
