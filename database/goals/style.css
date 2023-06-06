@@ -51,12 +51,14 @@ form input[type = "text"]{
   width: 10%;
   padding: 5px;
   margin-top: 5px;
-  margin-left: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 input[type="search"] {
   width: 10%;
   padding: 5px;
   margin-top: 5px;
+  margin-left: 20px;
 }
 button{
   width: 100px;
