@@ -38,38 +38,42 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         var details = document.getElementById("details");
         details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId;
 
-        
+        var goalDataRef = database.ref(id+'goals');
+        goalDataRef.once('value', function(goalSnapshot) {
+          goalSnapshot.forEach(function(goalChildSnapshot) {
+            var goalChildData = goalChildSnapshot.val();
 
-        // Check if data exists in localStorage
-        if (localStorage.getItem(id + "goals") === null || localStorage.getItem(id + "goals") === "") {
-          // If no data exists, add a sample goal
-          goals.push({
-            name: "Sample Goal",
-            category: "Math",
-            progress: "0/0",
-            notes: "",
-            lastUpdated: new Date().toLocaleDateString()
+            // Check if data exists in localStorage
+            if (goalChildData === null && goalChildData === "") {
+              // If no data exists, add a sample goal
+              goals.push({
+                name: "Sample Goal",
+                category: "Math",
+                progress: "0/0",
+                notes: "",
+                lastUpdated: new Date().toLocaleDateString()
+              });
+            } else {
+              // If data exists, retrieve and parse it
+              let goalsarray = Papa.parse(goalChildData, { header: false }).data;
+
+              // Remove the last empty element from the array
+              goalsarray.splice(goalsarray.length - 1, 1);
+
+              // Convert each line of data into a goal object and add it to the goals array
+              goalsarray.forEach((goal) => {
+                goals.push({
+                  name: goal[0],
+                  category: goal[1],
+                  progress: goal[2],
+                  notes: goal[3],
+                  lastUpdated: new Date(goal[4]).toLocaleDateString()
+                });
+              });
+            }
+            renderGoals();
           });
-        } else {
-          // If data exists, retrieve and parse it
-          let goalsdata = localStorage.getItem(id + "goals");
-          let goalsarray = Papa.parse(goalsdata, { header: false }).data;
-
-          // Remove the last empty element from the array
-          goalsarray.splice(goalsarray.length - 1, 1);
-
-          // Convert each line of data into a goal object and add it to the goals array
-          goalsarray.forEach((goal) => {
-            goals.push({
-              name: goal[0],
-              category: goal[1],
-              progress: goal[2],
-              notes: goal[3],
-              lastUpdated: new Date(goal[4]).toLocaleDateString()
-            });
-          });
-        }
-        renderGoals();
+        });
       }      
     });
   });
