@@ -20,8 +20,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   dataRef.once('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
-      let data = childData;
-      let array = Papa.parse(data, { header: false }).data;
+      let array = Papa.parse(childData, { header: false }).data;
 
       // Remove the last empty element from the array
       array.splice(array.length - 1, 1);
@@ -67,7 +66,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               notes: goal[3],
               lastUpdated: new Date(goal[4]).toLocaleDateString()
             });
-          });
+          }
         }
       });
     });
