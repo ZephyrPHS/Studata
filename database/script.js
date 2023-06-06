@@ -15,46 +15,43 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   let students = [];
 
   // Check if data exists in firebase
- database.ref('studentData').on('value')
-    .then(function(snapshot) {
-      var firebaseData = snapshot.val();
-      console.log(firebaseData);
-      if (firebaseData.name === "" || firebaseData.name === null) {
-        // If no data exists, add a sample student
-        students.push({ 
-          firstname: "Sample",
-          lastname: "Name",
-          studentId: "000000",
-          gradeLevel: "9",
-          primaryDisability: "SLD",
-          caseManager: "admin",
-          lastAnnualReview: new Date().toLocaleDateString()
+  database.ref('studentData').on('value', function(snapshot) {
+    var firebaseData = snapshot.val();
+    if (!firebaseData || firebaseData.name === "" || firebaseData.name === null) {
+      // If no data exists, add a sample student
+      students.push({ 
+        firstname: "Sample",
+        lastname: "Name",
+        studentId: "000000",
+        gradeLevel: "9",
+        primaryDisability: "SLD",
+        caseManager: "admin",
+        lastAnnualReview: new Date().toLocaleDateString()
+      });
+    } else {
+      // If data exists, retrieve and parse it
+      let data = firebaseData.name;
+      let array = Papa.parse(data, { header: false }).data;
+      // Remove the last empty element from the array
+      array.splice(array.length - 1, 1);
+      // Convert each line of data into a student object and add it to the students array
+      array.forEach((student) => {
+        students.push({
+          firstname: student[0],
+          lastname: student[1],
+          studentId: student[2],
+          gradeLevel: student[3],
+          primaryDisability: student[4],
+          caseManager: student[5],
+          lastAnnualReview: student[6]
         });
-      } else {
-        // If data exists, retrieve and parse it
-        let data = firebaseData.name;
-        let array = Papa.parse(data, { header: false }).data;
-        // Remove the last empty element from the array
-        array.splice(array.length - 1, 1);
-        // Convert each line of data into a student object and add it to the students array
-        array.forEach((student) => {
-          students.push({
-            firstname: student[0],
-            lastname: student[1],
-            studentId: student[2],
-            gradeLevel: student[3],
-            primaryDisability: student[4],
-            caseManager: student[5],
-            lastAnnualReview: student[6]
-          });
-        });
-      }
-      // Render the student list
-      renderStudents();
-    })
-    .catch(function(error) {
-      console.error(error);
-    });
+      });
+    }
+    // Render the student list
+    renderStudents();
+  }, function(error) {
+    console.error(error);
+  });
   // Function to render the student list
   function renderStudents() {
     const studentList = document.getElementById("student-list");
