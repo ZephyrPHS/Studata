@@ -15,7 +15,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   let students = [];
 
   // Check if data exists in firebase
- database.ref('studentData').once('value'){
+ database.ref('studentData').once('value')
     .then(function(snapshot) {
       var firebaseData = snapshot.val();
       if (firebaseData === "" || firebaseData === null) {
@@ -54,7 +54,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     .catch(function(error) {
       console.error(error);
     });
-  }
   // Function to render the student list
   function renderStudents() {
     const studentList = document.getElementById("student-list");
