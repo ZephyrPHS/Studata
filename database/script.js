@@ -8,44 +8,49 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     messagingSenderId: "236682966409",
     appId: "1:236682966409:web:96428f11dff8fa4f751d58",
     measurementId: "G-NEPJNZ2VC2"
-};
-firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
+  };
+  firebase.initializeApp(firebaseConfig);
+  var database = firebase.database();
   // Session student data
   let students = [];
+  var dataRef = database.ref('studentData');
+  dataRef.once('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val();
 
-  // Check if data exists in localStorage
-  if (localStorage.getItem("data") === "" || localStorage.getItem("data") === null) {
-    // If no data exists, add a sample student
-    students.push({ 
-      firstname: "Sample",
-      lastname: "Name",
-      studentId: "000000",
-      gradeLevel: "9",
-      primaryDisability: "SLD",
-      caseManager: "admin",
-      lastAnnualReview: new Date().toLocaleDateString()
+      // Check if data exists in localStorage
+      if (childData === "" || childData === null) {
+        // If no data exists, add a sample student
+        students.push({ 
+          firstname: "Sample",
+          lastname: "Name",
+          studentId: "000000",
+          gradeLevel: "9",
+          primaryDisability: "SLD",
+          caseManager: "admin",
+          lastAnnualReview: new Date().toLocaleDateString()
+        });
+      } else {
+        // If data exists, retrieve and parse it
+        let data = childData;
+        let array = Papa.parse(data, { header: false }).data;
+        // Remove the last empty element from the array
+        array.splice(array.length - 1, 1);
+        // Convert each line of data into a student object and add it to the students array
+        array.forEach((student) => {
+          students.push({
+            firstname: student[0],
+            lastname: student[1],
+            studentId: student[2],
+            gradeLevel: student[3],
+            primaryDisability: student[4],
+            caseManager: student[5],
+            lastAnnualReview: student[6]
+          });
+        });
+      }
     });
-  } else {
-    // If data exists, retrieve and parse it
-    let data = localStorage.getItem("data");
-    let array = Papa.parse(data, { header: false }).data;
-    // Remove the last empty element from the array
-    array.splice(array.length - 1, 1);
-    // Convert each line of data into a student object and add it to the students array
-    array.forEach((student) => {
-      students.push({
-        firstname: student[0],
-        lastname: student[1],
-        studentId: student[2],
-        gradeLevel: student[3],
-        primaryDisability: student[4],
-        caseManager: student[5],
-        lastAnnualReview: student[6]
-      });
-    });
-  }
-
+  });
   // Function to render the student list
   function renderStudents() {
     const studentList = document.getElementById("student-list");
