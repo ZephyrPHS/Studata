@@ -80,7 +80,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               });
             });
           }
-          renderGoals();
+          renderObjectives();
         } else {
         alert("Invalid goal ID");
         }
