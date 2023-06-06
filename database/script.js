@@ -12,7 +12,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
   // Session student data
-  database.ref("studentData").child("data").set("");
   let students = [];
   var dataRef = database.ref('studentData');
   dataRef.once('value', function(snapshot) {
