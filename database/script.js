@@ -18,7 +18,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   database.ref('studentData').once('value', function(snapshot) {
     var firebaseData = snapshot.val();
   });
-  if (firebaseData === "" || firebaseData === null) {
+  if (firebaseData.name === "" || firebaseData.name === null) {
     // If no data exists, add a sample student
     students.push({ 
       firstname: "Sample",
@@ -31,7 +31,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     });
   } else {
     // If data exists, retrieve and parse it
-    let data = firebaseData;
+    let data = firebaseData.name;
     let array = Papa.parse(data, { header: false }).data;
     // Remove the last empty element from the array
     array.splice(array.length - 1, 1);
