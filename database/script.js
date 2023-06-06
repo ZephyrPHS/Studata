@@ -17,9 +17,10 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Check if data exists in firebase
   database.ref('studentData').once('value', function(snapshot) {
     var firebaseData = snapshot.val();
-    var csvFile = firebaseData.name;
+    var csv = firebaseData.name;
     console.log(firebaseData);
-    if (csvFile === "" || csvFile === null) {
+    console.log(csv);
+    if (csv === "" || csv === null) {
       // If no data exists, add a sample student
       students.push({ 
         firstname: "Sample",
@@ -32,7 +33,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       });
     } else {
       // If data exists, retrieve and parse it
-      let data = csvFile;
+      let data = csv;
       let array = Papa.parse(data, { header: false }).data;
       // Remove the last empty element from the array
       array.splice(array.length - 1, 1);
