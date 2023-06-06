@@ -18,7 +18,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
  database.ref('studentData').once('value')
     .then(function(snapshot) {
       var firebaseData = snapshot.val();
-      console.log firebaseData;
+      console.log(firebaseData);
       if (firebaseData.name === "" || firebaseData.name === null) {
         // If no data exists, add a sample student
         students.push({ 
