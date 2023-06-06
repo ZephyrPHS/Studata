@@ -14,12 +14,12 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Session student data
   let students = [];
   var dataRef = database.ref('studentData');
-  dataRef.on('value', function(snapshot) {
+  dataRef.once('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
 
       // Check if data exists in localStorage
-      if (childData === "" || childData === null) {
+      if (childData.data === "" || childData.data === null) {
         // If no data exists, add a sample student
         students.push({ 
           firstname: "Sample",
@@ -32,7 +32,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         });
       } else {
         // If data exists, retrieve and parse it
-        let data = childData;
+        let data = childData.data;
         let array = Papa.parse(data, { header: false }).data;
         // Remove the last empty element from the array
         array.splice(array.length - 1, 1);
