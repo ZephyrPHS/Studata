@@ -15,40 +15,38 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   let students = [];
   var dataRef = database.ref('studentData');
   dataRef.once('value', function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      var childData = childSnapshot.val();
+    var fireData = snapshot.val();
 
-      // Check if data exists in localStorage
-      if (childData.name === "" || childData.name === null) {
-        // If no data exists, add a sample student
-        students.push({ 
-          firstname: "Sample",
-          lastname: "Name",
-          studentId: "000000",
-          gradeLevel: "9",
-          primaryDisability: "SLD",
-          caseManager: "admin",
-          lastAnnualReview: new Date().toLocaleDateString()
+    // Check if data exists in localStorage
+    if (fireData.name === "" || fireData.name === null) {
+      // If no data exists, add a sample student
+      students.push({ 
+        firstname: "Sample",
+        lastname: "Name",
+        studentId: "000000",
+        gradeLevel: "9",
+        primaryDisability: "SLD",
+        caseManager: "admin",
+        lastAnnualReview: new Date().toLocaleDateString()
+      });
+    } else {
+      // If data exists, retrieve and parse it
+      let data = fireData.name;
+      let array = Papa.parse(data, { header: false }).data;
+      // Remove the last empty element from the array
+      array.splice(array.length - 1, 1);
+      // Convert each line of data into a student object and add it to the students array
+      array.forEach((student) => {
+        students.push({
+          firstname: student[0],
+          lastname: student[1],
+          studentId: student[2],
+          gradeLevel: student[3],
+          primaryDisability: student[4],
+          caseManager: student[5],
+          lastAnnualReview: student[6]
         });
-      } else {
-        // If data exists, retrieve and parse it
-        let data = childData.name;
-        let array = Papa.parse(data, { header: false }).data;
-        // Remove the last empty element from the array
-        array.splice(array.length - 1, 1);
-        // Convert each line of data into a student object and add it to the students array
-        array.forEach((student) => {
-          students.push({
-            firstname: student[0],
-            lastname: student[1],
-            studentId: student[2],
-            gradeLevel: student[3],
-            primaryDisability: student[4],
-            caseManager: student[5],
-            lastAnnualReview: student[6]
-          });
-        });
-      }
+      });
     });
     renderStudents();
   });
@@ -218,7 +216,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       csvFile += processRow(rows[i]);
     }
     var newData = { name: csvFile };
-    database.ref("studentData").child("data").set(newData);
+    database.ref("studentData").set(newData);
     localStorage.setItem("data", csvFile);
   }
 
