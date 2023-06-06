@@ -1,20 +1,20 @@
 body {
   font-family: Tahoma, sans-serif;
-  margin: 20px;
 }
 
 h1 {
   text-align: center;
   height: 50px;
-
+  margin: 20px;
   background: #B9CDDA;
-  }
+}
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
   border: 1px solid #3c5157;
+  margin: 20px;
 }
 
 table th{
@@ -23,6 +23,7 @@ table th{
   text-align: left;
   background: #B9CDDA;
 }
+
 table td {
   border: 1px solid #2a3737;
   padding: 8px;
@@ -32,6 +33,7 @@ table td {
 
 form label {
   margin-top: 10px;
+  margin: 20px;
 }
 
 form input[type="text"] {
@@ -39,6 +41,7 @@ form input[type="text"] {
   padding: 5px;
   margin-top: 5px;
 }
+
 input[type="search"] {
   width: 10%;
   padding: 5px;
@@ -46,12 +49,12 @@ input[type="search"] {
 }
 
 button {
-  
   width: 100px;
   height: 30px;
   background: #b9a8ce;
   border-radius: 10px;
 }
+
 /*student name link css*/
 a.student-link {
   color: inherit;
