@@ -74,7 +74,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             renderGoals();
           });
         });
-      }      
+      } else {
+        alert("Invalid student ID");
+      }     
     });
   });
   // Function to render the goals list
