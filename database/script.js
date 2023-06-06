@@ -201,7 +201,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       csvFile += processRow(rows[i]);
     }
     database.ref('test').set({
-      name: csvFile;
+      name: csvFile
     });
     localStorage.setItem("data", csvFile);
   }
