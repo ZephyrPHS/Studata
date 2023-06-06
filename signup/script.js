@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Please enter both username and password.');
       } else {
         // perform account creation logic
+        if (!(username === "admin") && !(password === "password")) { // "admin" and "password" should be all existing usernames and passwords
+          alert('Account creation request has been sent to the RTSE and is waiting approval. You may close this page.'); // send request to RTSE
+        }
+        else {
+          alert('This username already exists, please enter a new username.');
+        }
       }
     });
   });
