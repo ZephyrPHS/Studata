@@ -32,7 +32,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     if (goalId >= 0 && goalId < goalsarray.length) {
     }
     // Remove the last empty element from the array
-    array.splice(array.length - 1, 1);
+    goalsarray.splice(array.length - 1, 1);
     
     const student = {
       firstname: array[id][0],
