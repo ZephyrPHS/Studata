@@ -72,29 +72,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       goalsList.innerHTML = "";
 
       goals.forEach((goal, index) => {
-        const progress = "";
-        if (localStorage.getItem(id + "," + index + "objectives") === null || localStorage.getItem(id + "," + index + "objectives") === "") {
-          progress = "0/0";
-        } else {
-          const num = 0;
-          const den = 0;
-          // If data exists, retrieve and parse it
-          let objectivesdata = localStorage.getItem(id + "," + index + "objectives");
-          let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
-
-          // Remove the last empty element from the array
-          objectivesarray.splice(objectivesarray.length - 1, 1);
-
-          // Convert each line of data into an objective object and add it to the objectives array
-          objectivesarray.forEach((objective) => {
-            if(objective[1] === "Completed"){
-              num++;
-            }
-            den++;
-          });
-          progress = num+"/"+den;
-        }
-        goal.progress = progress;
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>
