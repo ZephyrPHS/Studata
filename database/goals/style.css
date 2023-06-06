@@ -50,6 +50,7 @@ form input[type = "text"]{
   width: 10%;
   padding: 5px;
   margin-top: 5px;
+  margin-left: 20px;
 }
 input[type="search"] {
   width: 10%;
