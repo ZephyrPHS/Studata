@@ -193,19 +193,18 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     // Function to export data to CSV
     function exportData(event) {
       event.preventDefault();
-      let students2D = [];
-      students.forEach((student) => {
-        students2D.push([
-          student.firstname,
-          student.lastname,
-          student.studentId,
-          student.gradeLevel,
-          student.primaryDisability,
-          student.caseManager,
-          student.lastAnnualReview
+      let goals2D = [];
+      goals2D.push([student.firstname,student.lastname,student.studentId]);
+      goals.forEach((goal) => {
+        goals2D.push([
+          goal.name,
+          goal.category,
+          goal.progress,
+          goal.notes,
+          goal.lastUpdated
         ]);
       });
-      exportToCsv(students2D, 1);
+      exportToCsv(goals2D, 1);
     }
     
     function exportToCsv(rows, download) {
