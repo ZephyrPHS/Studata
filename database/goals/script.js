@@ -16,9 +16,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   const id = urlParams.get("id");
 
   // Retrieve the student object based on the ID
-  database.ref('data').on('value', function(snapshot) {
-    var data = snapshot.val();
-  });
+  let data = localStorage.getItem("data");
   let array = Papa.parse(data, { header: false }).data;
 
   // Remove the last empty element from the array
@@ -39,11 +37,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     let goals = [];
 
     // Check if data exists in localStorage
-    database.ref(id + "goals").on('value', function(snapshot) {
-      var firebaseGoals = snapshot.val();
-      console.log(user);
-    });
-    if (firebaseGoals === null || firebaseGoals === "") {
+    if (localStorage.getItem(id + "goals") === null || localStorage.getItem(id + "goals") === "") {
       // If no data exists, add a sample goal
       goals.push({
         name: "Sample Goal",
@@ -54,7 +48,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       });
     } else {
       // If data exists, retrieve and parse it
-      let goalsdata = firebaseGoals;
+      let goalsdata = localStorage.getItem(id + "goals");
       let goalsarray = Papa.parse(goalsdata, { header: false }).data;
       
       // Remove the last empty element from the array
@@ -268,9 +262,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           navigator.msSaveBlob(blob, "students.csv");
         }
       } else {
-        database.ref(id + "goals").set({
-          name: csvFile
-        });
         localStorage.setItem(id + "goals", csvFile);
       }
     }
