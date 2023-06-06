@@ -122,7 +122,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 
       goals.push(goal);
       renderGoals();
-
+      
+      localStorage.setItem(id + "," + goalId + "objectives", "");
       // Reset the form
       document.getElementById("add-goal-form").reset();
     }
