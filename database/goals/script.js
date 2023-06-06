@@ -79,7 +79,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           const num = 0;
           const den = 0;
           // If data exists, retrieve and parse it
-          let objectivesdata = localStorage.getItem(id + "," + goalId + "objectives");
+          let objectivesdata = localStorage.getItem(id + "," + index + "objectives");
           let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
 
           // Remove the last empty element from the array
@@ -94,6 +94,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           });
           progress = num+"/"+den;
         }
+        goal.progress = progress;
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>
@@ -103,7 +104,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             <a href="objectives?id=${id}&goalId=${index}" class="goal-link">${goal.name}</a>
           </td>
           <td>${goal.category}</td>
-          <td>${progress}</td>
+          <td>${goal.progress}</td>
           <td>
             <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${goal.notes}</textarea>
           </td>
