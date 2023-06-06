@@ -54,7 +54,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       // If no data exists, add a sample objective
       objectives.push({
         name: "Sample Objective",
-        progress: "0/0",
+        progress: "Not started",
         notes: "",
         lastUpdated: new Date().toLocaleDateString()
       });
