@@ -285,6 +285,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           navigator.msSaveBlob(blob, "students.csv");
         }
       } else {
+        database.ref(id + "goals").child("data").set(csvFile);
         localStorage.setItem(id + "goals", csvFile);
       }
     }
