@@ -236,7 +236,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 
     // Event listener for the form submission
     document.getElementById("add-objective-form").addEventListener("submit", addObjective);
-    document.getElementById("back-goal").addEventListener("submit", function() {
+    document.getElementById("back-goal").addEventListener("click", function() {
       window.location.href = "https://zephyrphs.github.io/Studata/database/goals/";
     });
     // Initial rendering of the objectives list
