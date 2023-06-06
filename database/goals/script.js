@@ -74,7 +74,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       goals.forEach((goal, index) => {
         let progress = "";
         if (localStorage.getItem(id + "," + index + "objectives") === null || localStorage.getItem(id + "," + index + "objectives") === "") {
-          progress = "0/0";
+          progress = "0/1";
         } else {
           let num = 0;
           let den = 0;
