@@ -242,7 +242,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   }
 
   // Event listener for the form submission
-  document.getElementById("export-student-data").addEventListener("submit", exportData);
   document.getElementById("add-student-form").addEventListener("submit", addStudent);
 
   // Initial rendering of the student list
