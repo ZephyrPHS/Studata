@@ -31,59 +31,68 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       if (id >= 0 && id < array.length) {
 
         // Retrieve the goal object based on the ID
-        let goalsdata = localStorage.getItem(id+"goals");
-        let goalsarray = Papa.parse(goalsdata, { header: false }).data; 
+        var goalDataRef = database.ref(id+'goals');
+        goalDataRef.once('value', function(goalSnapshot) {
+          goalSnapshot.forEach(function(goalChildSnapshot) {
+            var goalChildData = goalChildSnapshot.val();
+            let goalsarray = Papa.parse(goalChildData, { header: false }).data; 
 
-        if (goalId >= 0 && goalId < goalsarray.length) {
-          // Remove the last empty element from the array
-          goalsarray.splice(array.length - 1, 1);
+            if (goalId >= 0 && goalId < goalsarray.length) {
+              // Remove the last empty element from the array
+              goalsarray.splice(array.length - 1, 1);
 
-          student = {
-            firstname: array[id][0],
-            lastname: array[id][1],
-            studentId: array[id][2]
-          };
-          goal = {
-            name: goalsarray[goalId][0],
-          };
+              student = {
+                firstname: array[id][0],
+                lastname: array[id][1],
+                studentId: array[id][2]
+              };
+              goal = {
+                name: goalsarray[goalId][0],
+              };
 
-          // Display the additional details
-          var details = document.getElementById("details");
-          details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId + " " + goal.name;
+              // Display the additional details
+              var details = document.getElementById("details");
+              details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId + " " + goal.name;
 
-          
 
-          // Check if data exists in localStorage
-          if (localStorage.getItem(id + "," + goalId + "objectives") === null || localStorage.getItem(id + "," + goalId + "objectives") === "") {
-            // If no data exists, add a sample objective
-            objectives.push({
-              name: "Sample Objective",
-              progress: "Not started",
-              notes: "",
-              lastUpdated: new Date().toLocaleDateString()
-            });
-          } else {
-            // If data exists, retrieve and parse it
-            let objectivesdata = localStorage.getItem(id + "," + goalId + "objectives");
-            let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
+              var objectiveDataRef = database.ref(id + "," + goalId + "objectives");
+              objectiveDataRef.once('value', function(objectiveSnapshot) {
+                objectiveSnapshot.forEach(function(objectiveChildSnapshot) {
+                  var objectiveChildData = objectiveChildSnapshot.val();
+                  // Check if data exists in localStorage
+                  if (objectiveChildData === null && objectiveChildData === "") {
+                    // If no data exists, add a sample objective
+                    objectives.push({
+                      name: "Sample Objective",
+                      progress: "Not started",
+                      notes: "",
+                      lastUpdated: new Date().toLocaleDateString()
+                    });
+                  } else {
+                    // If data exists, retrieve and parse it
+                    let objectivesarray = Papa.parse(objectiveChildData, { header: false }).data;
 
-            // Remove the last empty element from the array
-            objectivesarray.splice(objectivesarray.length - 1, 1);
+                    // Remove the last empty element from the array
+                    objectivesarray.splice(objectivesarray.length - 1, 1);
 
-            // Convert each line of data into an objective object and add it to the objectives array
-            objectivesarray.forEach((objective) => {
-              objectives.push({
-                name: objective[0],
-                progress: objective[1],
-                notes: objective[2],
-                lastUpdated: new Date(objective[3]).toLocaleDateString()
+                    // Convert each line of data into an objective object and add it to the objectives array
+                    objectivesarray.forEach((objective) => {
+                      objectives.push({
+                        name: objective[0],
+                        progress: objective[1],
+                        notes: objective[2],
+                        lastUpdated: new Date(objective[3]).toLocaleDateString()
+                      });
+                    });
+                  }
+                  renderObjectives();
+                });
               });
-            });
-          }
-          renderObjectives();
-        } else {
-        alert("Invalid goal ID");
-        }
+            } else {
+            alert("Invalid goal ID");
+            }
+          });
+        });
       } else {
         alert("Invalid student ID");
       }
