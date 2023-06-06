@@ -178,24 +178,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     }
   }
 
-  // Function to export data to CSV
-  function exportData(event) {
-    event.preventDefault();
-    let students2D = [];
-    students.forEach((student) => {
-      students2D.push([
-        student.firstname,
-        student.lastname,
-        student.studentId,
-        student.gradeLevel,
-        student.primaryDisability,
-        student.caseManager,
-        student.lastAnnualReview
-      ]);
-    });
-    exportToCsv("students.csv", students2D, 1);
-  }
-
   // Function to export data to CSV format and save it to localStorage
   function exportToCsv(filename, rows, download) {
     var processRow = function (row) {
