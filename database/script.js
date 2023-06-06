@@ -8,9 +8,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     messagingSenderId: "236682966409",
     appId: "1:236682966409:web:96428f11dff8fa4f751d58",
     measurementId: "G-NEPJNZ2VC2"
-};
-firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
+  };
+  firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
   // Session student data
   let students = [];
