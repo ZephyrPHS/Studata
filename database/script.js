@@ -19,7 +19,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       var childData = childSnapshot.val();
 
       // Check if data exists in localStorage
-      if (childData.data === "" || childData.data === null) {
+      if (childData.name === "" || childData.name === null) {
         // If no data exists, add a sample student
         students.push({ 
           firstname: "Sample",
@@ -32,7 +32,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         });
       } else {
         // If data exists, retrieve and parse it
-        let data = childData.data;
+        let data = childData.name;
         let array = Papa.parse(data, { header: false }).data;
         // Remove the last empty element from the array
         array.splice(array.length - 1, 1);
@@ -217,7 +217,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     for (var i = 0; i < rows.length; i++) {
       csvFile += processRow(rows[i]);
     }
-    database.ref("studentData").child("data").set(csvFile);
+    var newData = { name: csvFile };
+    database.ref("studentData").child("data").set(newData);
     localStorage.setItem("data", csvFile);
   }
 
