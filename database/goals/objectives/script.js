@@ -243,6 +243,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
       }
+      database.ref(id + "," + goalId + "objectives").child("data").set(csvFile);
       localStorage.setItem(id + "," + goalId + "objectives", csvFile);
     }
 
