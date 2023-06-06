@@ -14,7 +14,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Session student data
   let students = [];
   var dataRef = database.ref('studentData');
-  dataRef.on('value', function(snapshot) {
+  dataRef.once('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
 
