@@ -11,7 +11,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 };
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
-  var database = firebase.database();
   // Session student data
   let students = [];
 
