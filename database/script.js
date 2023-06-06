@@ -31,7 +31,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         });
       } else {
         // If data exists, retrieve and parse it
-        let data = firebaseData.name; // Assuming the data is stored under a 'name' key
+        let data = firebaseData.name;
         let array = Papa.parse(data, { header: false }).data;
         // Remove the last empty element from the array
         array.splice(array.length - 1, 1);
