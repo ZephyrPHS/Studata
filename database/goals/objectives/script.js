@@ -15,68 +15,80 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   const goalId = urlParams.get("goalId");
-  // Retrieve the student object based on the ID
-  let data = localStorage.getItem("data");
-  let array = Papa.parse(data, { header: false }).data;
+  let objectives = [];
+  let goal = {};
+  let student = {};
+  var dataRef = database.ref('studentData');
+  dataRef.once('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var childData = childSnapshot.val();
+      let array = Papa.parse(childData, { header: false }).data;
   
-  // Remove the last empty element from the array
-  array.splice(array.length - 1, 1);
-
-  // Check if the ID is within the valid range
-  if (id >= 0 && id < array.length) {
-    
-    // Retrieve the goal object based on the ID
-    let goalsdata = localStorage.getItem(id+"goals");
-    let goalsarray = Papa.parse(goalsdata, { header: false }).data; 
-    
-    if (goalId >= 0 && goalId < goalsarray.length) {
-    }
-    // Remove the last empty element from the array
-    goalsarray.splice(array.length - 1, 1);
-    
-    const student = {
-      firstname: array[id][0],
-      lastname: array[id][1],
-      studentId: array[id][2]
-    };
-    const goal = {
-      name: goalsarray[goalId][0],
-    };
-
-    // Display the additional details
-    var details = document.getElementById("details");
-    details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId + " " + goal.name;
-
-    let objectives = [];
-
-    // Check if data exists in localStorage
-    if (localStorage.getItem(id + "," + goalId + "objectives") === null || localStorage.getItem(id + "," + goalId + "objectives") === "") {
-      // If no data exists, add a sample objective
-      objectives.push({
-        name: "Sample Objective",
-        progress: "Not started",
-        notes: "",
-        lastUpdated: new Date().toLocaleDateString()
-      });
-    } else {
-      // If data exists, retrieve and parse it
-      let objectivesdata = localStorage.getItem(id + "," + goalId + "objectives");
-      let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
-
       // Remove the last empty element from the array
-      objectivesarray.splice(objectivesarray.length - 1, 1);
+      array.splice(array.length - 1, 1);
 
-      // Convert each line of data into an objective object and add it to the objectives array
-      objectivesarray.forEach((objective) => {
-        objectives.push({
-          name: objective[0],
-          progress: objective[1],
-          notes: objective[2],
-          lastUpdated: new Date(objective[3]).toLocaleDateString()
-        });
-      });
-    }
+      // Check if the ID is within the valid range
+      if (id >= 0 && id < array.length) {
 
+        // Retrieve the goal object based on the ID
+        let goalsdata = localStorage.getItem(id+"goals");
+        let goalsarray = Papa.parse(goalsdata, { header: false }).data; 
+
+        if (goalId >= 0 && goalId < goalsarray.length) {
+          // Remove the last empty element from the array
+          goalsarray.splice(array.length - 1, 1);
+
+          student = {
+            firstname: array[id][0],
+            lastname: array[id][1],
+            studentId: array[id][2]
+          };
+          goal = {
+            name: goalsarray[goalId][0],
+          };
+
+          // Display the additional details
+          var details = document.getElementById("details");
+          details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId + " " + goal.name;
+
+          
+
+          // Check if data exists in localStorage
+          if (localStorage.getItem(id + "," + goalId + "objectives") === null || localStorage.getItem(id + "," + goalId + "objectives") === "") {
+            // If no data exists, add a sample objective
+            objectives.push({
+              name: "Sample Objective",
+              progress: "Not started",
+              notes: "",
+              lastUpdated: new Date().toLocaleDateString()
+            });
+          } else {
+            // If data exists, retrieve and parse it
+            let objectivesdata = localStorage.getItem(id + "," + goalId + "objectives");
+            let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
+
+            // Remove the last empty element from the array
+            objectivesarray.splice(objectivesarray.length - 1, 1);
+
+            // Convert each line of data into an objective object and add it to the objectives array
+            objectivesarray.forEach((objective) => {
+              objectives.push({
+                name: objective[0],
+                progress: objective[1],
+                notes: objective[2],
+                lastUpdated: new Date(objective[3]).toLocaleDateString()
+              });
+            });
+          }
+          renderGoals();
+        } else {
+        alert("Invalid goal ID");
+        }
+      } else {
+        alert("Invalid student ID");
+      }
+    });
+  });
     // Function to render the objectives list
     function renderObjectives() {
       const objectivesList = document.getElementById("objectives-list");
@@ -239,11 +251,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     document.getElementById("back-goal").addEventListener("click", function() {
       window.location.href = "https://zephyrphs.github.io/Studata/database/goals/";
     });
-    // Initial rendering of the objectives list
-    renderObjectives();
-  } else {
-    alert("Invalid student ID");
-  }
 } else {
   alert("Your session has expired. Please log in again.");
 }
