@@ -269,7 +269,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     // Event listener for the form submission
     document.getElementById("export-student-data").addEventListener("submit", exportData);
     document.getElementById("add-goal-form").addEventListener("submit", addGoal);
-
+    document.getElementById("back-student").addEventListener("submit", function() {
+      window.location.href = "https://zephyrphs.github.io/Studata/database/";
+    });
     // Initial rendering of the goals list
     renderGoals();
   } else {
