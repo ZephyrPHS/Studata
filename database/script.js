@@ -69,7 +69,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       studentList.appendChild(row);
       id++;
     });
-    exportToCsv("students.csv", students2D, 0);
+    exportToCsv(students2D);
   }
 
   // Function to edit a student
@@ -179,7 +179,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   }
 
   // Function to export data to CSV format and save it to localStorage
-  function exportToCsv(filename, rows, download) {
+  function exportToCsv(rows) {
     var processRow = function (row) {
       var finalVal = "";
       for (var j = 0; j < row.length; j++) {
@@ -201,26 +201,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     }
 
     localStorage.setItem("data", csvFile);
-
-    if (download == 1) {
-      // Check if the browser supports the HTML5 download attribute
-      var link = document.createElement("a");
-      if (link.download !== undefined) {
-        // Browsers that support HTML5 download attribute
-        var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
-        var url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", filename);
-        link.style.visibility = "hidden";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else if (navigator.msSaveBlob) {
-        // For IE 10+
-        var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
-        navigator.msSaveBlob(blob, filename);
-      }
-    }
   }
 
   // Event listener for the form submission
