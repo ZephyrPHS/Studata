@@ -230,7 +230,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
       }
-      localStorage.setItem(id + "goals", csvFile);
       
       if (download == 1) {
         // Check if the browser supports the HTML5 download attribute
@@ -250,6 +249,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
           navigator.msSaveBlob(blob, "students.csv");
         }
+      } else {
+        localStorage.setItem(id + "goals", csvFile);
       }
     }
 
