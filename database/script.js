@@ -19,7 +19,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       var childData = childSnapshot.val();
 
       // Check if data exists in localStorage
-      if (childData === "" || childData === null) {
+      if (childData === "" && childData === null) {
         // If no data exists, add a sample student
         students.push({ 
           firstname: "Sample",
@@ -223,9 +223,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 
   // Event listener for the form submission
   document.getElementById("add-student-form").addEventListener("submit", addStudent);
-
-  // Initial rendering of the student list
-  renderStudents();
 }else{
   alert("Your session has expired. Please log in again.");
 }
