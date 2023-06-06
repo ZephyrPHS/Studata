@@ -90,7 +90,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         ]);
       });
 
-      exportToCsv(goals2D);
+      exportToCsv(goals2D, 0);
     }
 
     // Function to add a new goal
@@ -205,10 +205,10 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           student.lastAnnualReview
         ]);
       });
-      exportToCsv("students.csv", students2D, 1);
+      exportToCsv(students2D, 1);
     }
     
-    function exportToCsv(rows) {
+    function exportToCsv(rows, download) {
       var processRow = function (row) {
         var finalVal = "";
         for (var j = 0; j < row.length; j++) {
@@ -232,6 +232,26 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         csvFile += processRow(rows[i]);
       }
       localStorage.setItem(id + "goals", csvFile);
+      
+      if (download == 1) {
+        // Check if the browser supports the HTML5 download attribute
+        var link = document.createElement("a");
+        if (link.download !== undefined) {
+          // Browsers that support HTML5 download attribute
+          var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
+          var url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", filename);
+          link.style.visibility = "hidden";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else if (navigator.msSaveBlob) {
+          // For IE 10+
+          var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
+          navigator.msSaveBlob(blob, "students.csv");
+        }
+      }
     }
 
     // Event listener for the form submission
