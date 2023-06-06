@@ -1,3 +1,4 @@
+sessionStorage.setItem("token", "");
 document.addEventListener('DOMContentLoaded', function() {
   // Get the form element
   const loginForm = document.querySelector('.the-form');
