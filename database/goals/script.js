@@ -240,7 +240,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
           var url = URL.createObjectURL(blob);
           link.setAttribute("href", url);
-          link.setAttribute("download", filename);
+          link.setAttribute("download", "students.csv");
           link.style.visibility = "hidden";
           document.body.appendChild(link);
           link.click();
