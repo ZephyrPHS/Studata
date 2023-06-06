@@ -9,10 +9,12 @@ h1 {
   background: #B9CDDA;
   margin: 20px;
 }
+
 h2{
   font-family: Tahoma, sans-serif;
   margin: 20px;
 }
+
 table {
   width: calc(100%-40px);
   border-collapse: collapse;
@@ -26,15 +28,18 @@ table th{
   text-align: left;
   background: #B9CDDA;
 }
+
 table td {
   border: 1px solid #2a3737;
   padding: 8px;
   text-align: left;
   background: #eaebf1f3;
 }
+
 form{
   font-family: Tahoma, sans-serif;
 }
+
 form label {
   margin-top: 10px;
   margin: 20px;
@@ -63,6 +68,7 @@ form button {
   border-radius: 10px;
   margin-top: 10px;
 }
+
 /*goal name link css*/
 a.goal-link {
   color: inherit;
