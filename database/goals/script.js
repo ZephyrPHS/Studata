@@ -110,7 +110,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       event.preventDefault();
       const name = document.getElementById("add-name").value;
       const category = document.getElementById("add-category").value;
-
+      localStorage.setItem(id + "," + goals.length + "objectives", "");
       // Create a new goal object
       const goal = {
         name: name,
@@ -123,7 +123,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       goals.push(goal);
       renderGoals();
       
-      localStorage.setItem(id + "," + goalId + "objectives", "");
       // Reset the form
       document.getElementById("add-goal-form").reset();
     }
