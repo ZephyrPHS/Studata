@@ -72,6 +72,28 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       goalsList.innerHTML = "";
 
       goals.forEach((goal, index) => {
+        const progress = "";
+        if (localStorage.getItem(id + "," + goalId + "objectives") === null || localStorage.getItem(id + "," + goalId + "objectives") === "") {
+          progress = "0/0";
+        } else {
+          const num = 0;
+          const den = 0;
+          // If data exists, retrieve and parse it
+          let objectivesdata = localStorage.getItem(id + "," + goalId + "objectives");
+          let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
+
+          // Remove the last empty element from the array
+          objectivesarray.splice(objectivesarray.length - 1, 1);
+
+          // Convert each line of data into an objective object and add it to the objectives array
+          objectivesarray.forEach((objective) => {
+            if(objective[1] === "Completed"){
+              num++;
+            }
+            den++;
+          });
+          progress = num+"/"+den;
+        }
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>
@@ -81,7 +103,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             <a href="objectives?id=${id}&goalId=${index}" class="goal-link">${goal.name}</a>
           </td>
           <td>${goal.category}</td>
-          <td>${goal.progress}</td>
+          <td>${progress}</td>
           <td>
             <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${goal.notes}</textarea>
           </td>
