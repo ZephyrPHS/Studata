@@ -17,6 +17,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Check if data exists in firebase
   database.ref('studentData').once('value', function(snapshot) {
     var firebaseData = snapshot.name;
+    console.log(firebaseData);
     if (firebaseData === "" || firebaseData === null) {
       // If no data exists, add a sample student
       students.push({ 
