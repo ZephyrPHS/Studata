@@ -9,6 +9,11 @@ h1 {
   background: #B9CDDA;
 }
 
+h2{
+  font-family: Tahoma, sans-serif;
+  margin: 20px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
