@@ -9,10 +9,12 @@ h1 {
   background: #B9CDDA;
   margin: 20px;
 }
+
 h2{
   font-family: Tahoma, sans-serif;
   margin: 20px;
 }
+
 table {
   width: calc(100% - 40px);
   border-collapse: collapse;
@@ -58,8 +60,8 @@ button{
   border-radius: 10px;
 }
 
-
 form label {
   margin-top: 10px;
-  margin: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
