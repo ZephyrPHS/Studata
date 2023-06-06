@@ -50,6 +50,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         });
       }
     });
+    renderStudents();
   });
   // Function to render the student list
   function renderStudents() {
