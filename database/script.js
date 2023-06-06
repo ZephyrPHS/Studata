@@ -8,53 +8,45 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     messagingSenderId: "236682966409",
     appId: "1:236682966409:web:96428f11dff8fa4f751d58",
     measurementId: "G-NEPJNZ2VC2"
-  };
-  firebase.initializeApp(firebaseConfig);
+};
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
   var database = firebase.database();
   // Session student data
   let students = [];
 
-  // Check if data exists in firebase
-  database.ref('studentData').once('value', function(snapshot) {
-    var firebaseData = snapshot.val();
-    var csv = localStorage.get("data");
-    console.log(firebaseData);
-    console.log(csv);
-    if (csv === "" || csv === null) {
-      // If no data exists, add a sample student
-      students.push({ 
-        firstname: "Sample",
-        lastname: "Name",
-        studentId: "000000",
-        gradeLevel: "9",
-        primaryDisability: "SLD",
-        caseManager: "admin",
-        lastAnnualReview: new Date().toLocaleDateString()
+  // Check if data exists in localStorage
+  if (localStorage.getItem("data") === "" || localStorage.getItem("data") === null) {
+    // If no data exists, add a sample student
+    students.push({ 
+      firstname: "Sample",
+      lastname: "Name",
+      studentId: "000000",
+      gradeLevel: "9",
+      primaryDisability: "SLD",
+      caseManager: "admin",
+      lastAnnualReview: new Date().toLocaleDateString()
+    });
+  } else {
+    // If data exists, retrieve and parse it
+    let data = localStorage.getItem("data");
+    let array = Papa.parse(data, { header: false }).data;
+    // Remove the last empty element from the array
+    array.splice(array.length - 1, 1);
+    // Convert each line of data into a student object and add it to the students array
+    array.forEach((student) => {
+      students.push({
+        firstname: student[0],
+        lastname: student[1],
+        studentId: student[2],
+        gradeLevel: student[3],
+        primaryDisability: student[4],
+        caseManager: student[5],
+        lastAnnualReview: student[6]
       });
-    } else {
-      // If data exists, retrieve and parse it
-      let data = csv;
-      let array = Papa.parse(data, { header: false }).data;
-      // Remove the last empty element from the array
-      array.splice(array.length - 1, 1);
-      // Convert each line of data into a student object and add it to the students array
-      array.forEach((student) => {
-        students.push({
-          firstname: student[0],
-          lastname: student[1],
-          studentId: student[2],
-          gradeLevel: student[3],
-          primaryDisability: student[4],
-          caseManager: student[5],
-          lastAnnualReview: student[6]
-        });
-      });
-    }
-    // Render the student list
-    renderStudents();
-  }, function(error) {
-    console.error(error);
-  });
+    });
+  }
+
   // Function to render the student list
   function renderStudents() {
     const studentList = document.getElementById("student-list");
@@ -168,9 +160,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Function to add a new student
   function addStudent(event) {
     event.preventDefault();
-    database.ref(students.length+"goals").set({
-      name: ""
-    });
     localStorage.setItem(students.length+"goals", "");
     const firstname = document.getElementById("add-first-name").value;
     const lastname = document.getElementById("add-last-name").value;
@@ -202,7 +191,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     }
   }
 
-  // Function to export data to CSV format and save it to firebase
+  // Function to export data to CSV format and save it to localStorage
   function exportToCsv(rows) {
     var processRow = function (row) {
       var finalVal = "";
@@ -226,7 +215,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     database.ref('studentData').set({
       name: csvFile
     });
-    localStorage.set("data",csvFile);
+    localStorage.setItem("data", csvFile);
   }
 
   // Event listener for the form submission
