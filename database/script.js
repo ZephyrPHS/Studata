@@ -48,9 +48,9 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             lastAnnualReview: student[6]
           });
         });
+        renderStudents();
       }
     });
-    renderStudents();
   });
   // Function to render the student list
   function renderStudents() {
