@@ -15,10 +15,9 @@ h2{
 }
 
 table {
-  width: 100%;
+  width: calc(100% - 40px);
   border-collapse: collapse;
   margin-bottom: 20px;
-  border: 1px solid #3c5157;
   margin: 20px;
 }
 
@@ -34,6 +33,7 @@ table td {
   padding: 8px;
   text-align: left;
   background: #eaebf1f3;
+  overflow:hidden;
 }
 
 form label {
