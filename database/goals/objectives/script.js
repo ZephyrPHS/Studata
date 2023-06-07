@@ -17,7 +17,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   const goalId = urlParams.get("goalId");
   let objectives = [];
   let goal = {};
-  let goalsarray = [];
   let student = {};
   var dataRef = database.ref('studentData');
   dataRef.on('value', function(snapshot) {
@@ -36,7 +35,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         goalDataRef.on('value', function(goalSnapshot) {
           goalSnapshot.forEach(function(goalChildSnapshot) {
             var goalChildData = goalChildSnapshot.val();
-            goalsarray = Papa.parse(goalChildData, { header: false }).data; 
+            let goalsarray = Papa.parse(goalChildData, { header: false }).data; 
 
             if (goalId >= 0 && goalId < goalsarray.length) {
               // Remove the last empty element from the array
@@ -49,10 +48,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               };
               goal = {
                 name: goalsarray[goalId][0],
-                category: goalsarray[goalId][1],
-                progress: goalsarray[goalId][2],
-                notes: goalsarray[goalId][3],
-                lastUpdated: goalsarray[goalId][4]
               };
 
               // Display the additional details
@@ -108,23 +103,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   function renderObjectives() {
     const objectivesList = document.getElementById("objectives-list");
     objectivesList.innerHTML = "";
-    let progress = "";
-    if (objectives === null || objectives === "") {
-      progress = "0/0";
-    } else {
-      let num = 0;
-      let den = 0;
-      // Check is objective is completed and change progress num and den
-      objectives.forEach((objective) => {
-        if(objective[1] === "Completed") {
-          num++;
-        }
-        den++;
-      });
-      progress = num+"/"+den;
-    }
-    goalsarray[goalId][2] = progress;
-    exportToCsv(goalsarray, id+"goals");
+
     objectives.forEach((objective, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -152,7 +131,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       ]);
     });
 
-    exportToCsv(objectives2D,id + "," + goalId + "objectives");
+    exportToCsv(objectives2D);
   }
 
   // Function to add a new objective
@@ -251,7 +230,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     renderObjectives();
   }
 
-  function exportToCsv(rows, name) {
+  function exportToCsv(rows) {
     var processRow = function (row) {
       var finalVal = "";
       for (var j = 0; j < row.length; j++) {
@@ -274,7 +253,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     for (var i = 0; i < rows.length; i++) {
       csvFile += processRow(rows[i]);
     }
-    database.ref(name).child("data").set(csvFile);
+    database.ref(id + "," + goalId + "objectives").child("data").set(csvFile);
   }
 
   // Event listener for the form submission
