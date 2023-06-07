@@ -101,6 +101,7 @@ a:hover {
 }
 
 .the-form [type="text"],
+.the-form [type="email"],
 .the-form [type="password"] {
   padding: 15px;
   font-size: 16px;
