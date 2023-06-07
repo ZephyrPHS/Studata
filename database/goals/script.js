@@ -43,7 +43,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           goalSnapshot.forEach(function(goalChildSnapshot) {
             var goalChildData = goalChildSnapshot.val();
 
-            if (goalChildData === null || goalChildData === "") {
+            if (goalChildData === null) {
               goals.push({
                 name: "Sample Goal",
                 category: "Math",
