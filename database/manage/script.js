@@ -41,7 +41,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
 
   // Function to render the student list
   function renderUsers() {
-    const userList = document.getElementById("user-list");
+    const userList = document.getElementById("incoming-user-list");
     userList.innerHTML = "";
     let id = 0;
     let users2D = [];
@@ -50,6 +50,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         user.username,
         user.email,
         user.password,
+        user.confirm
       ]);
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -69,7 +70,14 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     });
     exportToCsv(users2D);
   }
-
+  // Function to confirm a user
+  function confirmUser(id) {
+    event.preventDefault();
+    if (id >= 0) {
+      users.confirm = 1;
+      renderUsers();
+    }
+  }
   // Function to deny a user
   function denyUser(id) {
     event.preventDefault();
