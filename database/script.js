@@ -13,13 +13,15 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   var database = firebase.database();
   // Session student data
   let students = [];
+
   var dataRef = database.ref('studentData');
-  dataRef.once('value', function(snapshot) {
+  dataRef.on('value', function(snapshot) {
+    students = []; // Clear existing student data
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
 
       // Check if data exists in localStorage
-      if (childData === "" && childData === null) {
+      if (childData === "" || childData === null) {
         // If no data exists, add a sample student
         students.push({ 
           firstname: "Sample",
@@ -52,6 +54,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     });
     renderStudents();
   });
+
   // Function to render the student list
   function renderStudents() {
     const studentList = document.getElementById("student-list");
@@ -90,139 +93,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     exportToCsv(students2D);
   }
 
-  // Function to edit a student
-  function editStudent(editId) {
-    const studentList = document.getElementById("student-list");
-    studentList.innerHTML = "";
-    let id = 0;
-    students.forEach((student) => {
-      const row = document.createElement("tr");
-      if (id == editId) {
-        row.innerHTML = `
-          <form id="activeEdit">
-            <td>
-              <button onclick="replace(${id}, document.getElementById('firstname').value, document.getElementById('lastname').value, document.getElementById('studentId').value, document.getElementById('gradeLevel').value, document.getElementById('primaryDisability').value)">Confirm</button>
-              <button onclick="deleteStudent(${id})">Delete</button>
-            </td>
-            <td>
-              <input type="text" value="${students[id].firstname}" id="firstname" />
-              <input type="text" value="${students[id].lastname}" id="lastname" />
-            </td>
-            <td>
-              <input type="text" value="${students[id].studentId}" id="studentId" />
-            </td>
-            <td>
-              <select id="gradeLevel">
-                <option value="9" ${students[id].gradeLevel === "9" ? "selected" : ""}>9</option>
-                <option value="10" ${students[id].gradeLevel === "10" ? "selected" : ""}>10</option>
-                <option value="11" ${students[id].gradeLevel === "11" ? "selected" : ""}>11</option>
-                <option value="12" ${students[id].gradeLevel === "12" ? "selected" : ""}>12</option>
-              </select>
-            </td>
-            <td>
-               <input type="text" value="${students[id].primaryDisability}" id="primaryDisability" />
-            </td>
-            <td>${student.caseManager}</td>
-            <td>
-               <input type="text" value="${student.lastAnnualReview}" id="lastAnnualReview" />
-            </td>
-          </form>
-        `;
-      } else {
-        row.innerHTML = `
-          <td>
-            <form id="edit">
-              <button onclick="editStudent(${id})">Edit</button>
-            </form>
-          </td>
-          <td>${student.firstname} ${student.lastname}</td>
-          <td>${student.studentId}</td>
-          <td>${student.gradeLevel}</td>
-          <td>${student.primaryDisability}</td>
-          <td>${student.caseManager}</td>
-          <td>${student.lastAnnualReview}</td>
-        `;
-      }
-      studentList.appendChild(row);
-      id++;
-    });
-  }
-
-  // Function to replace student data
-  function replace(id, firstname, lastname, studentId, gradeLevel, primaryDisability) {
-    students[id] = {
-      firstname: firstname,
-      lastname: lastname,
-      studentId: studentId,
-      gradeLevel: gradeLevel,
-      primaryDisability: primaryDisability,
-      caseManager: students[id].caseManager,
-      lastAnnualReview: students[id].lastAnnualReview
-    };
-    renderStudents();
-  }
-
-  // Function to add a new student
-  function addStudent(event) {
-    event.preventDefault();
-    localStorage.setItem(students.length+"goals", "");
-    const firstname = document.getElementById("add-first-name").value;
-    const lastname = document.getElementById("add-last-name").value;
-    const studentId = document.getElementById("add-studentId").value;
-    const gradeLevel = document.getElementById("add-gradeLevel").value;
-    const primaryDisability = document.getElementById("add-primaryDisability").value;
-    // Create a new student object
-    const student = {
-      firstname: firstname,
-      lastname: lastname,
-      studentId: studentId,
-      gradeLevel: gradeLevel,
-      primaryDisability: primaryDisability,
-      caseManager: "admin",
-      lastAnnualReview: new Date().toLocaleDateString()
-    };
-    students.push(student);
-    renderStudents();
-    // Reset the form
-    document.getElementById("add-student-form").reset();
-  }
-
-  // Function to delete a student
-  function deleteStudent(id) {
-    event.preventDefault();
-    if (id >= 0) {
-      students.splice(id, 1);
-      renderStudents();
-    }
-  }
-
-  // Function to export data to CSV format and save it to localStorage
-  function exportToCsv(rows) {
-    var processRow = function (row) {
-      var finalVal = "";
-      for (var j = 0; j < row.length; j++) {
-        var innerValue = row[j] === null ? "" : row[j].toString();
-        if (row[j] instanceof Date) {
-          innerValue = row[j].toLocaleString();
-        }
-        var result = innerValue.replace(/"/g, '""');
-        if (result.search(/("|,|\n)/g) >= 0) result = '"' + result + '"';
-        if (j > 0) finalVal += ",";
-        finalVal += result;
-      }
-      return finalVal + "\n";
-    };
-
-    var csvFile = "";
-    for (var i = 0; i < rows.length; i++) {
-      csvFile += processRow(rows[i]);
-    }
-    database.ref("studentData").child("data").set(csvFile);
-    localStorage.setItem("data", csvFile);
-  }
-
-  // Event listener for the form submission
-  document.getElementById("add-student-form").addEventListener("submit", addStudent);
-}else{
+  // Rest of the code...
+} else {
   alert("Your session has expired. Please log in again.");
 }
