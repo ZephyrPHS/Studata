@@ -139,7 +139,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     event.preventDefault();
     const name = document.getElementById("add-name").value;
     const category = document.getElementById("add-category").value;
-    database.ref(id + "," + goals.length + "objectives").child("data").set("Sample Objective,Notstarted,,"+new Date().toLocaleDateString());
+    database.ref(id + "," + goals.length + "objectives").child("data").set("Sample Objective,Not started,,"+new Date().toLocaleDateString());
     // Create a new goal object
     const goal = {
       name: name,
