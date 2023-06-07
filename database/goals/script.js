@@ -80,7 +80,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     goals.forEach((goal, index) => {
       let progress = "";
       if (localStorage.getItem(id + "," + index + "objectives") === null || localStorage.getItem(id + "," + index + "objectives") === "") {
-        progress = "0/1";
+        progress = "0/0";
       } else {
         let num = 0;
         let den = 0;
@@ -139,7 +139,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     event.preventDefault();
     const name = document.getElementById("add-name").value;
     const category = document.getElementById("add-category").value;
-    localStorage.setItem(id + "," + goals.length + "objectives", "");
+    database.ref(id + "," + goals.length + "objectives").child("data").set("Sample Objective,Notstarted,,"+new Date().toLocaleDateString());
     // Create a new goal object
     const goal = {
       name: name,
@@ -292,7 +292,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       }
     } else {
       database.ref(id + "goals").child("data").set(csvFile);
-      localStorage.setItem(id + "goals", csvFile);
     }
   }
 
