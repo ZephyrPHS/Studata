@@ -65,9 +65,11 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               });
             }
           });
-          var objDataRef = database.ref(id + "," + index + "objectives");
-          objDataRef.on('value', function(objSnapshot) {
-            renderGoals();
+          var tempObjDataRef = database.ref(id + "," + index + "objectives");
+          tempObjDataRef.on('value', function(tempObjSnapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
+            tempObjSnapshot.forEach(function(tempObjChildSnapshot) {
+              renderGoals();
+            });
           });
         });
       } else {
