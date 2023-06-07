@@ -65,12 +65,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               });
             }
           });
-          var tempObjDataRef = database.ref(id + "," + index + "objectives");
-          tempObjDataRef.on('value', function(tempObjSnapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
-            tempObjSnapshot.forEach(function(tempObjChildSnapshot) {
-              renderGoals();
-            });
-          });
+          renderGoals();
         });
       } else {
         alert("Invalid student ID");
@@ -83,37 +78,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     goalsList.innerHTML = "";
     
     goals.forEach((goal, index) => {
-      var objDataRef = database.ref(id + "," + index + "objectives");
-      objDataRef.on('value', function(objSnapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
-        objectives = []; // Clear the goals array before updating
-        objSnapshot.forEach(function(objChildSnapshot) {
-          var objChildData = objChildSnapshot.val();
-          if(objChildData !== null){
-            objectives = Papa.parse(objChildData, { header: false }).data;
-          } else {
-            objectives = null;
-          }
-          let progress = "";
-          if (objectives === null || objectives === "") {
-            progress = "0/0";
-          } else {
-            let num = 0;
-            let den = 0;
-            // Remove the last empty element from the array
-            objectives.splice(objectives.length - 1, 1);
-
-            // Convert each line of data into an objective object and add it to the objectives array
-            objectives.forEach((objective) => {
-              if(objective[1] === "Completed") {
-                num++;
-              }
-              den++;
-            });
-            progress = num+"/"+den;
-          }
-          goal.progress = progress;
-        });
-      });
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>
