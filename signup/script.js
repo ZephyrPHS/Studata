@@ -44,13 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Retrieve existing users from local storage
     let existingUsersCSV = "";
-    var dataRef = database.ref('pendingUsers');
+    var dataRef = database.ref('users');
     dataRef.on('value', function(snapshot) {
       existingUsersCSV = ""; // Clear existing student data
       snapshot.forEach(function(childSnapshot) {
         existingUsersCSV = childSnapshot.val();
         if (existingUsersCSV == null || existingUsersCSV == "") {
-            existingUsersCSV = "crossen,email,password";
+            existingUsersCSV = "crossen,email,password,1";
         }
         const existingUsers2D = Papa.parse(existingUsersCSV).data;
         const existingUsers = [];
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const updatedUsersCSV = Papa.unparse(existingUsers);
 
         // Update the users in local storage
-        database.ref("pendingUsers").child("data").set(updatedUsersCSV);
+        database.ref("users").child("data").set(updatedUsersCSV);
 
         // Clear the form inputs
         usernameInput.value = "";
