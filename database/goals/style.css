@@ -82,3 +82,7 @@ a.goal-link:hover, a.goal-link:focus {
 #back-student {
   margin: 20px;
 }
+
+#export {
+  margin: 20px;
+}
