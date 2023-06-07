@@ -4,9 +4,43 @@
   <meta charset="UTF-8">
   <title>Website Help</title>
   <link rel="stylesheet" type="text/css" href="help.css">
+  <style>
+    body {margin:0;}
+    
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #b9a8ce;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    
+    li {
+      float: left;
+    }
+    
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+      background-color: #ae96cb;
+    }
+    
+    .active {
+      background-color: #B9CDDA;
+    }
+    </style>
 </head>
 <body>
-	<ul>
+  <ul>
     <li><a href="https://zephyrphs.github.io/Studata/database">Database</a></li>
     <li><a href="https://zephyrphs.github.io/Studata/help">Help</a></li>
     <li><a href="https://zephyrphs.github.io/Studata/contact">Contact</a></li>
