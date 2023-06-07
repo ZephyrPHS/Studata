@@ -11,30 +11,35 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   };
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
+  // Retrieve the student's ID from the URL parameter
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   const goalId = urlParams.get("goalId");
   let objectives = [];
   let goal = {};
   let student = {};
-
   var dataRef = database.ref('studentData');
-  dataRef.once('value', function(snapshot) {
+  dataRef.on('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
       let array = Papa.parse(childData, { header: false }).data;
 
+      // Remove the last empty element from the array
       array.splice(array.length - 1, 1);
 
+      // Check if the ID is within the valid range
       if (id >= 0 && id < array.length) {
-        var goalDataRef = database.ref(id + 'goals');
-        goalDataRef.once('value', function(goalSnapshot) {
+
+        // Retrieve the goal object based on the ID
+        var goalDataRef = database.ref(id+'goals');
+        goalDataRef.on('value', function(goalSnapshot) {
           goalSnapshot.forEach(function(goalChildSnapshot) {
             var goalChildData = goalChildSnapshot.val();
-            let goalsarray = Papa.parse(goalChildData, { header: false }).data;
+            let goalsarray = Papa.parse(goalChildData, { header: false }).data; 
 
             if (goalId >= 0 && goalId < goalsarray.length) {
-              goalsarray.splice(goalsarray.length - 1, 1);
+              // Remove the last empty element from the array
+              goalsarray.splice(array.length - 1, 1);
 
               student = {
                 firstname: array[id][0],
@@ -42,17 +47,22 @@ if (sessionStorage.getItem("token") === "adminpassword") {
                 studentId: array[id][2]
               };
               goal = {
-                name: goalsarray[goalId][0]
+                name: goalsarray[goalId][0],
               };
 
+              // Display the additional details
               var details = document.getElementById("details");
               details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId + " " + goal.name;
 
+
               var objectiveDataRef = database.ref(id + "," + goalId + "objectives");
-              objectiveDataRef.once('value', function(objectiveSnapshot) {
+              objectiveDataRef.on('value', function(objectiveSnapshot) {
+                objectives = []; // Clear the objectives array
                 objectiveSnapshot.forEach(function(objectiveChildSnapshot) {
                   var objectiveChildData = objectiveChildSnapshot.val();
-                  if (objectiveChildData === null && objectiveChildData === "") {
+                  // Check if data exists in localStorage
+                  if (objectiveChildData === null || objectiveChildData === "") {
+                    // If no data exists, add a sample objective
                     objectives.push({
                       name: "Sample Objective",
                       progress: "Not started",
@@ -60,9 +70,13 @@ if (sessionStorage.getItem("token") === "adminpassword") {
                       lastUpdated: new Date().toLocaleDateString()
                     });
                   } else {
+                    // If data exists, retrieve and parse it
                     let objectivesarray = Papa.parse(objectiveChildData, { header: false }).data;
+
+                    // Remove the last empty element from the array
                     objectivesarray.splice(objectivesarray.length - 1, 1);
 
+                    // Convert each line of data into an objective object and add it to the objectives array
                     objectivesarray.forEach((objective) => {
                       objectives.push({
                         name: objective[0],
@@ -72,8 +86,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
                       });
                     });
                   }
-                  renderObjectives();
                 });
+                renderObjectives();
               });
             } else {
               alert("Invalid goal ID");
