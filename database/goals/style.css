@@ -78,3 +78,7 @@ a.goal-link {
 a.goal-link:hover, a.goal-link:focus {
   text-decoration: underline;
 }
+
+#back-student {
+  margin: 20px;
+}
