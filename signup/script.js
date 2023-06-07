@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Retrieve existing users from local storage
-    const existingUsersCSV = localStorage.getItem("users");
+    let existingUsersCSV = localStorage.getItem("users");
     if (existingUsersCSV == null || existingUsersCSV == "") {
         existingUsersCSV = "crossen,email,password";
     }
