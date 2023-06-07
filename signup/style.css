@@ -114,36 +114,43 @@ a:hover {
 }
 
 .the-form [type="text"]::-webkit-input-placeholder,
+.the-form [type="email"]::-webkit-input-placeholder,
 .the-form [type="password"]::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
 
 .the-form [type="text"]::-moz-placeholder,
+.the-form [type="email"]::-moz-placeholder,
 .the-form [type="password"]::-moz-placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
 
 .the-form [type="text"]:-ms-input-placeholder,
+.the-form [type="email"]:-ms-input-placeholder,
 .form-container .form-body .the-form [type="password"]:-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
 
 .the-form [type="text"]::-ms-input-placeholder,
+.the-form [type="email"]::-ms-input-placeholder,
 .form-container .form-body .the-form [type="password"]::-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
 
 .the-form [type="text"]::placeholder,
+.the-form [type="email"]::placeholder,
 .form-container .form-body .the-form [type="password"]::placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
 
 .the-form [type="text"]:hover,
+.the-form [type="email"]:hover,
 .the-form [type="password"]:hover {
   background: rgba(0, 0, 0, 0.1);
 }
 
 .the-form [type="text"]:focus,
+.the-form [type="email"]:focus,
 .the-form [type="password"]:focus {
   background: #ffffff;
   -webkit-box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
@@ -153,26 +160,31 @@ a:hover {
 }
 
 .the-form [type="text"]:focus::-webkit-input-placeholder,
+.the-form [type="email"]:focus::-webkit-input-placeholder,
 .form-container .form-body .the-form [type="password"]:focus::-webkit-input-placeholder {
   color: #666666;
 }
 
 .the-form [type="text"]:focus::-moz-placeholder,
+.the-form [type="email"]:focus::-moz-placeholder,
 .the-form [type="password"]:focus::-moz-placeholder {
   color: #666666;
 }
 
 .the-form [type="text"]:focus:-ms-input-placeholder,
+.the-form [type="email"]:focus:-ms-input-placeholder,
 .the-form [type="password"]:focus:-ms-input-placeholder {
   color: #666666;
 }
 
 .the-form [type="text"]:focus::-ms-input-placeholder,
+.the-form [type="email"]:focus::-ms-input-placeholder,
 .the-form [type="password"]:focus::-ms-input-placeholder {
   color: #666666;
 }
 
 .the-form [type="text"]:focus::placeholder,
+.the-form [type="email"]:focus::placeholder,
 .the-form [type="password"]:focus::placeholder {
   color: #666666;
 }
