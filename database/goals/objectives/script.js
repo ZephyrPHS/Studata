@@ -60,7 +60,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
                 objectives = []; // Clear the objectives array
                 objectiveSnapshot.forEach(function(objectiveChildSnapshot) {
                   var objectiveChildData = objectiveChildSnapshot.val();
-                  // Check if data exists in localStorage
+                  // Check if data exists in firebase
                   if (objectiveChildData === null || objectiveChildData === "") {
                     // If no data exists, add a sample objective
                     objectives.push({
@@ -254,7 +254,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       csvFile += processRow(rows[i]);
     }
     database.ref(id + "," + goalId + "objectives").child("data").set(csvFile);
-    localStorage.setItem(id + "," + goalId + "objectives", csvFile);
   }
 
   // Event listener for the form submission
