@@ -107,36 +107,36 @@ if (sessionStorage.getItem("token") === "adminpassword") {
             progress = num+"/"+den;
           }
           goal.progress = progress;
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>
-              <button onclick="editGoal(${index})">Edit</button>
-            </td>
-            <td>
-              <a href="objectives?id=${id}&goalId=${index}" class="goal-link">${goal.name}</a>
-            </td>
-            <td>${goal.category}</td>
-            <td>${goal.progress}</td>
-            <td>
-              <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${goal.notes}</textarea>
-            </td>
-            <td>${goal.lastUpdated}</td>
-          `;
-          goalsList.appendChild(row);
-        });
-
-        let goals2D = [];
-
-        goals.forEach((goal) => {
-          goals2D.push([
-            goal.name,
-            goal.category,
-            goal.progress,
-            goal.notes,
-            goal.lastUpdated
-          ]);
         });
       });
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>
+          <button onclick="editGoal(${index})">Edit</button>
+        </td>
+        <td>
+          <a href="objectives?id=${id}&goalId=${index}" class="goal-link">${goal.name}</a>
+        </td>
+        <td>${goal.category}</td>
+        <td>${goal.progress}</td>
+        <td>
+          <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${goal.notes}</textarea>
+        </td>
+        <td>${goal.lastUpdated}</td>
+      `;
+      goalsList.appendChild(row);
+    });
+
+    let goals2D = [];
+
+    goals.forEach((goal) => {
+      goals2D.push([
+        goal.name,
+        goal.category,
+        goal.progress,
+        goal.notes,
+        goal.lastUpdated
+      ]);
     });
     exportToCsv(goals2D, 0);
   }
