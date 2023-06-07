@@ -31,7 +31,11 @@ if (sessionStorage.getItem("token") === "adminpassword") {
         student = {
           firstname: array[id][0],
           lastname: array[id][1],
-          studentId: array[id][2]
+          studentId: array[id][2],
+          gradeLevel: array[id][3],
+          primaryDisability: array[id][4],
+          caseManager: array[id][5],
+          lastAnnualReview: array[id][6]
         };
 
         // Display the additional details
@@ -242,7 +246,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   function exportData(event) {
     event.preventDefault();
     let goals2D = [];
-    goals2D.push([student.firstname,student.lastname,student.studentId]);
+    goals2D.push([student.firstname,student.lastname,student.studentId,student.gradeLevel,student.primaryDisability,student.caseManager,student.lastAnnualReview]);
     goals.forEach((goal) => {
       goals2D.push([
         goal.name,
