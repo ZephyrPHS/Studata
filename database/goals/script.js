@@ -65,7 +65,10 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               });
             }
           });
-          renderGoals();
+          var objDataRef = database.ref(id + "," + index + "objectives");
+          objDataRef.on('value', function(objSnapshot) {
+            renderGoals();
+          });
         });
       } else {
         alert("Invalid student ID");
