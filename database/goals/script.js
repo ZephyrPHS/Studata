@@ -11,22 +11,18 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   };
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
-  // Retrieve the student's ID from the URL parameter
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   let goals = [];
   let student = {};
-  // Retrieve the student object based on the ID
+
   var dataRef = database.ref('studentData');
-  dataRef.once('value', function(snapshot) {
+  dataRef.on('value', function(snapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
       let array = Papa.parse(childData, { header: false }).data;
-
-      // Remove the last empty element from the array
       array.splice(array.length - 1, 1);
 
-      // Check if the ID is within the valid range
       if (id >= 0 && id < array.length) {
         student = {
           firstname: array[id][0],
@@ -38,18 +34,16 @@ if (sessionStorage.getItem("token") === "adminpassword") {
           lastAnnualReview: array[id][6]
         };
 
-        // Display the additional details
         var details = document.getElementById("details");
         details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId;
 
-        var goalDataRef = database.ref(id+'goals');
-        goalDataRef.once('value', function(goalSnapshot) {
+        var goalDataRef = database.ref(id + 'goals');
+        goalDataRef.on('value', function(goalSnapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
+          goals = []; // Clear the goals array before updating
           goalSnapshot.forEach(function(goalChildSnapshot) {
             var goalChildData = goalChildSnapshot.val();
 
-            // Check if data exists in localStorage
-            if (goalChildData === null && goalChildData === "") {
-              // If no data exists, add a sample goal
+            if (goalChildData === null || goalChildData === "") {
               goals.push({
                 name: "Sample Goal",
                 category: "Math",
@@ -58,13 +52,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
                 lastUpdated: new Date().toLocaleDateString()
               });
             } else {
-              // If data exists, retrieve and parse it
               let goalsarray = Papa.parse(goalChildData, { header: false }).data;
-
-              // Remove the last empty element from the array
               goalsarray.splice(goalsarray.length - 1, 1);
-
-              // Convert each line of data into a goal object and add it to the goals array
               goalsarray.forEach((goal) => {
                 goals.push({
                   name: goal[0],
@@ -75,12 +64,12 @@ if (sessionStorage.getItem("token") === "adminpassword") {
                 });
               });
             }
-            renderGoals();
           });
+          renderGoals();
         });
       } else {
         alert("Invalid student ID");
-      }     
+      }
     });
   });
   // Function to render the goals list
