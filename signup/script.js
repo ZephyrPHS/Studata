@@ -1,19 +1,19 @@
 // CHECK TO SEE IF USERNAME AND PASSWORD ALREADY EXISTS
 // IF NOT, REGISTER ACCOUNT
 var firebaseConfig = {
-    apiKey: "AIzaSyDaGflOJidMjEghcK9xpqYBH6YI-nOSuvw",
-    authDomain: "zephyr-studata.firebaseapp.com",
-    databaseURL: "https://zephyr-studata-default-rtdb.firebaseio.com",
-    projectId: "zephyr-studata",
-    storageBucket: "zephyr-studata.appspot.com",
-    messagingSenderId: "236682966409",
-    appId: "1:236682966409:web:96428f11dff8fa4f751d58",
-    measurementId: "G-NEPJNZ2VC2"
-  };
-  firebase.initializeApp(firebaseConfig);
-  var database = firebase.database();
-  // Session student data
-  let students = [];
+  apiKey: "AIzaSyDaGflOJidMjEghcK9xpqYBH6YI-nOSuvw",
+  authDomain: "zephyr-studata.firebaseapp.com",
+  databaseURL: "https://zephyr-studata-default-rtdb.firebaseio.com",
+  projectId: "zephyr-studata",
+  storageBucket: "zephyr-studata.appspot.com",
+  messagingSenderId: "236682966409",
+  appId: "1:236682966409:web:96428f11dff8fa4f751d58",
+  measurementId: "G-NEPJNZ2VC2"
+};
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+// Session student data
+let students = [];
 
   
 // Function to check if a user already exists with the same email or username
