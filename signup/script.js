@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
             username: existingUsers2D[i][0],
             email: existingUsers2D[i][1],
             password: existingUsers2D[i][2],
+            confirm: existingUsers2D[i][3]
           };
           existingUsers.push(user);
         }
@@ -78,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
           username: username,
           email: email,
           password: password,
+          confirm: 0
         };
 
         // Add the new user to the existing users array
