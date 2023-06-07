@@ -12,8 +12,6 @@ var firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
-// Session student data
-let students = [];
 
   
 // Function to check if a user already exists with the same email or username
