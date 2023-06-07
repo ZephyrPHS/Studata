@@ -1,1 +1,88 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <title>Student Database</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    body {margin:0;}
+    
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #b9a8ce;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    
+    li {
+      float: left;
+    }
+    
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+      background-color: #ae96cb;
+    }
+    
+    .active {
+      background-color: #B9CDDA;
+    }
+    </style>
+</head>
+<body>
+  <ul>
+    <li><a href="https://zephyrphs.github.io/Studata/database">Database</a></li>
+    <li><a href="https://zephyrphs.github.io/Studata/help">Help</a></li>
+    <li><a href="https://zephyrphs.github.io/Studata/contact">Contact</a></li>
+    <li style="float:right"><a class="active" href="https://zephyrphs.github.io/Studata/">Sign Out</a></li>
+  </ul>
+  <h1>User Management</h1>
+  <form id="form"> 
+    <input type="search" id="query" name="q" placeholder="Search...">
+    <button>Search</button>
+  </form>
+  
+  <h2>Incoming User Requests</h2>
+  
+  <!-- Student data table -->
+  <table id="incoming-user-table">
+    <thead>
+      <tr>
+        <th>Manage</th>
+        <th>Username</th>
+        <th>Case manager name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="incoming-user-list">
+      <!-- Student records will be dynamically added here -->
+    </tbody>
+  </table>
+  <table id="incoming-user-table">
+    <thead>
+      <tr>
+        <th>Manage</th>
+        <th>Username</th>
+        <th>Case manager name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="incoming-user-list">
+      <!-- Student records will be dynamically added here -->
+    </tbody>
+  </table>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
