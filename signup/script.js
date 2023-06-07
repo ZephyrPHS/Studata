@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Retrieve existing users from local storage
     const existingUsersCSV = localStorage.getItem("users");
     if (existingUsersCSV == null || existingUsersCSV == "") {
-        existingUsersCSV("crossen,email,password");
+        existingUsersCSV = "crossen,email,password";
     }
     const existingUsers2D = Papa.parse(existingUsersCSV).data;
     const existingUsers = [];
