@@ -20,8 +20,8 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
 
-      // Check if data exists in localStorage
-      if (childData === "" || childData === null) {
+      // Check if data exists in firebase
+      if (childData === null) {
         // If no data exists, add a sample student
         students.push({ 
           firstname: "Sample",
@@ -168,7 +168,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   // Function to add a new student
   function addStudent(event) {
     event.preventDefault();
-    localStorage.setItem(students.length+"goals", "");
     const firstname = document.getElementById("add-first-name").value;
     const lastname = document.getElementById("add-last-name").value;
     const studentId = document.getElementById("add-studentId").value;
@@ -199,7 +198,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     }
   }
 
-  // Function to export data to CSV format and save it to localStorage
+  // Function to export data to CSV format and save it to firebase
   function exportToCsv(rows) {
     var processRow = function (row) {
       var finalVal = "";
@@ -221,7 +220,6 @@ if (sessionStorage.getItem("token") === "adminpassword") {
       csvFile += processRow(rows[i]);
     }
     database.ref("studentData").child("data").set(csvFile);
-    localStorage.setItem("data", csvFile);
   }
 
   // Event listener for the form submission
