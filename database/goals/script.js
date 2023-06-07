@@ -15,7 +15,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   const id = urlParams.get("id");
   let goals = [];
   let student = {};
-
+  let objectives = [];
   var dataRef = database.ref('studentData');
   dataRef.on('value', function(snapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
     snapshot.forEach(function(childSnapshot) {
@@ -65,7 +65,19 @@ if (sessionStorage.getItem("token") === "adminpassword") {
               });
             }
           });
-          renderGoals();
+          var objDataRef = database.ref(id + "," + index + "objectives");
+          objDataRef.on('value', function(objSnapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
+            objectives = []; // Clear the goals array before updating
+            objSnapshot.forEach(function(objChildSnapshot) {
+              var objChildData = objChildSnapshot.val();
+              if(objChildData !== null){
+                objectives = Papa.parse(objectivesdata, { header: false }).data;
+              } else {
+                objectives = null;
+              }
+              renderGoals();
+            });
+          });
         });
       } else {
         alert("Invalid student ID");
@@ -76,23 +88,19 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   function renderGoals() {
     const goalsList = document.getElementById("goals-list");
     goalsList.innerHTML = "";
-
+    
     goals.forEach((goal, index) => {
       let progress = "";
-      if (localStorage.getItem(id + "," + index + "objectives") === null || localStorage.getItem(id + "," + index + "objectives") === "") {
+      if (objectives === null || objectives === "") {
         progress = "0/0";
       } else {
         let num = 0;
         let den = 0;
-        // If data exists, retrieve and parse it
-        let objectivesdata = localStorage.getItem(id + "," + index + "objectives");
-        let objectivesarray = Papa.parse(objectivesdata, { header: false }).data;
-
         // Remove the last empty element from the array
-        objectivesarray.splice(objectivesarray.length - 1, 1);
+        objectives.splice(objectives.length - 1, 1);
 
         // Convert each line of data into an objective object and add it to the objectives array
-        objectivesarray.forEach((objective) => {
+        objectives.forEach((objective) => {
           if(objective[1] === "Completed") {
             num++;
           }
