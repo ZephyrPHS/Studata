@@ -61,7 +61,7 @@ if (sessionStorage.getItem("token") === "adminpassword") {
                 objectiveSnapshot.forEach(function(objectiveChildSnapshot) {
                   var objectiveChildData = objectiveChildSnapshot.val();
                   // Check if data exists in firebase
-                  if (objectiveChildData === null || objectiveChildData === "") {
+                  if (objectiveChildData === null) {
                     // If no data exists, add a sample objective
                     objectives.push({
                       name: "Sample Objective",
