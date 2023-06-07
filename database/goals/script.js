@@ -11,220 +11,226 @@ if (sessionStorage.getItem("token") === "adminpassword") {
   };
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
+  // Retrieve the student's ID from the URL parameter
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
-  let goals = [];
-  let student = {};
+  const goalId = urlParams.get("goalId");
   let objectives = [];
+  let goal = {};
+  let student = {};
   var dataRef = database.ref('studentData');
-  dataRef.on('value', function(snapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
+  dataRef.on('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
       let array = Papa.parse(childData, { header: false }).data;
+
+      // Remove the last empty element from the array
       array.splice(array.length - 1, 1);
 
+      // Check if the ID is within the valid range
       if (id >= 0 && id < array.length) {
-        student = {
-          firstname: array[id][0],
-          lastname: array[id][1],
-          studentId: array[id][2],
-          gradeLevel: array[id][3],
-          primaryDisability: array[id][4],
-          caseManager: array[id][5],
-          lastAnnualReview: array[id][6]
-        };
 
-        var details = document.getElementById("details");
-        details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId;
-
-        var goalDataRef = database.ref(id + 'goals');
-        goalDataRef.on('value', function(goalSnapshot) { // Use 'on' instead of 'once' to listen for changes in real-time
-          goals = []; // Clear the goals array before updating
+        // Retrieve the goal object based on the ID
+        var goalDataRef = database.ref(id+'goals');
+        goalDataRef.on('value', function(goalSnapshot) {
           goalSnapshot.forEach(function(goalChildSnapshot) {
             var goalChildData = goalChildSnapshot.val();
+            let goalsarray = Papa.parse(goalChildData, { header: false }).data; 
 
-            if (goalChildData === null) {
-              goals.push({
-                name: "Sample Goal",
-                category: "Math",
-                progress: "0/0",
-                notes: "",
-                lastUpdated: new Date().toLocaleDateString()
+            if (goalId >= 0 && goalId < goalsarray.length) {
+              // Remove the last empty element from the array
+              goalsarray.splice(array.length - 1, 1);
+
+              student = {
+                firstname: array[id][0],
+                lastname: array[id][1],
+                studentId: array[id][2]
+              };
+              goal = {
+                name: goalsarray[goalId][0],
+              };
+
+              // Display the additional details
+              var details = document.getElementById("details");
+              details.innerHTML = student.firstname + " " + student.lastname + " " + student.studentId + " " + goal.name;
+
+
+              var objectiveDataRef = database.ref(id + "," + goalId + "objectives");
+              objectiveDataRef.on('value', function(objectiveSnapshot) {
+                objectives = []; // Clear the objectives array
+                objectiveSnapshot.forEach(function(objectiveChildSnapshot) {
+                  var objectiveChildData = objectiveChildSnapshot.val();
+                  // Check if data exists in firebase
+                  if (objectiveChildData === null) {
+                    // If no data exists, add a sample objective
+                    objectives.push({
+                      name: "Sample Objective",
+                      progress: "Not started",
+                      notes: "",
+                      lastUpdated: new Date().toLocaleDateString()
+                    });
+                  } else {
+                    // If data exists, retrieve and parse it
+                    let objectivesarray = Papa.parse(objectiveChildData, { header: false }).data;
+
+                    // Remove the last empty element from the array
+                    objectivesarray.splice(objectivesarray.length - 1, 1);
+
+                    // Convert each line of data into an objective object and add it to the objectives array
+                    objectivesarray.forEach((objective) => {
+                      objectives.push({
+                        name: objective[0],
+                        progress: objective[1],
+                        notes: objective[2],
+                        lastUpdated: new Date(objective[3]).toLocaleDateString()
+                      });
+                    });
+                  }
+                });
+                renderObjectives();
               });
             } else {
-              let goalsarray = Papa.parse(goalChildData, { header: false }).data;
-              goalsarray.splice(goalsarray.length - 1, 1);
-              goalsarray.forEach((goal) => {
-                goals.push({
-                  name: goal[0],
-                  category: goal[1],
-                  progress: goal[2],
-                  notes: goal[3],
-                  lastUpdated: new Date(goal[4]).toLocaleDateString()
-                });
-              });
+              alert("Invalid goal ID");
             }
           });
-          renderGoals();
         });
       } else {
         alert("Invalid student ID");
       }
     });
   });
-  // Function to render the goals list
-  function renderGoals() {
-    const goalsList = document.getElementById("goals-list");
-    goalsList.innerHTML = "";
-    
-    goals.forEach((goal, index) => {
+  // Function to render the objectives list
+  function renderObjectives() {
+    const objectivesList = document.getElementById("objectives-list");
+    objectivesList.innerHTML = "";
+
+    objectives.forEach((objective, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>
-          <button onclick="editGoal(${index})">Edit</button>
+          <button onclick="editObjective(${index})">Edit</button>
         </td>
+        <td>${objective.name}</td>
+        <td>${objective.progress}</td>
         <td>
-          <a href="objectives?id=${id}&goalId=${index}" class="goal-link">${goal.name}</a>
+          <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${objective.notes}</textarea>
         </td>
-        <td>${goal.category}</td>
-        <td>${goal.progress}</td>
-        <td>
-          <textarea rows="2" cols="20" onchange="updateNotes(${index}, this.value)" id="edit-notes-${index}">${goal.notes}</textarea>
-        </td>
-        <td>${goal.lastUpdated}</td>
+        <td>${objective.lastUpdated}</td>
       `;
-      goalsList.appendChild(row);
+      objectivesList.appendChild(row);
     });
 
-    let goals2D = [];
+    let objectives2D = [];
 
-    goals.forEach((goal) => {
-      goals2D.push([
-        goal.name,
-        goal.category,
-        goal.progress,
-        goal.notes,
-        goal.lastUpdated
+    objectives.forEach((objective) => {
+      objectives2D.push([
+        objective.name,
+        objective.progress,
+        objective.notes,
+        objective.lastUpdated
       ]);
     });
-    exportToCsv(goals2D, 0);
+
+    exportToCsv(objectives2D);
   }
 
-  // Function to add a new goal
-  function addGoal(event) {
+  // Function to add a new objective
+  function addObjective(event) {
     event.preventDefault();
     const name = document.getElementById("add-name").value;
-    const category = document.getElementById("add-category").value;
-    database.ref(id + "," + goals.length + "objectives").child("data").set("Sample Objective,Not started,,"+new Date().toLocaleDateString());
-    // Create a new goal object
-    const goal = {
+
+    // Create a new objective object
+    const objective = {
       name: name,
-      category: category,
-      progress: "0/0",
+      progress: "Not started",
       notes: "",
       lastUpdated: new Date().toLocaleDateString()
     };
 
-    goals.push(goal);
-    renderGoals();
+    objectives.push(objective);
+    renderObjectives();
 
     // Reset the form
-    document.getElementById("add-goal-form").reset();
+    document.getElementById("add-objective-form").reset();
   }
 
-  // Function to edit a goal
-  function editGoal(index) {
-    const goalsList = document.getElementById("goals-list");
-    goalsList.innerHTML = "";
+  // Function to edit an objective
+  function editObjective(index) {
+    const objectivesList = document.getElementById("objectives-list");
+    objectivesList.innerHTML = "";
 
-    goals.forEach((goal, goalIndex) => {
+    objectives.forEach((objective, objectiveIndex) => {
       const row = document.createElement("tr");
 
-      if (goalIndex === index) {
+      if (objectiveIndex === index) {
         row.innerHTML = `
           <td>
-            <button onclick="replaceGoal(${index})">Confirm</button>
-            <button onclick="deleteGoal(${index})">Delete</button>
+            <button onclick="replaceObjective(${index})">Confirm</button>
+            <button onclick="deleteObjective(${index})">Delete</button>
           </td>
           <td>
-            <input type="text" value="${goal.name}" id="edit-name-${index}" required>
+            <input type="text" value="${objective.name}" id="edit-name-${index}" required>
           </td>
           <td>
-            <input type="text" value="${goal.category}" id="edit-category-${index}" required>
+            <select id="edit-progress-${index}">
+              <option value="Not started" ${objectives[index].progress === "Not started" ? "selected" : ""}>Not started</option>
+              <option value="In progress" ${objectives[index].progress === "In progress" ? "selected" : ""}>In progress</option>
+              <option value="Completed" ${objectives[index].progress === "Completed" ? "selected" : ""}>Completed</option>
+            </select>
           </td>
-          <td>${goal.progress}</td>
           <td>
-            <textarea rows="2" cols="20" id="edit-notes-${goalIndex}">${goal.notes}</textarea>
+            <textarea rows="2" cols="20" id="edit-notes-${objectiveIndex}">${objective.notes}</textarea>
           </td>
-          <td>${goal.lastUpdated}</td>
+          <td>${objective.lastUpdated}</td>
         `;
       } else {
         row.innerHTML = `
           <td>
-            <button onclick="editGoal(${goalIndex})">Edit</button>
+            <button onclick="editObjective(${objectiveIndex})">Edit</button>
           </td>
-          <td>${goal.name}</td>
-          <td>${goal.category}</td>
-          <td>${goal.progress}</td>
+          <td>${objective.name}</td>
+          <td>${objective.progress}</td>
           <td>
-            <textarea rows="2" cols="20" id="edit-notes-${goalIndex}" readonly>${goal.notes}</textarea>
+            <textarea rows="2" cols="20" id="edit-notes-${objectiveIndex}" readonly>${objective.notes}</textarea>
           </td>
-          <td>${goal.lastUpdated}</td>
+          <td>${objective.lastUpdated}</td>
         `;
       }
 
-      goalsList.appendChild(row);
+      objectivesList.appendChild(row);
     });
   }
 
-  // Function to replace goal data
-  function replaceGoal(index) {
+  // Function to replace objective data
+  function replaceObjective(index) {
     const name = document.getElementById(`edit-name-${index}`).value;
-    const category = document.getElementById(`edit-category-${index}`).value;
     const notes = document.getElementById(`edit-notes-${index}`).value;
+    const progress = document.getElementById(`edit-progress-${index}`).value;
 
-    goals[index] = {
+    objectives[index] = {
       name: name,
-      category: category,
-      progress: goals[index].progress,
+      progress: progress,
       notes: notes,
       lastUpdated: new Date().toLocaleDateString()
     };
 
-    renderGoals();
+    renderObjectives();
   }
 
-  // Function to delete a goal
-  function deleteGoal(index) {
-    goals.splice(index, 1);
-    renderGoals();
+  // Function to delete an objective
+  function deleteObjective(index) {
+    objectives.splice(index, 1);
+    renderObjectives();
   }
 
   // Function to update notes
   function updateNotes(index, value) {
-    goals[index].notes = value;
-    goals[index].lastUpdated = new Date().toLocaleDateString();
-    renderGoals();
+    objectives[index].notes = value;
+    objectives[index].lastUpdated = new Date().toLocaleDateString();
+    renderObjectives();
   }
 
-  // Function to export data to CSV
-  function exportData(event) {
-    event.preventDefault();
-    let goals2D = [];
-    goals2D.push([student.firstname,student.lastname,student.studentId,student.gradeLevel,student.primaryDisability,student.caseManager,student.lastAnnualReview]);
-    goals.forEach((goal) => {
-      goals2D.push([
-        goal.name,
-        goal.category,
-        goal.progress,
-        goal.notes,
-        goal.lastUpdated
-      ]);
-    });
-    exportToCsv(goals2D, 1);
-  }
-
-  function exportToCsv(rows, download) {
+  function exportToCsv(rows) {
     var processRow = function (row) {
       var finalVal = "";
       for (var j = 0; j < row.length; j++) {
@@ -247,35 +253,13 @@ if (sessionStorage.getItem("token") === "adminpassword") {
     for (var i = 0; i < rows.length; i++) {
       csvFile += processRow(rows[i]);
     }
-
-    if (download == 1) {
-      // Check if the browser supports the HTML5 download attribute
-      var link = document.createElement("a");
-      if (link.download !== undefined) {
-        // Browsers that support HTML5 download attribute
-        var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
-        var url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", "students.csv");
-        link.style.visibility = "hidden";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else if (navigator.msSaveBlob) {
-        // For IE 10+
-        var blob = new Blob([csvFile], { type: "text/csv;charset=utf-8;" });
-        navigator.msSaveBlob(blob, "students.csv");
-      }
-    } else {
-      database.ref(id + "goals").child("data").set(csvFile);
-    }
+    database.ref(id + "," + goalId + "objectives").child("data").set(csvFile);
   }
 
   // Event listener for the form submission
-  document.getElementById("export-student-data").addEventListener("submit", exportData);
-  document.getElementById("add-goal-form").addEventListener("submit", addGoal);
-  document.getElementById("back-student").addEventListener("click", function() {
-    window.location.href = "https://zephyrphs.github.io/Studata/database/";
+  document.getElementById("add-objective-form").addEventListener("submit", addObjective);
+  document.getElementById("back-goal").addEventListener("click", function() {
+    window.location.href = "https://zephyrphs.github.io/Studata/database/goals/?id="+id;
   });
 } else {
   alert("Your session has expired. Please log in again.");
