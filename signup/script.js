@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.getElementById("password");
 
   // Perform validation
-  const username = (usernameInput.value).trim();
-  const email = (emailInput.value).trim();
-  const password = (passwordInput.value).trim();
+  const username = usernameInput.value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
 
   if (username === "" || email === "" || password === "") {
     alert("Please enter username, email, and password.");
@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Retrieve existing users from local storage
   const existingUsersCSV = localStorage.getItem("users");
-  const existingUsers2D = Papa.parse(existingUsersCSV, { header: false }).data;
+  const existingUsers2D = Papa.parse(existingUsersCSV).data;
   const existingUsers = [];
-  
+
   // Convert existingUsers2D to an array of user objects
   for (let i = 0; i < existingUsers2D.length; i++) {
     const user = {
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
   existingUsers.push(newUser);
 
   // Convert the updated users array back to CSV format
-  const updatedUsersCSV = Papa.unparse(existingUsers, { header: false });
+  const updatedUsersCSV = Papa.unparse(existingUsers);
 
   // Update the users in local storage
   localStorage.setItem("users", updatedUsersCSV);
